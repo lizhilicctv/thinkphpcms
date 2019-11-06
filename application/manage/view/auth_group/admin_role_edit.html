@@ -1,0 +1,115 @@
+﻿<!--_meta 作为公共模版分离出去-->
+{include file="common/_meta" /}
+<!--/meta 作为公共模版分离出去-->
+
+<title>新建网站角色 - 管理员管理 - H-ui.admin v3.0</title>
+<meta name="keywords" content="H-ui.admin v3.0,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
+<meta name="description" content="H-ui.admin v3.0，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
+</head>
+<body>
+<article class="cl pd-20">
+	<form action="" method="post" class="form form-horizontal" id="form-admin-role-add">
+		<input type="hidden" name="id" value="{$data.id}" />
+		<div class="row cl">
+			<label class="form-label col-xs-3 col-sm-2"><span class="c-red">*</span>角色名称：</label>
+			<div class="formControls col-xs-9 col-sm-10">
+				<input type="text" class="input-text" value="{$data.title}" placeholder="" id="title" name="title" datatype="*4-16" nullmsg="用户账户不能为空">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-3 col-sm-2">备注：</label>
+			<div class="formControls col-xs-9 col-sm-10">
+				<input type="text" class="input-text" value="{$data.desc}" placeholder="" id="desc" name="desc">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-3 col-sm-2">网站角色：</label>
+			<div class="formControls col-xs-9 col-sm-10">
+				<dl class="permission-list" id="lizhili">
+				{volist name="datasort" id="vo"}
+					<?php if($vo['level'] == 0){ ?>
+						<dt>
+							<label>
+								<input type="checkbox" value="{$vo.id}" <?php $arr=explode(',', $data['rules']); if(in_array($vo['id'], $arr)){echo 'checked="checked"';} ?> id="f{$vo.id}" name="rules[]">
+								{$vo.title}</label>
+						</dt>
+					<?php }else{ ?>
+									<div class="check-box" value="{$vo.id}"  style="padding: 8px;">
+									    <label ><input type="checkbox" class="f{$vo.fid}" <?php $arr=explode(',', $data['rules']); if(in_array($vo['id'], $arr)){echo 'checked="checked"';} ?> name="rules[]" value="{$vo.id}">
+									    {$vo.title}</label>
+									  </div>
+					<?php } ?>
+				
+				{/volist}
+				</dl>
+				
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-3 col-sm-offset-2">
+				<button type="submit" class="btn btn-success radius"><i class="icon-ok"></i> 确定</button>
+			</div>
+		</div>
+	</form>
+</article>
+
+<!--_footer 作为公共模版分离出去--> 
+{include file="common/_footer" /}
+<!--/_footer /作为公共模版分离出去--> 
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__ADMIN__lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
+<script type="text/javascript" src="__ADMIN__lib/jquery.validation/1.14.0/validate-methods.js"></script> 
+<script type="text/javascript" src="__ADMIN__lib/jquery.validation/1.14.0/messages_zh.js"></script> 
+<script type="text/javascript">
+$(function(){
+	$(".permission-list dt input:checkbox").click(function(){
+		$(this).closest("dl").find("dd input:checkbox").prop("checked",$(this).prop("checked"));
+	});
+	$(".permission-list2 dd input:checkbox").click(function(){
+		var l =$(this).parent().parent().find("input:checked").length;
+		var l2=$(this).parents(".permission-list").find(".permission-list2 dd").find("input:checked").length;
+		if($(this).prop("checked")){
+			$(this).closest("dl").find("dt input:checkbox").prop("checked",true);
+			$(this).parents(".permission-list").find("dt").first().find("input:checkbox").prop("checked",true);
+		}
+		else{
+			if(l==0){
+				$(this).closest("dl").find("dt input:checkbox").prop("checked",false);
+			}
+			if(l2==0){
+				$(this).parents(".permission-list").find("dt").first().find("input:checkbox").prop("checked",false);
+			}
+		}
+	});
+	
+	$("#form-admin-role-add").validate({
+		rules:{
+			title:{
+				required:true,
+			},
+		},
+		
+	});
+	
+	$('#lizhili input').click(function(){
+	    if($(this).attr('id')){
+	    	var liz='.'+$(this).attr('id');
+	    	if($(this).prop('checked')){
+	    		$(liz).prop("checked",'checked');
+	    	}else{
+	    		$(liz).removeAttr("checked");
+	    	}
+	    }
+	    if($(this).attr('class')){
+	    	var liz='#'+$(this).attr('class');
+	    	
+	    	$(liz).prop("checked",'checked');
+	    	
+	    }
+	  });
+});
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>
