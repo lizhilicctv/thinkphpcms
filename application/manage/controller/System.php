@@ -2,6 +2,7 @@
 namespace app\manage\controller;
 use app\manage\controller\Conn;
 use app\manage\model\System as Systemmodel;
+use think\Db;
 class System extends Conn
 {
     public function index()
@@ -98,6 +99,24 @@ class System extends Conn
     	$system = new Systemmodel();
     	if(request()->isPost()){
     		$data=input('post.');	
+			$arrid=Db::name('system')->where('type',4)->column('id');
+			foreach($_FILES['img']["name"] as $k=>$v ){
+				if(!!$v){
+					$system_id[]=$arrid[$k];
+				}
+			}
+			$file = request()->file()['img'];
+			if($file){
+				foreach($system_id as $k=>$v){
+					 $info = $file[$k]->move('system');
+					if($info){
+						$li=strtr($info->getSaveName()," \ "," / ");
+						$pic='/system/'.$li;
+						Db::name('system')->where('id', $v)->where('type',4)->update(['value' => $pic]);
+					}
+				}
+			}
+			
 			if($data){
 				foreach ($data as $k => $v) {
 					$li=$system->where('enname', $k)->update(['value'  => $v]);
