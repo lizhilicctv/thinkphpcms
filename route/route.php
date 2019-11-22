@@ -9,7 +9,7 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-Route::redirect('manage','/manage.php',302);
+Route::redirect('manage','/manage.php/login/index.html',302);
 
 return [
 

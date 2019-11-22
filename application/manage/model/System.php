@@ -1,4 +1,5 @@
 <?php
+<?php
 namespace app\manage\model;
 use think\Model;
 class System extends Model

@@ -18,7 +18,7 @@ class System extends Conn
     		$data=$system->order('sort','ASC')->paginate(10);
 			$this->assign('data',$data);
     	}
-		$count1=db('system')->count();
+		$count1=Db::name('system')->count();
 		$this->assign('count1', $count1);
        	return $this->fetch('list');
     }
@@ -27,7 +27,7 @@ class System extends Conn
     	$data=input('param.');
 		$system=new Systemmodel();
 		if($data['type']=='system_del'){
-			if(db('system')->delete($data['id'])){
+			if(Db::name('system')->delete($data['id'])){
 				return 1;//修改成功返回1
 			}else{
 				return 0;
@@ -89,7 +89,7 @@ class System extends Conn
 			}
     	}
 		$cid=input('id');
-		$data=db('system')->where('id',$cid)->find();
+		$data=Db::name('system')->where('id',$cid)->find();
 		$this->assign('data',$data);
        return $this->fetch('edit');
     }
@@ -136,7 +136,7 @@ class System extends Conn
     {
     	if(request()->isPost()){
     		$data=input('post.');
-			$res=db('shield')->where('id',1)->setField('shield',$data['shield']);
+			$res=Db::name('shield')->where('id',1)->setField('shield',$data['shield']);
 			if($res!==false){
 				return  $this->success('修改成功');
 			}else{
@@ -145,10 +145,23 @@ class System extends Conn
     		return;
     	}
 		
-		$data=db('shield')->where('id',1)->find();
+		$data=Db::name('shield')->where('id',1)->find();
 		$this->assign('data',$data);
 
        	return $this->fetch();
     }
+	public function config()
+	{
+		if(request()->isPost()){
+			$data=input('post.');
+			foreach($data as $k=>$v){
+				\model('config')->where('key',$k)->update(['value' => $v]);
+			}
+			return  $this->success('修改成功');
+		}
+		$data=Db::name('config')->column('value','key');
+		$this->assign('data',$data);
 	
+	   	return $this->fetch();
+	}
 }

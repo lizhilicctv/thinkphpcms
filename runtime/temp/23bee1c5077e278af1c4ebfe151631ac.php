@@ -1,0 +1,41 @@
+<?php /*a:1:{s:75:"D:\phpstudy_pro\WWW\thinkphpcms.com\application\index\view\index\index.html";i:1574403561;}*/ ?>
+<!doctype html>
+<html lang="en">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+		 crossorigin="anonymous">
+
+		<title>李志立cms实例</title>
+	</head>
+	<body>
+
+		<div class="container" style="margin-top: 80px">
+			<div class="jumbotron">
+				<h1>恭喜你安装成功！</h1>
+				<div class="list-group" style="margin: 40px auto;">
+					<li class="list-group-item">有问题可以联系我，一起学习进步</li>
+					<li class="list-group-item">我的邮箱：<a href="mailto:lizhilimaster@163.com">lizhilimaster@163.com</a></li>
+					<li class="list-group-item">我的博客：<a href="https://blog.csdn.net/weixin_42249565">CSDN</a></li>
+					<li class="list-group-item">你可以快速访问我的：<a href="/manage">后台地址</a></li>
+					<li class="list-group-item">你也可以点击更多了解我的其他项目。</li>
+					<li class="list-group-item">后台账号：admin  密码：lizhili123</li>
+				</div>
+				<p><a class="btn btn-primary btn-lg" target="_blank" href="https://github.com/lizhilicctv" role="button">更多</a></p>
+			</div>
+		</div>
+
+		<!-- Optional JavaScript -->
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		 crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		 crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		 crossorigin="anonymous"></script>
+	</body>
+</html>

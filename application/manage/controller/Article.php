@@ -4,6 +4,7 @@ use app\manage\controller\Conn;
 use app\manage\model\Cate as Catemodel;
 use app\manage\model\Article as Articlemodel;
 use think\Db;
+
 class Article extends Conn
 {
     public function index()
@@ -29,7 +30,7 @@ class Article extends Conn
 			$this->assign('info',$info);
 		}
 		
-		$count1=db('article')->count();
+		$count1=Db::name('article')->count();
 		$this->assign('count1', $count1);
 		$cate=new Catemodel();
 		$datasort=$cate->tree();
@@ -40,14 +41,14 @@ class Article extends Conn
     {
     	$data=input('param.');
 		if($data['type']=='article_del'){
-			if(db('article')->delete($data['id'])){
+			if(Db::name('article')->delete($data['id'])){
 				return 1;//修改成功返回1
 			}else{
 				return 0;
 			}
 		}
 		if($data['type']=='article_all'){
-			if(db('article')->delete($data['id'])){
+			if(Db::name('article')->delete($data['id'])){
 				return 1;//修改成功返回1
 			}else{
 				return 0;
@@ -58,6 +59,7 @@ class Article extends Conn
     }
 	public function add()
     {
+		
     	if(request()->isPost()){
     		$data=input('post.');
 			$validate = new \app\manage\validate\Article;
@@ -70,10 +72,7 @@ class Article extends Conn
 				$data['state']=1;
 			}
 			$data['time']=time();
-			
 			$file = request()->file('');
-			
-			
 			if(isset($file['pic'])){
 				$info = $file['pic']->move('uploads');
 				$li=strtr($info->getSaveName()," \ "," / ");
@@ -84,24 +83,48 @@ class Article extends Conn
 					foreach($arr[1] as $k=>$v){
 						$newarr=getimagesize(substr($v,1));
 						if($newarr[0] >100 and $newarr[1] >100){
-							$data['pic']=$v;
+							//图片转移位置
+							if(!is_dir("uploads/".date("Ymd"))){
+								 mkdir("uploads/".date("Ymd"));
+							}
+							$newwei="uploads/".date("Ymd").'/'.basename(substr($v,1));
+							$wo=copy(substr($v,1),$newwei);
+							if($wo){
+								$data['pic']='/'.$newwei;
+							}
 							break;
 						}
 					}
+					
+				}
+			}
+			$config=Db::name('config')->column('value','key');
+			//设置缩率图
+			if($config['thumbnail']==1){
+				$image = \think\Image::open(substr($data['pic'],1));
+				//计算配置项
+				if(!!$config['t_w']){ $config['t_w']=300;}			
+				if(!!$config['t_h']){ $config['t_h']=300;}
+				$image->thumb($config['t_w'], $config['t_h'])->save(substr($data['pic'],1));
+			}
+			//添加水印
+			if($config['watermark']==1 and isset($data['pic'])){
+				preg_match_all("/<[img|IMG].*?src=[\'|\"](.*?(?:[\.gif|\.jpg|\.png]))[\'|\"].*?[\/]?>/",$data["editorValue"],$arr1);
+				foreach($arr1[1] as $k=>$v){
+					$image = \think\Image::open(substr($v,1));
+					$image->text($config['shui_neirong'],dirname(__FILE__).'/FZXBSJW.TTF',$config['shui_zihao'],$config['shui_yanse'],$config['shui_weizhi'])->save(substr($v,1));
 				}
 			}
 			if(input('desc')==''){
 				$data['desc']=mb_substr(strip_tags(input('editorValue')),0,80);
 			}
-			
-		
-
-			if(db('article')->insert($data)){
+			if(Db::name('article')->strict(false)->insert($data)){
 				return '<script>alert("你好，添加成功了！");parent.location.reload()</script>';
 			}else{
 				$this->error('添加失败了');
 			}
     	}
+		
 		$cate=new Catemodel();
 		$datasort=$cate->tree1();
 		$this->assign('datasort',$datasort);
@@ -138,16 +161,40 @@ class Article extends Conn
 					foreach($arr[1] as $k=>$v){
 						$newarr=getimagesize(substr($v,1));
 						if($newarr[0] >100 and $newarr[1] >100){
-							$data['pic']=$v;
+							//图片转移位置
+							if(!is_dir("uploads/".date("Ymd"))){
+								 mkdir("uploads/".date("Ymd"));
+							}
+							$newwei="uploads/".date("Ymd").'/'.basename(substr($v,1));
+							$wo=copy(substr($v,1),$newwei);
+							if($wo){
+								$data['pic']='/'.$newwei;
+							}
 							break;
 						}
 					}
 				}
 			}
-			
-			$article=new Articlemodel();
-			$data1=$article->save($data,['id' => input('id')]);
-			if($data1){
+	
+			$config=Db::name('config')->column('value','key');
+			//设置缩率图
+			if($config['thumbnail']==1 and isset($data['pic'])){
+				$image = \think\Image::open(substr($data['pic'],1));
+				//计算配置项
+				if(!!$config['t_w']){ $config['t_w']=300;}			
+				if(!!$config['t_h']){ $config['t_h']=300;}
+				$image->thumb($config['t_w'], $config['t_h'])->save(substr($data['pic'],1));
+			}
+			//添加水印
+			if($config['watermark']==1){
+				preg_match_all("/<[img|IMG].*?src=[\'|\"](.*?(?:[\.gif|\.jpg|\.png]))[\'|\"].*?[\/]?>/",$data["editorValue"],$arr1);
+				foreach($arr1[1] as $k=>$v){
+					$image = \think\Image::open(substr($v,1));
+					$image->text($config['shui_neirong'],dirname(__FILE__).'/FZXBSJW.TTF',$config['shui_zihao'],$config['shui_yanse'],$config['shui_weizhi'])->save(substr($v,1));
+				}
+			}
+			$res=model('article')->allowField(true)->save($data,['id' => input('id')]);
+			if($res){
 				return $this->success('修改成功', url('article/index'));
 			}else{
 				return $this->error('修改失败了');
