@@ -32,8 +32,8 @@
 					<div class="row cl">
 						<label class="form-label col-xs-3 col-sm-2">描述：</label>
 						<div class="formControls col-xs-8 col-sm-9">
-							<textarea name="desc" id="desc" cols="" rows="" class="textarea" placeholder="说点什么，请输入..." onKeyUp="textlength()">{$data.desc}</textarea>
-							<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+							<textarea name="desc" id="desc" cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内" onKeyUp="textlength()">{$data.desc}</textarea>
+							<p class="textarea-numberbar"><em class="textarea-length">{$data.desc|mb_strlen}</em>/100</p>
 						</div>
 						<div class="col-3">
 						</div>
@@ -81,12 +81,14 @@
 		});
 
 		function textlength() {
-			var nmb = $('#desc').val().length;
-			$('.textarea-length').text(nmb);
-			if (nmb > 100) {
-				$('#desc').css("background-color", "orangered");
-			} else {
-				$('#desc').css("background-color", "white");
+			var nmb=$('#desc').val().length;
+			if(nmb>100){
+				$('#desc').css("background-color","orangered");
+				$('#desc').val($('#desc').val().substr(0,100));
+				$('.textarea-length').text(100);
+			}else{
+				$('#desc').css("background-color","white");
+				$('.textarea-length').text(nmb);
 			}
 		}
 	</script>

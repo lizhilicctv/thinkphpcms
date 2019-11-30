@@ -72,8 +72,8 @@
 				<div class="row cl">
 					<label class="form-label col-xs-3 col-sm-2">栏目描述：</label>
 					<div class="formControls col-xs-8 col-sm-9">
-						<textarea name="mark" id="mark" cols="" rows="" class="textarea"  placeholder="说点什么，请输入..." onKeyUp="textlength()">{$data.mark}</textarea>
-						<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+						<textarea name="mark" id="mark" cols="" rows="" class="textarea"  placeholder="说点什么...100个字符以内" onKeyUp="textlength()">{$data.mark}</textarea>
+						<p class="textarea-numberbar"><em class="textarea-length">{$data.mark|mb_strlen}</em>/100</p>
 					</div>
 					<div class="col-3">
 					</div>
@@ -142,11 +142,13 @@ var ue = UE.getEditor('danye');
 });
 function textlength(){
 	var nmb=$('#mark').val().length;
-	$('.textarea-length').text(nmb);
 	if(nmb>100){
 		$('#mark').css("background-color","orangered");
+		$('#mark').val($('#mark').val().substr(0,100));
+		$('.textarea-length').text(100);
 	}else{
 		$('#mark').css("background-color","white");
+		$('.textarea-length').text(nmb);
 	}
 }
 </script>

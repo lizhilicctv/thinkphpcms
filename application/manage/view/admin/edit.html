@@ -34,8 +34,8 @@
 			<div class="row cl">
 				<label class="form-label col-xs-4 col-sm-3">备注：</label>
 				<div class="formControls col-xs-8 col-sm-9">
-					<textarea name="mark" cols="" rows="" id="mark" class="textarea" <?php if($data['id']==1){ echo 'disabled' ;} ?>  placeholder="说点什么...120个字符以内" dragonfly="true" onKeyUp="textlength()">{$data.mark}</textarea>
-					<p class="textarea-numberbar"><em class="textarea-length">0</em>/120</p>
+					<textarea name="mark" cols="" rows="" id="mark" class="textarea" <?php if($data['id']==1){ echo 'disabled' ;} ?>  placeholder="说点什么...100个字符以内" dragonfly="true" onKeyUp="textlength()">{$data.mark}</textarea>
+					<p class="textarea-numberbar"><em class="textarea-length">{$data.mark|mb_strlen}</em>/100</p>
 				</div>
 			</div>
 			<div class="row cl">
@@ -73,12 +73,14 @@
 		});
 		//输入字符更改特效
 		function textlength(obj, max) {
-			var nmb = $('#mark').val().length;
-			$('.textarea-length').text(nmb);
-			if (nmb > 120) {
-				$('#mark').css("background-color", "orangered");
-			} else {
-				$('#mark').css("background-color", "white");
+			var nmb=$('#mark').val().length;
+			if(nmb>100){
+				$('#mark').css("background-color","orangered");
+				$('#mark').val($('#mark').val().substr(0,100));
+				$('.textarea-length').text(100);
+			}else{
+				$('#mark').css("background-color","white");
+				$('.textarea-length').text(nmb);
 			}
 		}
 	</script>
