@@ -1,0 +1,31 @@
+<div class="slide">
+	<div class="slide_t">
+		<a href="#"><img src="__INDEX__images/ad.gif"></a>
+	</div>
+	<div class="slide_b">
+		<h4>搜索热点<span onclick="huan()" href="">换一换</span></h4>
+		<ul id="huan">
+				
+		</ul>
+
+	</div>
+</div>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+	    huan();
+		console.log($('#huan .k').css('color','red'))
+	});
+	function huan(){
+		$.get("/index/ajax",function(data,status){
+			let shu='';
+			let a=0
+		   for (let i in data) {
+			   a++;
+			   let title=(data[i].title).substr(0,20)+'...';
+			   shu+='<li><span class="k">'+a+'</span> <a href="/show/'+data[i].id+'.html">'+title+'</a><span class="zan">'+data[i].click+'</span></li>';
+		   }
+		   $('#huan').html(shu);
+		});
+	}
+</script>

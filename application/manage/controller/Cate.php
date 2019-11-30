@@ -43,12 +43,24 @@ class Cate extends Conn
 			}else{
 				return 0;
 			}
-
 		}
 		if($data['type']=='cate_del'){
 			if(Db::name('cate')->where('fid',$data['id'])->find()){
 				return 2;//下级有东西不能删除
 			}else{
+				//删除图片(单页内容图片)
+				$shan=Db::name('cate')->find($data['id']);
+				$imgarr=[];
+				preg_match_all("/<[img|IMG].*?src=[\'|\"](.*?(?:[\.gif|\.jpg|\.png]))[\'|\"].*?[\/]?>/",$shan["editorValue"],$arr);
+				foreach($arr[1] as $k=>$v){
+					if($v and substr($v,0,4)!='http'){
+						$imgarr[]=$v;	
+					}
+				}
+				foreach($imgarr as $k1=>$v1){
+					@unlink(substr($v1,1));
+				}
+				
 				if(db('cate')->delete($data['id'])){
 					return 1;//修改成功返回1
 				}else{
@@ -71,7 +83,7 @@ class Cate extends Conn
 			$user = new Catemodel($data);
 			$res=$user->save();
 			if($res){
-				return $this->success('添加成功',url('cate/index',['st'=>1]));
+				$this->success('添加成功',url('cate/index',['st'=>1]));
 			}else{
 				$this->error('栏目添加失败了');
 			}
@@ -89,8 +101,10 @@ class Cate extends Conn
 			if(!$validate->check($data)){
 				$this->error($validate->getError());
 			}	
+			if($data['id']==$data['fid']){
+				$this->error('自己不能成为自己的下一级！');
+			}
     		$user = new Catemodel();
-
 			$res=$user->allowField(true)->save($data,['id' => input('id')]);
 			if($res){
 				return $this->success('修改成功',url('cate/index',['st'=>1]));

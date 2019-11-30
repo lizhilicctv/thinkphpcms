@@ -3,6 +3,7 @@ namespace app\manage\controller;
 use \think\Loader;
 use app\manage\controller\Conn;
 use app\manage\model\Slide as Slidemodel;
+use think\Db;
 class Slide extends Conn
 {
 	//这里用前置操作，表示提前运行，本来要用于栏目删除子栏目呢，现在不用了
@@ -33,13 +34,16 @@ class Slide extends Conn
 		$slide=new Slidemodel();
 		if($data['type']=='slide_del'){
 			$id=$data['id'];
+			//删除图片
+			if($imgarr=Db::name('slide')->where('id',$id)->value('img')){
+				@unlink(substr($imgarr,1));
+			}
 			$info=$slide->destroy($id);
 			if($info){
 				return 1;//修改成功返回1
 			}else{
 				return 0;
 			}
-
 		}
 		if($data['type']=='slide_sort'){
 			$arrlength=count($data['id']);
@@ -54,7 +58,6 @@ class Slide extends Conn
 			}else{
 				return 0;
 			}
-
 		}
 		return 0;
     }

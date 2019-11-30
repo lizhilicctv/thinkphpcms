@@ -1,124 +1,114 @@
 {include file="common/_meta" /}
-
-<title>添加用户 - H-ui.admin v3.1</title>
-<meta name="keywords" content="H-ui.admin v3.1,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
-<meta name="description" content="H-ui.admin v3.1，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
+<title>添加用户 </title>
+<meta name="keywords" content="李志立，lizhilimaster@163.com">
+<meta name="description" content="李志立，lizhilimaster@163.com">
 </head>
 <body>
-<article class="page-container">
-	<form action="" method="post" class="form form-horizontal" id="form-member-add">
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="username" name="username">
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>性别：</label>
-			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
-				<div class="radio-box">
-					<input name="sex" type="radio" id="sex-1" value="1" checked>
-					<label for="sex-1">男</label>
-				</div>
-				<div class="radio-box">
-					<input type="radio" id="sex-2" value="2" name="sex">
-					<label for="sex-2">女</label>
-				</div>
-				<div class="radio-box">
-					<input type="radio" id="sex-3" value="3" name="sex">
-					<label for="sex-3">保密</label>
+	<article class="page-container">
+		<form action="" method="post" class="form form-horizontal" id="form-member-add">
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" value="" placeholder="" id="username" name="username">
 				</div>
 			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="phone" name="phone">
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>性别：</label>
+				<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+					<div class="radio-box">
+						<input name="sex" type="radio" id="sex-1" value="1" checked>
+						<label for="sex-1">男</label>
+					</div>
+					<div class="radio-box">
+						<input type="radio" id="sex-2" value="2" name="sex">
+						<label for="sex-2">女</label>
+					</div>
+					<div class="radio-box">
+						<input type="radio" id="sex-3" value="3" name="sex">
+						<label for="sex-3">保密</label>
+					</div>
+				</div>
 			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>邮箱：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" placeholder="@" name="email" id="email">
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" value="" placeholder="" id="phone" name="phone">
+				</div>
 			</div>
-		</div>
-
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">所在城市：</label>
-			<div class="formControls col-xs-8 col-sm-9"> 
-				<div id="province"></div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>邮箱：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" placeholder="@" name="email" id="email">
+				</div>
 			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">详细地址：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="" name="address">
+
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3">所在城市：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<div id="province"></div>
+				</div>
 			</div>
-		</div>
-		
-		
-		<div class="row cl">
-			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3">详细地址：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" value="" placeholder="" id="" name="address">
+				</div>
 			</div>
-		</div>
-	</form>
-</article>
-{include file="common/_footer" /} 
-<style type="text/css">
-	#province select{
-		margin-right: 15px;
-		height: 30px;
-		width: 80px;
-	}
-</style>
-<!--请在下方写此页面业务相关的脚本--> 
-<script type="text/javascript" src="__MANAGE__lib/My97DatePicker/4.8/WdatePicker.js"></script>
-<script type="text/javascript" src="__MANAGE__lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
-<script type="text/javascript" src="__MANAGE__lib/jquery.validation/1.14.0/validate-methods.js"></script> 
-<script type="text/javascript" src="__MANAGE__lib/jquery.validation/1.14.0/messages_zh.js"></script>
+			<div class="row cl">
+				<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+					<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+				</div>
+			</div>
+		</form>
+	</article>
+	{include file="common/_footer" /}
+	<style type="text/css">
+		#province select {
+			margin-right: 15px;
+			height: 30px;
+			width: 80px;
+		}
+	</style>
+	<!--请在下方写此页面业务相关的脚本-->
+	<script type="text/javascript" src="__MANAGE__lib/My97DatePicker/4.8/WdatePicker.js"></script>
+	<script type="text/javascript" src="__MANAGE__lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+	<script type="text/javascript" src="__MANAGE__lib/jquery.validation/1.14.0/validate-methods.js"></script>
+	<script type="text/javascript" src="__MANAGE__lib/jquery.validation/1.14.0/messages_zh.js"></script>
+	<script type="text/javascript" src="__MANAGE__lib/jquery.provincesCity.js"></script>
+	<script type="text/javascript" src="__MANAGE__lib/provincesData.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$('.skin-minimal input').iCheck({
+				checkboxClass: 'icheckbox-blue',
+				radioClass: 'iradio-blue',
+				increaseArea: '20%'
+			});
 
+			$("#form-member-add").validate({
+				rules: {
+					username: {
+						required: true,
+						minlength: 2,
+						maxlength: 16
+					},
+					sex: {
+						required: true,
+					},
+					phone: {
+						required: true,
+						isMobile: true,
+					},
+					email: {
+						required: true,
+						email: true,
+					},
 
-<script type="text/javascript" src="__MANAGE__lib/jquery.provincesCity.js"></script>
-<script type="text/javascript" src="__MANAGE__lib/provincesData.js"></script>
+				},
 
-
-
-<script type="text/javascript">
-$(function(){
-	$('.skin-minimal input').iCheck({
-		checkboxClass: 'icheckbox-blue',
-		radioClass: 'iradio-blue',
-		increaseArea: '20%'
-	});
-	
-	$("#form-member-add").validate({
-		rules:{
-			username:{
-				required:true,
-				minlength:2,
-				maxlength:16
-			},
-			sex:{
-				required:true,
-			},
-			phone:{
-				required:true,
-				isMobile:true,
-			},
-			email:{
-				required:true,
-				email:true,
-			},
-			
-		},
-		
-	});
-	
-	
-	$("#province").ProvinceCity();
-});
-</script> 
-<!--/请在上方写此页面业务相关的脚本-->
+			});
+			$("#province").ProvinceCity();
+		});
+	</script>
+	<!--/请在上方写此页面业务相关的脚本-->
 </body>
 </html>

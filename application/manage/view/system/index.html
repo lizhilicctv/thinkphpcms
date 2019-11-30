@@ -1,71 +1,73 @@
 <!--_meta 作为公共模版分离出去-->
 {include file="common/_meta" /}
-<!--/meta 作为公共模版分离出去-->
 
 <title>基本设置</title>
+<meta name="keywords" content="李志立，lizhilimaster@163.com">
+<meta name="description" content="李志立，lizhilimaster@163.com">
 </head>
 <body>
-
-	<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 系统管理 <span class="c-gray en">&gt;</span> 基本设置 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+	<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 系统管理 <span class="c-gray en">&gt;</span>
+		基本设置 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);"
+		 title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 	<div class="Hui-article">
 		<article class="cl pd-20">
-			<form action="" method="post" class="form form-horizontal"  enctype="multipart/form-data"   id="form-article-add">
-				
+			<form action="" method="post" class="form form-horizontal" enctype="multipart/form-data" id="form-article-add">
 				{volist name="data" id="vo"}
-					<?php if($vo['type'] == '1'){ ?>
-						<div class="row cl">
-							<label class="form-label col-xs-4 col-sm-2">{$vo.cnname}：</label>
-							<div class="formControls col-xs-8 col-sm-9">
-								<input type="text" id="website-title" placeholder="" name="{$vo.enname}" value="{$vo.value}" class="input-text">
-							</div>
-						</div>
-					<?php } ?>
-					<?php if($vo['type'] == '2'){ ?>
-					<div class="row cl">
-						<label class="form-label col-xs-4 col-sm-2">{$vo.cnname}：</label>
-						<div class="formControls col-xs-8 col-sm-9">
-							<textarea name="{$vo.enname}" class="textarea">{$vo.value}</textarea>
-						</div>
+				<?php if($vo['type'] == '1'){ ?>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-2">{$vo.cnname}：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<input type="text" id="website-title" placeholder="" name="{$vo.enname}" value="{$vo.value}" class="input-text">
 					</div>
-					<?php } ?>
-					<?php if($vo['type'] == '3'){ ?>
-						<div class="row cl">
-							<label class="form-label col-xs-4 col-sm-2">{$vo.cnname}：</label>
-							<div class="formControls col-xs-8 col-sm-9">
-								<?php $lizhi=explode(",",$vo['kxvalue']);
+				</div>
+				<?php } ?>
+				<?php if($vo['type'] == '2'){ ?>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-2">{$vo.cnname}：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<textarea name="{$vo.enname}" class="textarea">{$vo.value}</textarea>
+					</div>
+				</div>
+				<?php } ?>
+				<?php if($vo['type'] == '3'){ ?>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-2">{$vo.cnname}：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<?php $lizhi=explode(",",$vo['kxvalue']);
 									foreach($lizhi as $k=>$v)
 									{
-								?>   	
-									<div class="radio-box" style="margin-top: 3px;padding-left: 0;">
-									     <input type="radio" id="radio-1" name="value" <?php if($v == $vo['value']){ echo 'checked';}?> value="<?php echo $v ?>">
-									    <label for="radio-1"><?php echo $v ?></label>
-									</div>
-								<?php	}	?>
-								
-							</div>
+								?>
+						<div class="radio-box" style="margin-top: 3px;padding-left: 0;">
+							<input type="radio" id="radio-1" name="value" <?php if($v==$vo['value']){ echo 'checked' ;}?> value="
+							<?php echo $v ?>">
+							<label for="radio-1">
+								<?php echo $v ?></label>
 						</div>
-						
-						
-					<?php } ?>
-					<?php if($vo['type'] == '4'){ ?>
-					<div class="row cl">
-						<label class="form-label col-xs-4 col-sm-2">{$vo.cnname}：</label>
-						<div class="formControls col-xs-8 col-sm-9">
-							<a href="javascript:void();" class="btn btn-primary radius"><i class="icon Hui-iconfont">&#xe642;</i> 浏览文件</a>
-							<input type="file" class="input-file required" onchange='onpic(this)' name="img[]" class="img"  accept='image/*' style="font-size: 20px;left:0;" />
-							<span class="sp"></span>
-							<?php if($vo['type'] == 4){ ?>
-								<img src="{$vo.value}" height="60">
-							<?php  } ?>
-							
-						</div>
+						<?php	}	?>
+
 					</div>
-					<?php } ?>
+				</div>
+				<?php } ?>
+				<?php if($vo['type'] == '4'){ ?>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-2">{$vo.cnname}：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<a href="javascript:void();" class="btn btn-primary radius"><i class="icon Hui-iconfont">&#xe642;</i> 浏览文件</a>
+						<input type="file" class="input-file required" onchange='onpic(this)' name="img[]" class="img" accept='image/*'
+						 style="font-size: 20px;left:0;" />
+						<span class="sp"></span>
+						<?php if($vo['type'] == 4){ ?>
+						<img src="{$vo.value}" height="60">
+						<?php  } ?>
+
+					</div>
+				</div>
+				<?php } ?>
 				{/volist}
-				
 				<div class="row cl">
 					<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
-						<button onClick="article_save_submit();" class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+						<button onClick="article_save_submit();" class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i>
+							保存</button>
 						<button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
 					</div>
 				</div>
@@ -73,43 +75,31 @@
 		</article>
 	</div>
 
+	<!--_footer 作为公共模版分离出去-->
+	{include file="common/_footer" /}
+	<style type="text/css">
+		.li123 {
+			line-height: 30px;
+			background: burlywood;
+			display: inline-block;
+			vertical-align: middle;
+			padding: 0 8px;
+		}
+	</style>
+	<script type="text/javascript">
+		$(function() {
+			$('.skin-minimal input').iCheck({
+				checkboxClass: 'icheckbox-blue',
+				radioClass: 'iradio-blue',
+				increaseArea: '20%'
+			});
 
-<!--_footer 作为公共模版分离出去--> 
-{include file="common/_footer" /}
-<!--/_footer /作为公共模版分离出去--> 
-
-<!--请在下方写此页面业务相关的脚本-->
-<script type="text/javascript" src="lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
-<script type="text/javascript" src="lib/jquery.validation/1.14.0/validate-methods.js"></script> 
-<script type="text/javascript" src="lib/jquery.validation/1.14.0/messages_zh.js"></script> 
-<script type="text/javascript">
-$(function(){
-	$('.skin-minimal input').iCheck({
-		checkboxClass: 'icheckbox-blue',
-		radioClass: 'iradio-blue',
-		increaseArea: '20%'
-	});
-	$.Huitab("#tab-system .tabBar span","#tab-system .tabCon","current","click","0");
-});
-</script> 
-<!--/_footer /作为公共模版分离出去--> 
-<style type="text/css">
-	.li123 {
-		line-height: 30px;
-		background: burlywood;
-		display: inline-block;
-		vertical-align: middle;
-		padding: 0 8px;
-	}
-</style>
-<!--请在下方写此页面业务相关的脚本-->
-
-<script type="text/javascript">
-function onpic(o) {
-	var file = $(o)[0].files[0].name;
-	$(o).parent().find('.sp').text('您已经选择图片：' + file);
-	$(o).parent().find('.sp').addClass('li123');
-}
-</script> 
+			function onpic(o) {
+				var file = $(o)[0].files[0].name;
+				$(o).parent().find('.sp').text('您已经选择图片：' + file);
+				$(o).parent().find('.sp').addClass('li123');
+			}
+		});
+	</script>
 </body>
 </html>

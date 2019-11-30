@@ -10,7 +10,8 @@
 // +----------------------------------------------------------------------
 
 Route::redirect('manage','/manage.php/login/index.html',302);
-
+Route::get('show/:id','index/show');
+Route::get('/','index');
 return [
 
 ];

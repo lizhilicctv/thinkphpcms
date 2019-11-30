@@ -1,6 +1,7 @@
 {include file="common/_meta" /}
-
 <title>栏目添加</title>
+<meta name="keywords" content="李志立，lizhilimaster@163.com">
+<meta name="description" content="李志立，lizhilimaster@163.com">
 </head>
 <body>
 <div class="page-container">
@@ -56,7 +57,6 @@
 					<div class="col-3">
 					</div>
 				</div>
-				
 				<div class="row cl">
 					<label class="form-label col-xs-3 col-sm-2">配置简介：</label>
 					<div class="formControls col-xs-8 col-sm-9">
@@ -76,11 +76,7 @@
 	</form>
 </div>
 <!--_footer 作为公共模版分离出去-->
-<script type="text/javascript" src="__MANAGE__lib/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript" src="__MANAGE__lib/layer/2.4/layer.js"></script>
-<script type="text/javascript" src="__MANAGE__static/h-ui/js/H-ui.min.js"></script>
-<script type="text/javascript" src="__MANAGE__static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
-
+{include file="common/_footer" /}
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="__MANAGE__lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript" src="__MANAGE__lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
@@ -101,7 +97,6 @@ $(function(){
 		rules:{
 			cnname:{
 				required:true,
-//				zh1:true,
 			},
 			enname:{
 				required:true,
@@ -110,14 +105,8 @@ $(function(){
 				required:true,
 			},
 		}
-		
-
 	});
-	//这里的正则没有填写
-//	$.validator.addMethod('zh1',function(value,element,params){
-//		var zh1= ^[\u4e00-\u9fa5]$;
-//		return this.optional(element) || (zh1.test(value));
-//	},'必须填写中文');
+
 });
 function textlength(){
 	var nmb=$('#mark').val().length;

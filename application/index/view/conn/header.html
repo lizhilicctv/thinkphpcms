@@ -1,0 +1,22 @@
+<header id="header1">
+	<div class="top">
+		<a href="/"><img src="__INDEX__images/logo.png"></a>
+		
+		<div class="container">
+			<form action="" method="get" class="parent">
+				<input name="key" type="text" value="{$key}" placeholder="请输入你要搜索的内容">
+				<input type="hidden" name="type" value="{$type}" />
+				<input type="submit" value="搜索">
+			</form>
+		</div>
+	</div>
+	<div class="column">
+		<div class="middle">
+			<a {if $type==0} class="xuan" {/if} href="/">总信息</a>
+			{volist name="nav" id="vo"}
+			<a {if $type==$vo.id} class="xuan" {/if} href="/?type={$vo.id}">{$vo.catename}</a>
+			{/volist}
+		</div>
+	</div>
+</header>
+

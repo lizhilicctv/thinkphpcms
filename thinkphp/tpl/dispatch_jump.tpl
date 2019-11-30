@@ -6,11 +6,9 @@
     <title>跳转提示</title>
     <style type="text/css">
         *{ padding: 0; margin: 0; }
-        body{ background: #fff; font-family: "Microsoft Yahei","Helvetica Neue",Helvetica,Arial,sans-serif; color: #333; font-size: 16px;  background:url("timg.jpg");}
+        body{ background: #fff; font-family: "Microsoft Yahei","Helvetica Neue",Helvetica,Arial,sans-serif; color: #333; font-size: 16px;}
         .system-message{ 
            background:#f1f1f1;padding: 24px 48px; margin: 20px auto;width: 340px; text-align: center;}
-      /*  .system-message h1{ font-size: 150px; font-weight: normal; width: 180px;margin: auto; text-align: center; transform:rotate(90deg);-ms-transform:rotate(90deg);-moz-transform:rotate(90deg);   
-            -webkit-transform:rotate(90deg); -o-transform:rotate(90deg); }*/
         .system-message h2 img {
 				width: 50%;
 				padding: 20px;

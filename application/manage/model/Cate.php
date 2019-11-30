@@ -9,10 +9,6 @@ class Cate extends Model
 		$res = $this->order('sort ASC')->select();
 		return $this->sort($res);
 	}
-	public function tree1(){
-		$res = $this->order('sort ASC')->where('type',1)->select();
-		return $this->sort($res);
-	}
 	public function sort($res,$fid=0,$level=0){
 		static $arr=[];//这样需要学习一下
 		foreach ($res as $key => $value) {

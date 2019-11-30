@@ -1,5 +1,7 @@
 {include file="common/_meta" /}
 <title>栏目列表</title>
+<meta name="keywords" content="李志立，lizhilimaster@163.com">
+<meta name="description" content="李志立，lizhilimaster@163.com">
 </head>
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 栏目管理 <span class="c-gray en">&gt;</span> 栏目列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
@@ -56,28 +58,16 @@
 		</div>
 <!--_footer 作为公共模版分离出去-->
 {include file="common/_footer" /}
-<!--/_footer /作为公共模版分离出去-->
 
-<!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="__MANAGE__lib/My97DatePicker/4.8/WdatePicker.js"></script>
-<script type="text/javascript" src="__MANAGE__lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="__MANAGE__lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
-//$('.table-sort').dataTable({
-//	"aaSorting": [[ 1, "desc" ]],//默认第几个排序
-//	"bStateSave": true,//状态保存
-//	"aoColumnDefs": [
-//	  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-//	  {"orderable":false,"aTargets":[0,4]}// 制定列不参与排序
-//	]
-//});
 /*系统-栏目-添加*/
 function system_category_add(title,url,w,h){
-	layer_show(title,url,1200,h);
+	layer_show(title,url,1100,650);
 }
 /*系统-栏目-编辑*/
 function system_category_edit(title,url,id,w,h){
-	layer_show(title,url,1200,800);
+	layer_show(title,url,1100,650);
 }
 /*系统-栏目-删除*/
 function system_category_del(obj,id){
@@ -90,16 +80,16 @@ function system_category_del(obj,id){
 		},
 		function(result){
 			console.log(result);
-	        if(result===0){
-	        	layer.msg('删除失败!',{icon: 5,time:1000});
+	        if(result===1){
+				$(obj).parents("tr").remove();
+				layer.msg('已删除!',{icon:1,time:1000});
+	        	
 	        }else if(result===2){
 	        	layer.msg('此栏目拥有下级栏目，不能删除！',{icon: 5,time:3000});
 	        }else{
-	        	$(obj).parents("tr").remove();
-				layer.msg('已删除!',{icon:1,time:1000});
+	        	layer.msg('删除失败!',{icon: 5,time:1000});
 	        }
 	    });	
-
 	});
 }
 //自己编写更新排序
@@ -121,7 +111,6 @@ function catesort(){
 			type:'cate_sort',
 		},
 		function(result){
-			//console.log(result);
 	        if(result===1){
 	        	layer.msg('更新成功!',{icon:1,time:1000});
 	        	history.go(0);

@@ -35,6 +35,6 @@ return [
 	//模版替换
 	'tpl_replace_string'  =>  [
 		'__MANAGE__'=>'/static/manage/',
-		'__INDEX__'=>'/static/index/'
+		'__INDEX__'=>'/'
 	]
 ];

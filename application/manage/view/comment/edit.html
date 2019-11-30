@@ -1,129 +1,126 @@
 {include file="common/_meta" /}
 
-<title>添加用户 - H-ui.admin v3.1</title>
-<meta name="keywords" content="H-ui.admin v3.1,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
-<meta name="description" content="H-ui.admin v3.1，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
+<title>修改评论</title>
+<meta name="keywords" content="李志立，lizhilimaster@163.com">
+<meta name="description" content="李志立，lizhilimaster@163.com">
 </head>
 <body>
-<article class="page-container">
-	<form action="" method="post" class="form form-horizontal" id="form-member-add">
-		<input type="hidden" name="id" id="id" value="{$data.id}" />
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>用户名：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text"  class="input-text" disabled="disabled" name="" id="" value="{$data.username}" />
+	<article class="page-container">
+		<form action="" method="post" class="form form-horizontal" id="form-member-add">
+			<input type="hidden" name="id" id="id" value="{$data.id}" />
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>用户名：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" disabled="disabled" name="" id="" value="{$data.username}" />
+				</div>
 			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>文章链接：</label>
-			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
-				<p><a class="btn btn-link" href="" target="_blank">点击查看</a></p>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>文章链接：</label>
+				<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+					<p><a class="btn btn-link" href="JavaScript:alert('没有编写！')" target="_blank">点击查看</a></p>
 
+				</div>
 			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>当前积分：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text"  class="input-text" disabled="disabled" name="" id="" value="{$data.score}" />
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>当前积分：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" disabled="disabled" name="" id="" value="{$data.score}" />
+				</div>
 			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>加入时间：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text"  class="input-text" disabled="disabled" name="" id="" value="{$data.create_time|date='Y-m-d H:i:s'}" />
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>评论时间：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" disabled="disabled" name="" id="" value="{$data.create_time|date='Y-m-d H:i:s'}" />
+				</div>
 			</div>
-		</div>
 
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">当前状态：</label>
-			<div class="formControls col-xs-8 col-sm-9"> 
-				{switch name="data.isopen" }
-					    {case value="1"}<input class="btn btn-success-outline size-MINI radius" type="button" value="已展示">{/case}
-					    {case value="0"}<input class="btn  btn-danger-outline size-MINI radius" type="button" value="未展示">{/case}
-					    {case value="-1"}<input class="btn  btn-danger-outline size-MINI radius" type="button" value="未审核">{/case}
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3">当前状态：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					{switch name="data.isopen" }
+					{case value="1"}<input class="btn btn-success-outline size-MINI radius" type="button" value="已展示">{/case}
+					{case value="0"}<input class="btn  btn-danger-outline size-MINI radius" type="button" value="未展示">{/case}
+					{case value="-1"}<input class="btn  btn-danger-outline size-MINI radius" type="button" value="未审核">{/case}
 					{/switch}
-		
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">修改状态：</label>
-			<div class="formControls col-xs-8 col-sm-9 skin-minimal"> 
-				<div class="radio-box">
-					<input name="isopen" type="radio" id="sex-1" value="1" {if condition="$data.isopen == 1"}  checked {/if}>
-					<label for="sex-1">展示</label>
+
 				</div>
-				<div class="radio-box">
-					<input type="radio" id="sex-2" value="0" name="isopen" {if condition="$data.isopen == 0"}  checked {/if}>
-					<label for="sex-2">不展示</label>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3">修改状态：</label>
+				<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+					<div class="radio-box">
+						<input name="isopen" type="radio" id="sex-1" value="1" {if condition="$data.isopen == 1" } checked {/if}> <label
+						 for="sex-1">展示</label>
+					</div>
+					<div class="radio-box">
+						<input type="radio" id="sex-2" value="0" name="isopen" {if condition="$data.isopen == 0" } checked {/if}> <label
+						 for="sex-2">不展示</label>
+					</div>
+					<div class="radio-box">
+						<input type="radio" id="sex-3" value="-1" name="isopen" {if condition="$data.isopen == -1" } checked {/if}>
+						 <label for="sex-3">未审核</label>
+					</div>
+
 				</div>
-				<div class="radio-box">
-					<input type="radio" id="sex-3" value="-1" name="isopen" {if condition="$data.isopen == -1"}  checked {/if}>
-					<label for="sex-3">未审核</label>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3">详细内容：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<textarea disabled="disabled" cols="" rows="" id="desc" class="textarea" placeholder="说点什么...最少输入10个字符" datatype="*10-100"
+					 dragonfly="true" nullmsg="备注不能为空！">{$data.content}</textarea>
 				</div>
-		
 			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">详细内容：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<textarea disabled="disabled" cols="" rows="" id="desc" class="textarea"  placeholder="说点什么...最少输入10个字符" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" >{$data.content}</textarea>
+
+
+			<div class="row cl">
+				<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+					<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+				</div>
 			</div>
-		</div>
-		
-		
-		<div class="row cl">
-			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
-			</div>
-		</div>
-	</form>
-</article>
-{include file="common/_footer" /} 
+		</form>
+	</article>
+	{include file="common/_footer" /}
 
-<!--请在下方写此页面业务相关的脚本--> 
-<script type="text/javascript" src="__MANAGE__lib/My97DatePicker/4.8/WdatePicker.js"></script>
-<script type="text/javascript" src="__MANAGE__lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
-<script type="text/javascript" src="__MANAGE__lib/jquery.validation/1.14.0/validate-methods.js"></script> 
-<script type="text/javascript" src="__MANAGE__lib/jquery.validation/1.14.0/messages_zh.js"></script>
+	<!--请在下方写此页面业务相关的脚本-->
+	<script type="text/javascript" src="__MANAGE__lib/My97DatePicker/4.8/WdatePicker.js"></script>
+	<script type="text/javascript" src="__MANAGE__lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+	<script type="text/javascript" src="__MANAGE__lib/jquery.validation/1.14.0/validate-methods.js"></script>
+	<script type="text/javascript" src="__MANAGE__lib/jquery.validation/1.14.0/messages_zh.js"></script>
+
+	<script type="text/javascript">
+		$(function() {
+			$('.skin-minimal input').iCheck({
+				checkboxClass: 'icheckbox-blue',
+				radioClass: 'iradio-blue',
+				increaseArea: '20%'
+			});
+
+			$("#form-member-add").validate({
+				rules: {
+					username: {
+						required: true,
+						minlength: 2,
+						maxlength: 16
+					},
+					sex: {
+						required: true,
+					},
+					phone: {
+						required: true,
+						isMobile: true,
+					},
+					email: {
+						required: true,
+						email: true,
+					},
+
+				},
+
+			});
 
 
-
-
-
-<script type="text/javascript">
-$(function(){
-	$('.skin-minimal input').iCheck({
-		checkboxClass: 'icheckbox-blue',
-		radioClass: 'iradio-blue',
-		increaseArea: '20%'
-	});
-	
-	$("#form-member-add").validate({
-		rules:{
-			username:{
-				required:true,
-				minlength:2,
-				maxlength:16
-			},
-			sex:{
-				required:true,
-			},
-			phone:{
-				required:true,
-				isMobile:true,
-			},
-			email:{
-				required:true,
-				email:true,
-			},
-			
-		},
-		
-	});
-	
-
-});
-</script> 
-<!--/请在上方写此页面业务相关的脚本-->
+		});
+	</script>
+	<!--/请在上方写此页面业务相关的脚本-->
 </body>
 </html>
