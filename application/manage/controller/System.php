@@ -122,7 +122,7 @@ class System extends Conn
             
             if ($data) {
                 foreach ($data as $k => $v) {
-                    $li=$system->where('enname', $k)->update(['value'  => $v]);
+                    $li=$system->where('enname', $k)->update(['value'  => trim($v)]);
                 }
                 return  $this->success('修改成功');
             }
