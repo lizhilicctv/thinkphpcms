@@ -15,11 +15,11 @@ return [
     // 服务器地址
     'hostname'        => '127.0.0.1',
     // 数据库名
-    'database'        => 'thinkcms',
+    'database'        => 'thinkphpcms.com',
     // 用户名
-    'username'        => 'thinkcms',
+    'username'        => 'thinkphpcms.com',
     // 密码
-    'password'        => 'thinkcms',
+    'password'        => 'thinkphpcms.com',
     // 端口
     'hostport'        => '',
     // 连接dsn
