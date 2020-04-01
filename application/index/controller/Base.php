@@ -14,7 +14,8 @@ class Base extends Controller
 			exit('网站关闭');
 		}
 		$this->assign('system', $system);
-		
+		//分配广告
+		$this->assign('ad', $base->ad());
     }
 	
 	
