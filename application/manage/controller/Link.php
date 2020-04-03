@@ -11,16 +11,15 @@ class Link extends Conn
     public function index()
     {
     	$link=new Linkmodel();
-    	if(request()->isPost()){
-    		$data=input('key');
-			$link=$link->where('title','like','%'.$data.'%')
-						    ->order('sort asc')
-						    ->paginate(4);
-			$this->assign('link',$link);
-    	}else{
-    		$link=$link->order('sort asc,id desc')->paginate(4);
-			$this->assign('link', $link);
-    	}
+    	$key=input('key') ? input('key') : '';
+    	$this->assign('key',$key);
+		
+    		
+		$link=$link->where('title','like','%'.$key.'%')
+						->order('sort asc')
+						->paginate(4,false,['query'=>request()->param()]);
+		$this->assign('link',$link);
+    	
 		
 		$count1=db('link')->count();
 		$this->assign('count1', $count1);

@@ -13,17 +13,14 @@ class Slide extends Conn
     public function index()
     {
     	$slide=new Slidemodel();
-    	if(request()->isPost()){
-    		$data=input('key');
-			$slide=$slide->whereor('title','like','%'.$data.'%')
-						    ->order('sort asc,id desc')
-						    ->paginate(4);
-			$this->assign('slide',$slide);
-    	}else{
-    		$slide=$slide->order('sort asc,id desc')->paginate(4);
-			$this->assign('slide', $slide);
-    	}
+    	$key=input('key') ? input('key') : '';
+    	$this->assign('key',$key);
 		
+			$slide=$slide->whereor('title','like','%'.$key.'%')
+						    ->order('sort asc,id desc')
+						    ->paginate(4,false,['query'=>request()->param()]);
+			$this->assign('slide',$slide);
+    	
 		$count1=db('slide')->count();
 		$this->assign('count1', $count1);
        	return $this->fetch();

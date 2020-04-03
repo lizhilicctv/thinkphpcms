@@ -13,16 +13,14 @@ class Advertisement extends Conn
     public function index()
     {
     	$advertisement=new Advertisementmodel();
-    	if(request()->isPost()){
-    		$data=input('key');
-			$advertisement=$advertisement->where(function($query) use ($data){
-					$query->whereor('title','like','%'.$data.'%')->whereor('key','like','%'.$data.'%');
-				})->order('id desc')->paginate(8);
+    	
+    		$key=input('key') ? input('key') : '';
+    		$this->assign('key',$key);
+			$advertisement=$advertisement->where(function($query) use ($key){
+					$query->whereor('title','like','%'.$key.'%')->whereor('key','like','%'.$key.'%');
+				})->order('id desc')->paginate(8,false,['query'=>request()->param()]);
 			$this->assign('advertisement',$advertisement);
-    	}else{
-    		$advertisement=$advertisement->order('id desc')->paginate(8);
-			$this->assign('advertisement', $advertisement);
-    	}
+    	
 		
 		$count1=db('advertisement')->count();
 		$this->assign('count1', $count1);

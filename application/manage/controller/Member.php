@@ -12,16 +12,16 @@ class Member extends Conn
     public function index()
     {
     	$link=new Membermodel();
-    	if(request()->isPost()){
-    		$data=input('key');
-			$link=$link->whereor('username','like','%'.$data.'%')
-						    ->order('id asc')
-						    ->paginate(10);
+    	
+    		$key=input('key') ? input('key') : '';
+    		$this->assign('key',$key);
+			
+			$link=$link
+			->where('username','like','%'.$key.'%')
+			->whereor('phone','like','%'.$key.'%')
+			->order('id desc')->paginate(10,false,['query'=>request()->param()]);
 			$this->assign('member',$link);
-    	}else{
-    		$link=$link->order('id desc')->paginate(10);
-			$this->assign('member', $link);
-    	}
+    	
 		
 		$count1=db('member')->count();
 		$this->assign('count1', $count1);
@@ -177,16 +177,19 @@ class Member extends Conn
 	public function shan()
     {
     	$link=new Membermodel();
-    	if(request()->isPost()){
-    		$data=input('key');
-			$link=$link->whereor('username','like','%'.$data.'%')
-						    ->order('id asc')
-						    ->paginate(10);
+    	
+    		$key=input('key') ? input('key') : '';
+    		$this->assign('key',$key);
+			$link=$link->onlyTrashed()
+				->where('username','like','%'.$key.'%')
+				->whereor('phone','like','%'.$key.'%')
+				->order('id asc')
+				->paginate(10);
 			$this->assign('member',$link);
-    	}else{
-    		$link=$link->onlyTrashed()->order('id desc')->paginate(10);
-			$this->assign('member', $link);
-    	}
+    	
+		
+		
+		
 		
 		$count1=db('member')->where('delete_time','<>','null')->count();
 		$this->assign('count1', $count1);

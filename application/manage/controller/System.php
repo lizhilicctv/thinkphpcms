@@ -12,12 +12,10 @@ class System extends Conn
         $system = new Systemmodel();
         if (request()->isPost()) {
             $data=input('key');
-            $data=$system->whereor('cnname', 'like', '%'.$data.'%')
-                            ->order('sort asc')
-                            ->paginate(10);
+            $data=$system->whereor('cnname', 'like', '%'.$data.'%')->order('sort asc')->select();
             $this->assign('data', $data);
         } else {
-            $data=$system->order('sort', 'ASC')->paginate(10);
+            $data=$system->order('sort', 'ASC')->select();
             $this->assign('data', $data);
         }
         $count1=Db::name('system')->count();

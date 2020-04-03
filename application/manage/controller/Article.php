@@ -10,30 +10,45 @@ class Article extends Conn
 {
     public function index()
     {
-        if (request()->isPost()) {
-            $data=input('post.');
-            $info=Db::table('lizhili_article')
+            $data=input('get.');
+			//获取参数 返回首页
+			if(!isset($data['cate'])){
+				$data['cate']=0;
+			}
+			if(!isset($data['key'])){
+				$data['key']='';
+			}
+			 $this->assign('data', $data);
+			 //搜索 key
+			if($data['cate']==0){
+				$map=true;
+			}elseif($ar=Db::name('cate')->where('fid',$data['cate'])->column('id')){
+				$map=['a.cateid'=>$ar];
+			}else{
+				$map=['a.cateid'=>$data['cate']];
+			}
+			
+            $info=Db::name('article')
             ->alias('a')
             ->join('cate c', 'a.cateid = c.id', 'LEFT')
-            ->field('a.id,a.title,a.author,a.desc,a.pic,a.click,a.state,a.time,c.catename')
-            ->whereOr('c.catename', 'like', '%'.$data['key'].'%')
-            ->order('id desc')
-            ->paginate(10);
+            ->field('a.id,a.title,a.author,a.desc,a.pic,a.click,a.state,a.time,c.catename,a.cateid')
+			->where($map)->where('a.title', 'like', '%'.$data['key'].'%')
+            ->order('a.id desc')
+            ->paginate(10,false,['query'=>request()->param()]);
             $this->assign('info', $info);
-        } else {
-            $info=Db::table('lizhili_article')
-            ->alias('a')
-            ->join('cate c', 'a.cateid = c.id', 'LEFT')
-            ->field('a.id,a.title,a.author,a.desc,a.pic,a.click,a.state,a.time,c.catename')
-            ->order('id desc')
-            ->paginate(10);
-            $this->assign('info', $info);
-        }
+        
+		
+		//以上是以前的post 提交
         
         $count1=Db::name('article')->count();
         $this->assign('count1', $count1);
         $cate=new Catemodel();
         $datasort=$cate->tree();
+        foreach ($datasort as $k=>$v) {
+            if ($v['type']==2) {
+                unset($datasort[$k]);
+            }
+        }
         $this->assign('datasort', $datasort);
         return $this->fetch();
     }

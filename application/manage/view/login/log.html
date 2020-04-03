@@ -12,8 +12,11 @@
 	</nav>
 	<div class="page-container">
 		<div class="text-c">
-			<form action="" method="post">
-				<input type="text" name="key" id="" placeholder="日志名称" style="width:250px" class="input-text">
+			<form action="" method="get">
+				日期范围：
+				<input type="text" value="{$key.start|default=''}" onfocus="WdatePicker({maxDate:'#F{ $dp.$D(\'logmax\')||\'%y-%M-%d\'}'})" name="start" id="logmin" class="input-text Wdate" style="width:120px;">
+				——
+				<input type="text" value="{$key.end|default=''}" onfocus="WdatePicker({minDate:'#F{ $dp.$D(\'logmin\')}',maxDate:'%y-%M-%d'})" name="end" id="logmax" class="input-text Wdate" style="width:120px;">
 				<button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜日志</button>
 			</form>
 		</div>
@@ -55,7 +58,7 @@
 	{include file="common/_footer" /}
 
 	<!--请在下方写此页面业务相关的脚本-->
-
+	<script type="text/javascript" src="__MANAGE__lib/My97DatePicker/4.8/WdatePicker.js"></script>
 
 	<script type="text/javascript">
 		/*资讯-删除*/

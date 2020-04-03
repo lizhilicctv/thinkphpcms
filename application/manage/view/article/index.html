@@ -16,8 +16,17 @@
 	<div class="Hui-article">
 		<article class="cl pd-20">
 			<div class="text-c">
-				<form action="" method="post">
-					<input type="text" class="input-text" style="width:250px" placeholder="输入资讯标题名称" id="" name="key">
+				<form action="" method="get">
+					<span class="select-box inline">
+					<select name="cate" class="select">
+						<option value="0">全部栏目</option>
+						{volist name="datasort" id="vo"}
+						<option {if $data['cate']==$vo['id']} selected="selected" {/if}value="{$vo.id}">
+							<?php if(isset($vo['level'])){echo str_repeat("|--",$vo['level']);}?>{$vo.catename}</option>
+						{/volist}
+					</select>
+					</span> 
+					<input type="text" class="input-text" style="width:250px" value="{$data.key}" placeholder="输入资讯标题名称" id="" name="key">
 					<button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜资讯</button>
 				</form>
 			</div>

@@ -8,21 +8,17 @@ class Admin extends Conn
 {
     public function index()
     {
-    	if(request()->isPost()){
-    		$data=input('post.');		
-			$min= strtotime($data['datemin']);
-			$max= strtotime($data['datemax']);
+    		$key=input('key') ? input('key') : '';	
+			$this->assign('key',$key);
+			
 			$data=Db::name('admin')
-				    ->whereOr('username','like','%'.$data['key'].'%')
-				    ->order('id','ASC')->paginate(10);
-			$this->assign('data',$data);
-    	}else{
-			$data=Db::table('lizhili_admin')
 			->alias('a')
 			->join('auth_group w','a.role = w.id', 'LEFT')
-			->order('a.id','ASC')->field( 'a.id,username,w.title,create_time,update_time,mark,isopen' )->paginate(10);
+			->where('username','like','%'.$key.'%')
+			->order('a.id','ASC')->field( 'a.id,username,w.title,create_time,update_time,mark,isopen' )->paginate(10,false,['query'=>request()->param()]);
+
 			$this->assign('data',$data);
-    	}
+    	
 		$count1=db('admin')->count();
 		$this->assign('count1', $count1);
     	return $this->fetch();

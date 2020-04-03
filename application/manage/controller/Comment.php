@@ -12,22 +12,18 @@ class Comment extends Conn
     public function index()
     {
     	$link=new Commentmodel();
-    	if(request()->isPost()){
-    		$data=input('key');
+    	
+    		$key=input('key') ? input('key') : '';
+    		$this->assign('key',$key);
+			
 			$data=Db::table('lizhili_comment')
 			->alias('a')
 			->join('member m','a.user_id = m.id', 'LEFT')
 			->order('a.id','ASC')->field( 'a.id,content,wenzhang_id,a.create_time,a.update_time,m.username,a.isopen,score' )
-			->whereor('content','like','%'.$data.'%')
-			->paginate(10);
+			->whereor('content','like','%'.$key.'%')
+			->paginate(10,false,['query'=>request()->param()]);
 			$this->assign('comment',$data);
-    	}else{
-    		$data=Db::table('lizhili_comment')
-			->alias('a')
-			->join('member m','a.user_id = m.id', 'LEFT')
-			->order('a.id','ASC')->field( 'a.id,content,wenzhang_id,a.create_time,a.update_time,m.username,a.isopen,score' )->paginate(10);
-			$this->assign('comment',$data);
-    	}
+    	
 		
 		$count1=db('comment')->count();
 		$this->assign('count1', $count1);

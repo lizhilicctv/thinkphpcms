@@ -65,16 +65,26 @@ class Login extends Controller
     }
 	
 	 public function log(){
-	 	if(request()->isPost()){
-    		$data=input('post.');		
-			$data=Db::name('log')
-				    ->where('username','like','%'.$data['key'].'%')
-				    ->order('id','desc')->paginate(15);
+	 	
+    		$data=input('get.');	
+			$this->assign('key', $data);
+			if(isset($data['start']) or isset($data['end'])){
+				$map=[];
+				if($data['start'] != ''){
+					$map[]=	['create_time','>',strtotime($data['start'])];
+				}
+				if($data['end'] != ''){
+					$map[]=	['create_time','<',strtotime($data['end'])+60*60*24];
+				}
+			}else{
+				$map=true;
+			}
+			
+			
+			
+			$data=Db::name('log')->where($map)->order('id','desc')->paginate(15,false,['query'=>request()->param()]);
 			$this->assign('data',$data);
-    	}else{
-			$data=db('log')->order('id','desc')->paginate(15);
-			$this->assign('data', $data);
-    	}
+
 		
 		$count1=db('log')->count();
 		$this->assign('count1', $count1);

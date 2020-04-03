@@ -12,16 +12,16 @@ class Message extends Conn
     public function index()
     {
     	$link=new Messagemodel();
-    	if(request()->isPost()){
+    	
+		$key=input('key') ? input('key') : '';
+		$this->assign('key',$key);
+		
     		$data=input('key');
-			$link=$link->whereor('title','like','%'.$data.'%')
+			$link=$link->whereor('title','like','%'.$key.'%')
 						    ->order('id desc')
-						    ->paginate(10);
+						    ->paginate(10,false,['query'=>request()->param()]);
 			$this->assign('comment',$link);
-    	}else{
-    		$data=$link->order('id desc')->paginate(10);
-			$this->assign('comment',$data);
-    	}
+    	
 		
 		$count1=db('message')->count();
 		$this->assign('count1', $count1);

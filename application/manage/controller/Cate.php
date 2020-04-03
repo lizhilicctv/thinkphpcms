@@ -13,9 +13,7 @@ class Cate extends Conn
     {
     	if(request()->isPost()){
     		$data=input('post.');
-			$datasort=Db::name('cate')
-				    ->whereOr('catename','like','%'.$data['key'].'%')
-				    ->order('id','ASC')->paginate(10);
+			$datasort=Db::name('cate')->where('catename','like','%'.$data['key'].'%')->order('id','ASC')->select();
 			$this->assign('datasort',$datasort);
     	}else{
     		$cate=new Catemodel();
