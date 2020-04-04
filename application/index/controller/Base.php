@@ -10,9 +10,7 @@ class Base extends Controller
     {
 		$base= new Basemodel();
 		$system=$base->getsystem();
-		if($system["value"] != "开启"){
-			exit('网站关闭');
-		}
+
 		$this->assign('system', $system);
 		//分配广告
 		$this->assign('ad', $base->ad());

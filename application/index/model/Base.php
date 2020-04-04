@@ -8,15 +8,9 @@ class Base extends Model
 	protected $table = 'lizhili_system';
 	public function getsystem()
     {
-        $list=$this->field('enname,value')->select();
-		$arr=[];
-		foreach ($list as $key => $value) {
-			$arr[$value["enname"]]=$value["value"];
-		}
-		return $arr;
+        return $this->column('value','enname');
     }
 	public function ad(){
-		$data=Db::name('advertisement')->where('isopen',1)->column('*','key');
-		return $data;
+        return Db::name('advertisement')->where('isopen',1)->column('*','key');
 	}
 }

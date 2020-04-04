@@ -97,6 +97,11 @@ class System extends Conn
         $system = new Systemmodel();
         if (request()->isPost()) {
             $data=input('post.');
+
+            if(!empty($data["redirect"]) and substr($data["redirect"],0,4) != 'http'){
+                return  $this->success('重定向网址不正确！');
+            }
+
             $arrid=Db::name('system')->where('type', 4)->column('id');
             if (isset($_FILES['img']["name"])) {
                 foreach ($_FILES['img']["name"] as $k=>$v) {

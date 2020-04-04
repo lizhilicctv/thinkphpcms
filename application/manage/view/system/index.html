@@ -17,7 +17,7 @@
 				<div class="row cl">
 					<label class="form-label col-xs-4 col-sm-2">{$vo.cnname}：</label>
 					<div class="formControls col-xs-8 col-sm-9">
-						<input type="text" id="website-title" placeholder="" name="{$vo.enname}" value="{$vo.value}" class="input-text">
+						<input type="text" id="website-title" placeholder="{if $vo['enname']=='redirect'}请输入完整网站，http:// 开头{/if}" name="{$vo.enname}" value="{$vo.value}" class="input-text">
 					</div>
 				</div>
 				<?php } ?>
@@ -76,6 +76,7 @@
 
 	<!--_footer 作为公共模版分离出去-->
 	{include file="common/_footer" /}
+
 	<style type="text/css">
 		.li123 {
 			line-height: 30px;
