@@ -1,16 +1,8 @@
 /*
-Navicat MySQL Data Transfer
-
-Source Server         : localhost_3306
-Source Server Version : 50726
-Source Host           : localhost:3306
-Source Database       : thinkphpcms.com
-
-Target Server Type    : MYSQL
-Target Server Version : 50726
-File Encoding         : 65001
-
-Date: 2020-04-04 17:50:44
+MySQL Database Backup Tools
+Server:127.0.0.1:3306
+Database:thinkphpcms.com
+Data:2020-04-10 16:53:01
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -18,6 +10,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 -- Table structure for lizhili_admin
 -- ----------------------------
+
 DROP TABLE IF EXISTS `lizhili_admin`;
 CREATE TABLE `lizhili_admin` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -34,12 +27,15 @@ CREATE TABLE `lizhili_admin` (
 -- ----------------------------
 -- Records of lizhili_admin
 -- ----------------------------
-INSERT INTO `lizhili_admin` VALUES ('1', 'admin', '751aff6be33b5649fde05436dc4cb4f7', '1529570040', '1532252345', '1', '1', '超级管理员不能删除和停用');
-INSERT INTO `lizhili_admin` VALUES ('2', 'qpm101', '25eee4665b3053ff200ea3c9b776bc35', '1532685192', null, '2', '1', '');
+
+INSERT INTO `lizhili_admin` (`id`,`username`,`password`,`create_time`,`update_time`,`role`,`isopen`,`mark`) VALUES ('1','admin','751aff6be33b5649fde05436dc4cb4f7','1529570040','1532252345','1','1','超级管理员不能删除和停用');
+INSERT INTO `lizhili_admin` (`id`,`username`,`password`,`create_time`,`update_time`,`role`,`isopen`,`mark`) VALUES ('2','qpm101','25eee4665b3053ff200ea3c9b776bc35','1532685192',NULL,'2','1','');
+
 
 -- ----------------------------
 -- Table structure for lizhili_advertisement
 -- ----------------------------
+
 DROP TABLE IF EXISTS `lizhili_advertisement`;
 CREATE TABLE `lizhili_advertisement` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -58,9 +54,12 @@ CREATE TABLE `lizhili_advertisement` (
 -- Records of lizhili_advertisement
 -- ----------------------------
 
+
+
 -- ----------------------------
 -- Table structure for lizhili_article
 -- ----------------------------
+
 DROP TABLE IF EXISTS `lizhili_article`;
 CREATE TABLE `lizhili_article` (
   `id` mediumint(11) NOT NULL AUTO_INCREMENT,
@@ -69,7 +68,7 @@ CREATE TABLE `lizhili_article` (
   `desc` varchar(255) DEFAULT NULL,
   `author` varchar(255) DEFAULT NULL,
   `pic` varchar(160) DEFAULT NULL,
-  `editorValue` text,
+  `text` text,
   `state` smallint(6) unsigned DEFAULT '0',
   `click` mediumint(9) DEFAULT '0',
   `zan` mediumint(9) DEFAULT '0',
@@ -83,9 +82,33 @@ CREATE TABLE `lizhili_article` (
 -- Records of lizhili_article
 -- ----------------------------
 
+
+
+-- ----------------------------
+-- Table structure for lizhili_article_img
+-- ----------------------------
+
+DROP TABLE IF EXISTS `lizhili_article_img`;
+CREATE TABLE `lizhili_article_img` (
+  `id` mediumint(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(60) DEFAULT NULL,
+  `pic` varchar(160) DEFAULT NULL,
+  `update_time` int(11) DEFAULT NULL,
+  `create_time` int(11) DEFAULT NULL,
+  `aid` int(11) DEFAULT NULL COMMENT '对应ariticle id',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of lizhili_article_img
+-- ----------------------------
+
+
+
 -- ----------------------------
 -- Table structure for lizhili_auth_group
 -- ----------------------------
+
 DROP TABLE IF EXISTS `lizhili_auth_group`;
 CREATE TABLE `lizhili_auth_group` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
@@ -100,12 +123,15 @@ CREATE TABLE `lizhili_auth_group` (
 -- ----------------------------
 -- Records of lizhili_auth_group
 -- ----------------------------
-INSERT INTO `lizhili_auth_group` VALUES ('1', '超级管理员', '1', '1,3,2,10,7,9,8,4,6,5,11', '0', '拥有至高无上的权利');
-INSERT INTO `lizhili_auth_group` VALUES ('2', '内容发布员', '1', '1,3,2,10,7,9,8,4,6,5,11', '0', '只能管理内容');
+
+INSERT INTO `lizhili_auth_group` (`id`,`title`,`status`,`rules`,`sort`,`desc`) VALUES ('1','超级管理员','1','1,3,2,10,7,9,8,4,6,5,11','0','拥有至高无上的权利');
+INSERT INTO `lizhili_auth_group` (`id`,`title`,`status`,`rules`,`sort`,`desc`) VALUES ('2','内容发布员','1','1,3,2,10,7,9,8,4,6,5,11','0','只能管理内容');
+
 
 -- ----------------------------
 -- Table structure for lizhili_auth_group_access
 -- ----------------------------
+
 DROP TABLE IF EXISTS `lizhili_auth_group_access`;
 CREATE TABLE `lizhili_auth_group_access` (
   `uid` mediumint(8) unsigned NOT NULL,
@@ -118,12 +144,15 @@ CREATE TABLE `lizhili_auth_group_access` (
 -- ----------------------------
 -- Records of lizhili_auth_group_access
 -- ----------------------------
-INSERT INTO `lizhili_auth_group_access` VALUES ('1', '1');
-INSERT INTO `lizhili_auth_group_access` VALUES ('2', '2');
+
+INSERT INTO `lizhili_auth_group_access` (`uid`,`group_id`) VALUES ('1','1');
+INSERT INTO `lizhili_auth_group_access` (`uid`,`group_id`) VALUES ('2','2');
+
 
 -- ----------------------------
 -- Table structure for lizhili_auth_rule
 -- ----------------------------
+
 DROP TABLE IF EXISTS `lizhili_auth_rule`;
 CREATE TABLE `lizhili_auth_rule` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
@@ -142,21 +171,24 @@ CREATE TABLE `lizhili_auth_rule` (
 -- ----------------------------
 -- Records of lizhili_auth_rule
 -- ----------------------------
-INSERT INTO `lizhili_auth_rule` VALUES ('1', 'article/all', '资讯总权限', '1', '1', '', '0', '0', '0');
-INSERT INTO `lizhili_auth_rule` VALUES ('2', 'article/add', '添加资讯', '1', '1', '', '1', '1', '0');
-INSERT INTO `lizhili_auth_rule` VALUES ('3', 'article/edit', '资讯修改', '1', '1', '', '1', '1', '0');
-INSERT INTO `lizhili_auth_rule` VALUES ('4', 'link/all', '友情链接', '1', '1', '', '0', '0', '0');
-INSERT INTO `lizhili_auth_rule` VALUES ('5', 'link/add', '添加友情链接', '1', '1', '', '4', '1', '0');
-INSERT INTO `lizhili_auth_rule` VALUES ('6', 'link/edit', '修改友情链接', '1', '1', '', '4', '1', '0');
-INSERT INTO `lizhili_auth_rule` VALUES ('7', 'slide/all', '幻灯片总权限', '1', '1', '', '0', '0', '0');
-INSERT INTO `lizhili_auth_rule` VALUES ('8', 'slide/add', '添加幻灯片', '1', '1', '', '7', '1', '0');
-INSERT INTO `lizhili_auth_rule` VALUES ('9', 'slide/edit', '修改幻灯片', '1', '1', '', '7', '1', '0');
-INSERT INTO `lizhili_auth_rule` VALUES ('10', 'comment/all', '评论总权限', '1', '1', '', '0', '0', '0');
-INSERT INTO `lizhili_auth_rule` VALUES ('11', 'message/all', '留言总权限', '1', '1', '', '0', '0', '0');
+
+INSERT INTO `lizhili_auth_rule` (`id`,`name`,`title`,`type`,`status`,`condition`,`fid`,`level`,`sort`) VALUES ('1','article/all','资讯总权限','1','1','','0','0','0');
+INSERT INTO `lizhili_auth_rule` (`id`,`name`,`title`,`type`,`status`,`condition`,`fid`,`level`,`sort`) VALUES ('2','article/add','添加资讯','1','1','','1','1','0');
+INSERT INTO `lizhili_auth_rule` (`id`,`name`,`title`,`type`,`status`,`condition`,`fid`,`level`,`sort`) VALUES ('3','article/edit','资讯修改','1','1','','1','1','0');
+INSERT INTO `lizhili_auth_rule` (`id`,`name`,`title`,`type`,`status`,`condition`,`fid`,`level`,`sort`) VALUES ('4','link/all','友情链接','1','1','','0','0','0');
+INSERT INTO `lizhili_auth_rule` (`id`,`name`,`title`,`type`,`status`,`condition`,`fid`,`level`,`sort`) VALUES ('5','link/add','添加友情链接','1','1','','4','1','0');
+INSERT INTO `lizhili_auth_rule` (`id`,`name`,`title`,`type`,`status`,`condition`,`fid`,`level`,`sort`) VALUES ('6','link/edit','修改友情链接','1','1','','4','1','0');
+INSERT INTO `lizhili_auth_rule` (`id`,`name`,`title`,`type`,`status`,`condition`,`fid`,`level`,`sort`) VALUES ('7','slide/all','幻灯片总权限','1','1','','0','0','0');
+INSERT INTO `lizhili_auth_rule` (`id`,`name`,`title`,`type`,`status`,`condition`,`fid`,`level`,`sort`) VALUES ('8','slide/add','添加幻灯片','1','1','','7','1','0');
+INSERT INTO `lizhili_auth_rule` (`id`,`name`,`title`,`type`,`status`,`condition`,`fid`,`level`,`sort`) VALUES ('9','slide/edit','修改幻灯片','1','1','','7','1','0');
+INSERT INTO `lizhili_auth_rule` (`id`,`name`,`title`,`type`,`status`,`condition`,`fid`,`level`,`sort`) VALUES ('10','comment/all','评论总权限','1','1','','0','0','0');
+INSERT INTO `lizhili_auth_rule` (`id`,`name`,`title`,`type`,`status`,`condition`,`fid`,`level`,`sort`) VALUES ('11','message/all','留言总权限','1','1','','0','0','0');
+
 
 -- ----------------------------
 -- Table structure for lizhili_cate
 -- ----------------------------
+
 DROP TABLE IF EXISTS `lizhili_cate`;
 CREATE TABLE `lizhili_cate` (
   `id` tinyint(4) NOT NULL AUTO_INCREMENT,
@@ -177,9 +209,12 @@ CREATE TABLE `lizhili_cate` (
 -- Records of lizhili_cate
 -- ----------------------------
 
+
+
 -- ----------------------------
 -- Table structure for lizhili_comment
 -- ----------------------------
+
 DROP TABLE IF EXISTS `lizhili_comment`;
 CREATE TABLE `lizhili_comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -196,9 +231,12 @@ CREATE TABLE `lizhili_comment` (
 -- Records of lizhili_comment
 -- ----------------------------
 
+
+
 -- ----------------------------
 -- Table structure for lizhili_config
 -- ----------------------------
+
 DROP TABLE IF EXISTS `lizhili_config`;
 CREATE TABLE `lizhili_config` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -211,18 +249,21 @@ CREATE TABLE `lizhili_config` (
 -- ----------------------------
 -- Records of lizhili_config
 -- ----------------------------
-INSERT INTO `lizhili_config` VALUES ('1', 'watermark', '1', '水印');
-INSERT INTO `lizhili_config` VALUES ('2', 'shui_weizhi', '9', '水印位置具体看手册');
-INSERT INTO `lizhili_config` VALUES ('3', 'shui_neirong', '李志立 lizhilimaster@163.com', '水印内容');
-INSERT INTO `lizhili_config` VALUES ('4', 'thumbnail', '1', '缩率图');
-INSERT INTO `lizhili_config` VALUES ('5', 't_w', '300', '缩略图宽');
-INSERT INTO `lizhili_config` VALUES ('6', 't_h', '300', '缩略图高');
-INSERT INTO `lizhili_config` VALUES ('7', 'shui_zihao', '18', '水印字号');
-INSERT INTO `lizhili_config` VALUES ('8', 'shui_yanse', '#ffffff', '水印颜色');
+
+INSERT INTO `lizhili_config` (`id`,`key`,`value`,`shuo`) VALUES ('1','watermark','1','水印');
+INSERT INTO `lizhili_config` (`id`,`key`,`value`,`shuo`) VALUES ('2','shui_weizhi','9','水印位置具体看手册');
+INSERT INTO `lizhili_config` (`id`,`key`,`value`,`shuo`) VALUES ('3','shui_neirong','李志立 lizhilimaster@163.com','水印内容');
+INSERT INTO `lizhili_config` (`id`,`key`,`value`,`shuo`) VALUES ('4','thumbnail','1','缩率图');
+INSERT INTO `lizhili_config` (`id`,`key`,`value`,`shuo`) VALUES ('5','t_w','300','缩略图宽');
+INSERT INTO `lizhili_config` (`id`,`key`,`value`,`shuo`) VALUES ('6','t_h','300','缩略图高');
+INSERT INTO `lizhili_config` (`id`,`key`,`value`,`shuo`) VALUES ('7','shui_zihao','18','水印字号');
+INSERT INTO `lizhili_config` (`id`,`key`,`value`,`shuo`) VALUES ('8','shui_yanse','#ffffff','水印颜色');
+
 
 -- ----------------------------
 -- Table structure for lizhili_link
 -- ----------------------------
+
 DROP TABLE IF EXISTS `lizhili_link`;
 CREATE TABLE `lizhili_link` (
   `id` mediumint(9) unsigned NOT NULL AUTO_INCREMENT,
@@ -239,9 +280,12 @@ CREATE TABLE `lizhili_link` (
 -- Records of lizhili_link
 -- ----------------------------
 
+
+
 -- ----------------------------
 -- Table structure for lizhili_log
 -- ----------------------------
+
 DROP TABLE IF EXISTS `lizhili_log`;
 CREATE TABLE `lizhili_log` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -249,16 +293,18 @@ CREATE TABLE `lizhili_log` (
   `ip` char(15) DEFAULT NULL,
   `create_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of lizhili_log
 -- ----------------------------
-INSERT INTO `lizhili_log` VALUES ('1', 'admin', '127.0.0.1', '1585993712');
+
+
 
 -- ----------------------------
 -- Table structure for lizhili_member
 -- ----------------------------
+
 DROP TABLE IF EXISTS `lizhili_member`;
 CREATE TABLE `lizhili_member` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -285,9 +331,12 @@ CREATE TABLE `lizhili_member` (
 -- Records of lizhili_member
 -- ----------------------------
 
+
+
 -- ----------------------------
 -- Table structure for lizhili_message
 -- ----------------------------
+
 DROP TABLE IF EXISTS `lizhili_message`;
 CREATE TABLE `lizhili_message` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -305,9 +354,12 @@ CREATE TABLE `lizhili_message` (
 -- Records of lizhili_message
 -- ----------------------------
 
+
+
 -- ----------------------------
 -- Table structure for lizhili_shield
 -- ----------------------------
+
 DROP TABLE IF EXISTS `lizhili_shield`;
 CREATE TABLE `lizhili_shield` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -320,11 +372,14 @@ CREATE TABLE `lizhili_shield` (
 -- ----------------------------
 -- Records of lizhili_shield
 -- ----------------------------
-INSERT INTO `lizhili_shield` VALUES ('1', '她妈|它妈|他妈|你妈|去死|贱人|1090tv|10jil|21世纪中国基金会|2c8|3p|4kkasi|64惨案|64惨剧|64学生运动|64运动|64运动民國|89惨案|89惨剧|89学生运动|89运动|adult|asiangirl|avxiu|av女|awoodong|A片|bbagoori|bbagury|bdsm|binya|bitch|bozy|bunsec|bunsek|byuntae|B样|fa轮|fuck|ＦｕｃΚ|gay|hrichina|jiangzemin|j女|kgirls|kmovie|lihongzhi|MAKELOVE|NND|nude|petish|playbog|playboy|playbozi|pleybog|pleyboy|q奸|realxx|s2x|sex|shit|sorasex|tmb|TMD|tm的|tongxinglian|triangleboy|UltraSurf|unixbox|ustibet|voa|admin|lizhili|manage', null, null);
+
+INSERT INTO `lizhili_shield` (`id`,`shield`,`create_time`,`update_time`) VALUES ('1','她妈|它妈|他妈|你妈|去死|贱人|1090tv|10jil|21世纪中国基金会|2c8|3p|4kkasi|64惨案|64惨剧|64学生运动|64运动|64运动民國|89惨案|89惨剧|89学生运动|89运动|adult|asiangirl|avxiu|av女|awoodong|A片|bbagoori|bbagury|bdsm|binya|bitch|bozy|bunsec|bunsek|byuntae|B样|fa轮|fuck|ＦｕｃΚ|gay|hrichina|jiangzemin|j女|kgirls|kmovie|lihongzhi|MAKELOVE|NND|nude|petish|playbog|playboy|playbozi|pleybog|pleyboy|q奸|realxx|s2x|sex|shit|sorasex|tmb|TMD|tm的|tongxinglian|triangleboy|UltraSurf|unixbox|ustibet|voa|admin|lizhili|manage',NULL,NULL);
+
 
 -- ----------------------------
 -- Table structure for lizhili_slide
 -- ----------------------------
+
 DROP TABLE IF EXISTS `lizhili_slide`;
 CREATE TABLE `lizhili_slide` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -343,25 +398,30 @@ CREATE TABLE `lizhili_slide` (
 -- Records of lizhili_slide
 -- ----------------------------
 
+
+
 -- ----------------------------
 -- Table structure for lizhili_sql
 -- ----------------------------
+
 DROP TABLE IF EXISTS `lizhili_sql`;
 CREATE TABLE `lizhili_sql` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `time` int(11) DEFAULT NULL,
   `url` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of lizhili_sql
 -- ----------------------------
-INSERT INTO `lizhili_sql` VALUES ('1', '1585993797', '../sql/2020-04-04-17-49-57.sql');
+
+
 
 -- ----------------------------
 -- Table structure for lizhili_system
 -- ----------------------------
+
 DROP TABLE IF EXISTS `lizhili_system`;
 CREATE TABLE `lizhili_system` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -381,11 +441,14 @@ CREATE TABLE `lizhili_system` (
 -- ----------------------------
 -- Records of lizhili_system
 -- ----------------------------
-INSERT INTO `lizhili_system` VALUES ('1', '网站名称', 'webname', '1', '', '', '0', '网站名称', '1', null, '1567676416');
-INSERT INTO `lizhili_system` VALUES ('2', '关键词', 'keyword', '1', '', '', '0', '网站关键字', '1', null, '1567676416');
-INSERT INTO `lizhili_system` VALUES ('3', '描述', 'miaoshu', '1', '', '', '0', '网站描述', '1', null, '1567676416');
-INSERT INTO `lizhili_system` VALUES ('4', '底部版权信息', 'copyright', '1', '', '', '0', '网站版权信息', '1', null, '1567676416');
-INSERT INTO `lizhili_system` VALUES ('5', '备案号', 'No', '1', '', '', '0', '网站备案号', '1', null, '1567676416');
-INSERT INTO `lizhili_system` VALUES ('6', '统计代码', 'statistics', '2', '', '', '0', '网站统计代码', '1', null, '1567676416');
-INSERT INTO `lizhili_system` VALUES ('7', '网站状态', 'value', '3', '开启', '开启,关闭', '0', '网站的状态', '1', null, '1567676416');
-INSERT INTO `lizhili_system` VALUES ('8', '闭站重定向', 'redirect', '1', 'http://down.linglukeji.com/', '', '0', '', '1', '1585987185', '1585987185');
+
+INSERT INTO `lizhili_system` (`id`,`cnname`,`enname`,`type`,`value`,`kxvalue`,`sort`,`desc`,`st`,`create_time`,`update_time`) VALUES ('1','网站名称','webname','1','','','0','网站名称','1',NULL,'1567676416');
+INSERT INTO `lizhili_system` (`id`,`cnname`,`enname`,`type`,`value`,`kxvalue`,`sort`,`desc`,`st`,`create_time`,`update_time`) VALUES ('2','关键词','keyword','1','','','0','网站关键字','1',NULL,'1567676416');
+INSERT INTO `lizhili_system` (`id`,`cnname`,`enname`,`type`,`value`,`kxvalue`,`sort`,`desc`,`st`,`create_time`,`update_time`) VALUES ('3','描述','miaoshu','1','','','0','网站描述','1',NULL,'1567676416');
+INSERT INTO `lizhili_system` (`id`,`cnname`,`enname`,`type`,`value`,`kxvalue`,`sort`,`desc`,`st`,`create_time`,`update_time`) VALUES ('4','底部版权信息','copyright','1','','','0','网站版权信息','1',NULL,'1567676416');
+INSERT INTO `lizhili_system` (`id`,`cnname`,`enname`,`type`,`value`,`kxvalue`,`sort`,`desc`,`st`,`create_time`,`update_time`) VALUES ('5','备案号','No','1','','','0','网站备案号','1',NULL,'1567676416');
+INSERT INTO `lizhili_system` (`id`,`cnname`,`enname`,`type`,`value`,`kxvalue`,`sort`,`desc`,`st`,`create_time`,`update_time`) VALUES ('6','统计代码','statistics','2','','','0','网站统计代码','1',NULL,'1567676416');
+INSERT INTO `lizhili_system` (`id`,`cnname`,`enname`,`type`,`value`,`kxvalue`,`sort`,`desc`,`st`,`create_time`,`update_time`) VALUES ('7','网站状态','value','3','开启','开启,关闭','0','网站的状态','1',NULL,'1567676416');
+INSERT INTO `lizhili_system` (`id`,`cnname`,`enname`,`type`,`value`,`kxvalue`,`sort`,`desc`,`st`,`create_time`,`update_time`) VALUES ('8','闭站重定向','redirect','1','http://down.linglukeji.com/','','0','','1','1585987185','1585987185');
+
+

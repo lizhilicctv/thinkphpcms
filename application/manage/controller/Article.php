@@ -62,7 +62,7 @@ class Article extends Conn
             if ($shan['pic']) {
                 $imgarr[]=$shan['pic'];
             }
-            preg_match_all("/<[img|IMG].*?src=[\'|\"](.*?(?:[\.gif|\.jpg|\.png]))[\'|\"].*?[\/]?>/", $shan["editorValue"], $arr);
+            preg_match_all("/<[img|IMG].*?src=[\'|\"](.*?(?:[\.gif|\.jpg|\.png]))[\'|\"].*?[\/]?>/", $shan["text"], $arr);
             foreach ($arr[1] as $k=>$v) {
                 if ($v and substr($v, 0, 4)!='http') {
                     $imgarr[]=$v;
@@ -79,7 +79,7 @@ class Article extends Conn
         }
         if ($data['type']=='article_all') {
             //删除图片(包括缩略图和内容图片)
-            $shan=Db::name('article')->where('id', 'in', $data['id'])->column('editorValue', 'pic');
+            $shan=Db::name('article')->where('id', 'in', $data['id'])->column('text', 'pic');
             $imgarr=[];
             foreach ($shan as $k=>$v) {
                 if ($k) {
@@ -102,6 +102,29 @@ class Article extends Conn
                 return 0;
             }
         }
+		if ($data['type']=='cate_article') {
+			$res=Db::name('cate')->where('id',$data['id'])->value('type');
+			if ($res) {
+			    return $res;
+			} else {
+			    return 0;
+			}
+		}
+		if ($data['type']=='article_del_img') {
+			//删除图片(包括缩略图和内容图片)
+			$shan=Db::name('article_img')->find($data['id']);
+			@unlink(substr($shan['pic'], 1));
+			
+			if (Db::name('article_img')->delete($data['id'])) {
+			    return 1;//修改成功返回1
+			} else {
+			    return 0;
+			}
+			
+		}
+		
+		
+		
         return 0;
     }
     public function add()
@@ -112,6 +135,7 @@ class Article extends Conn
             if (!$validate->check($data)) {
                 $this->error($validate->getError());
             }
+			
             if (!isset($data['state'])) {
                 $data['state']=0;
             } else {
@@ -125,7 +149,7 @@ class Article extends Conn
                 $data['pic']='/uploads/'.$li;
             } else {
                 if (isset($data['ti'])) {
-                    preg_match_all("/<[img|IMG].*?src=[\'|\"](.*?(?:[\.gif|\.jpg|\.png]))[\'|\"].*?[\/]?>/", $data["editorValue"], $arr);
+                    preg_match_all("/<[img|IMG].*?src=[\'|\"](.*?(?:[\.gif|\.jpg|\.png]))[\'|\"].*?[\/]?>/", $data["text"], $arr);
                     foreach ($arr[1] as $k=>$v) {
                         if (substr($v, 0, 4)!='http') {
                             $newarr=getimagesize(substr($v, 1));
@@ -163,7 +187,7 @@ class Article extends Conn
             }
             //添加水印
             if ($config['watermark']==1) {
-                preg_match_all("/<[img|IMG].*?src=[\'|\"](.*?(?:[\.gif|\.jpg|\.png]))[\'|\"].*?[\/]?>/", $data["editorValue"], $arr1);
+                preg_match_all("/<[img|IMG].*?src=[\'|\"](.*?(?:[\.gif|\.jpg|\.png]))[\'|\"].*?[\/]?>/", $data["text"], $arr1);
                 foreach ($arr1[1] as $k=>$v) {
                     if (substr($v, 0, 4)!='http') {
                         $image = \think\Image::open(substr($v, 1));
@@ -172,10 +196,25 @@ class Article extends Conn
                 }
             }
             if (input('desc')=='') {
-                $data['desc']=mb_substr(preg_replace('/\&nbsp;/', '', strip_tags(input('editorValue'))), 0, 80);
+                $data['desc']=mb_substr(preg_replace('/\&nbsp;/', '', strip_tags(input('text'))), 0, 80);
             }
             $data['faid']=session('uid');
-            if (Db::name('article')->strict(false)->insert($data)) {
+            if ($id=Db::name('article')->strict(false)->insertGetId($data)) {
+				
+				$list = [];
+				foreach($file['img_pic'] as $file){
+				    // 移动到框架应用根目录/uploads/ 目录下
+					$info = $file->move('img_pic');
+					 $li=strtr($info->getSaveName(), " \ ", " / ");
+					 $list[]=[
+						 'pic'=>'/img_pic/'.$li,
+						 'aid'=>$id
+					 ];
+				         
+				}
+				
+				$img= \model('article_img');
+				$img->saveAll($list);
                 return '<script>alert("你好，添加成功了！");parent.location.reload()</script>';
             } else {
                 $this->error('添加失败了');
@@ -207,7 +246,7 @@ class Article extends Conn
             }
             $data['time']=time();
             if (input('desc')=='') {
-                $data['desc']=mb_substr(preg_replace('/\&nbsp;/', '', strip_tags(input('editorValue'))), 0, 80);
+                $data['desc']=mb_substr(preg_replace('/\&nbsp;/', '', strip_tags(input('text'))), 0, 80);
             }
             $file = request()->file('');
             if (isset($file['pic'])) {
@@ -216,7 +255,7 @@ class Article extends Conn
                 $data['pic']='/uploads/'.$li;
             } else {
                 if (isset($data['ti'])) {
-                    preg_match_all("/<[img|IMG].*?src=[\'|\"](.*?(?:[\.gif|\.jpg|\.png]))[\'|\"].*?[\/]?>/", $data["editorValue"], $arr);
+                    preg_match_all("/<[img|IMG].*?src=[\'|\"](.*?(?:[\.gif|\.jpg|\.png]))[\'|\"].*?[\/]?>/", $data["text"], $arr);
                     foreach ($arr[1] as $k=>$v) {
                         if (substr($v, 0, 4)!='http') {
                             $newarr=getimagesize(substr($v, 1));
@@ -252,7 +291,7 @@ class Article extends Conn
             }
             //添加水印
             if ($config['watermark']==1) {
-                preg_match_all("/<[img|IMG].*?src=[\'|\"](.*?(?:[\.gif|\.jpg|\.png]))[\'|\"].*?[\/]?>/", $data["editorValue"], $arr1);
+                preg_match_all("/<[img|IMG].*?src=[\'|\"](.*?(?:[\.gif|\.jpg|\.png]))[\'|\"].*?[\/]?>/", $data["text"], $arr1);
                 foreach ($arr1[1] as $k=>$v) {
                     if (substr($v, 0, 4)!='http') {
                         $image = \think\Image::open(substr($v, 1));
@@ -262,14 +301,33 @@ class Article extends Conn
             }
             $res=model('article')->allowField(true)->save($data, ['id' => input('id')]);
             if ($res) {
+				
+				$list = [];
+				foreach($file['img_pic'] as $file){
+				    // 移动到框架应用根目录/uploads/ 目录下
+					$info = $file->move('img_pic');
+					 $li=strtr($info->getSaveName(), " \ ", " / ");
+					 $list[]=[
+						 'pic'=>'/img_pic/'.$li,
+						 'aid'=>input('id')
+					 ];
+				         
+				}
+				
+				$img= \model('article_img');
+				$img->saveAll($list);
+				
                 return $this->success('修改成功', url('article/index'));
             } else {
                 return $this->error('修改失败了');
             }
         }
         $cid=input('id');
-        $data=db('article')->where('id', $cid)->find();
+        $data=Db::name('article')->where('id', $cid)->find();
         $this->assign('data', $data);
+		$img=Db::name('article_img')->where('aid', $cid)->select();
+		$this->assign('img', $img);
+		$this->assign('type', Db::name('cate')->where('id',$data['cateid'])->value('type'));
         $cate=new Catemodel();
         $datasort=$cate->tree();
         foreach ($datasort as $k=>$v) {
