@@ -142,11 +142,30 @@
 				}
 			});
 			var ue = UE.getEditor('editor');
+			//获取默认栏目值
+			if(!!$('#cate').val()){
+			   $.post(
+				"{:url('article/ajax')}",
+			   {
+				id:$('#cate').val(),
+				type:'cate_article',
+			   },
+			   function(result){
+				if(result==1){
+					$('.tupian').hide();
+					$('.wenzhang').show();
+				}else if(result==3){
+					$('.tupian').show();
+					$('.wenzhang').hide();
+				}
+				  
+			   });	
+			}
+			
 		});
 		
 		$("#cate").change(function () {
 		   if(!!$(this).val()){
-			  
 			   $.post(
 			   	"{:url('article/ajax')}",
 			   {
