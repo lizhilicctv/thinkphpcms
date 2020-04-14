@@ -225,6 +225,8 @@
 		    if($(o).html() == '【+】'){
 		        var newdiv=div.clone();    
 		        newdiv.find('.dtbtn').html('【-】');
+				newdiv.find('input').val('');
+				newdiv.find('.sp1').html('');
 		        div.before(newdiv);
 		    }else{
 				
