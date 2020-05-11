@@ -1,7 +1,7 @@
 <?php
 namespace app\manage\validate;
 use think\Validate;
-class Member extends Validate
+class Comment extends Validate
 {
      protected $rule = [
         'username' =>  'require|unique:member',

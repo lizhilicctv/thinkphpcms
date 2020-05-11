@@ -1,7 +1,10 @@
 <?php
 namespace app\manage\controller;
 use think\Controller;
+
 use app\manage\controller\Auth;
+use think\Db;
+
 class Conn extends Controller
 {
     public function initialize()
@@ -26,9 +29,23 @@ class Conn extends Controller
 			}
 		}
 			
-	    $comment=db('comment')->where('isopen','-1')->count();
+	    $comment=Db::name('comment')->where('isopen','-1')->count();
 		$this->assign('comment', $comment);	
-	    $message=db('message')->where('isopen','0')->count();
-		$this->assign('message', $message);	
+	    $message=Db::name('message')->where('isopen','0')->count();
+		$this->assign('message', $message);
+		//获取导航
+       $pilot_nav=Db::name('pilot_nav')->where('isopen',1)->order('sort asc')->select();
+        $this->assign('pilot_nav', $pilot_nav);
+        //侧边导航
+        foreach ($pilot_nav as $k=>$v){
+            $arr=Db::name('pilot_list')->where('fid',0)->where('pn_id',$v['id'])->where('isopen',1)->order('sort asc')->select();
+            foreach ($arr as $k1=>$v1){
+                $arr[$k1]['zi']=Db::name('pilot_list')->where('fid',$v1['id'])->where('isopen',1)->order('sort asc')->select();
+            }
+            $pilot_list[]=$arr;
+        }
+        $this->assign('pilot_list', $pilot_list);
+
+
     }
 }

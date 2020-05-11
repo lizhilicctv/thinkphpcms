@@ -49,7 +49,10 @@
 							</td>
 							<td>{$vo.keyword}</td>
 							<td>{$vo.mark}</td>
-							<td class="f-14"><a title="编辑" href="javascript:;" onclick="system_category_edit('栏目编辑','{:url(\'cate/edit\',[\'id\'=>$vo.id])}','1','700','480')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="system_category_del(this,{$vo.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+							<td class="f-14">
+								<a title="编辑" href="javascript:;" onclick="system_category_edit('栏目编辑','{:url(\'cate/edit\',[\'id\'=>$vo.id])}','1','700','480')" style="text-decoration:none">
+									<i class="Hui-iconfont">&#xe6df;</i></a>
+								<a title="删除" href="javascript:;" onclick="system_category_del(this,{$vo.id})" class="ml-5" style=" text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 						</tr>
 						{/volist}
 					</tbody>

@@ -2,7 +2,7 @@
 MySQL Database Backup Tools
 Server:127.0.0.1:3306
 Database:thinkphpcms.com
-Data:2020-04-10 16:53:01
+Data:2020-05-11 17:15:57
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -203,12 +203,13 @@ CREATE TABLE `lizhili_cate` (
   `update_time` int(11) DEFAULT NULL,
   `create_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of lizhili_cate
 -- ----------------------------
 
+INSERT INTO `lizhili_cate` (`id`,`catename`,`en_name`,`fid`,`type`,`keyword`,`mark`,`editorValue`,`sort`,`update_time`,`create_time`) VALUES ('1','水电费速度','dd','0','3','','',NULL,'0','1586830588','1586830588');
 
 
 -- ----------------------------
@@ -309,23 +310,23 @@ DROP TABLE IF EXISTS `lizhili_member`;
 CREATE TABLE `lizhili_member` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(60) DEFAULT NULL,
-  `password` varchar(32) DEFAULT 'e10adc3949ba59abbe56e057f20f883e',
+  `password` varchar(32) CHARACTER SET utf8 DEFAULT 'e10adc3949ba59abbe56e057f20f883e',
   `sex` tinyint(4) DEFAULT NULL COMMENT '1代表男，2代表女，3代表未知',
-  `email` varchar(60) DEFAULT NULL,
+  `email` varchar(60) CHARACTER SET utf8 DEFAULT NULL,
   `phone` bigint(11) DEFAULT NULL,
   `isopen` tinyint(4) DEFAULT '0' COMMENT '是否启用',
   `state` tinyint(4) DEFAULT '0' COMMENT '0代表是没有通过审核，1代表通过审核',
   `score` int(11) DEFAULT '0' COMMENT '积分',
-  `headimg` varchar(60) DEFAULT NULL,
-  `sheng` varchar(60) DEFAULT NULL,
-  `shi` varchar(60) DEFAULT NULL,
-  `xian` varchar(60) DEFAULT NULL,
-  `address` varchar(255) DEFAULT NULL,
+  `headimg` varchar(60) CHARACTER SET utf8 DEFAULT NULL,
+  `sheng` varchar(60) CHARACTER SET utf8 DEFAULT NULL,
+  `shi` varchar(60) CHARACTER SET utf8 DEFAULT NULL,
+  `xian` varchar(60) CHARACTER SET utf8 DEFAULT NULL,
+  `address` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `create_time` int(11) DEFAULT NULL,
   `update_time` int(11) DEFAULT NULL,
   `delete_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of lizhili_member
@@ -354,6 +355,81 @@ CREATE TABLE `lizhili_message` (
 -- Records of lizhili_message
 -- ----------------------------
 
+
+
+-- ----------------------------
+-- Table structure for lizhili_pilot_list
+-- ----------------------------
+
+DROP TABLE IF EXISTS `lizhili_pilot_list`;
+CREATE TABLE `lizhili_pilot_list` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sort` smallint(6) DEFAULT '0',
+  `name` varchar(255) DEFAULT NULL,
+  `fid` int(11) DEFAULT '0',
+  `icon` varchar(255) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `isopen` tinyint(1) DEFAULT '1',
+  `pn_id` int(11) DEFAULT '1' COMMENT '头部导航',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COMMENT='后台侧面导航';
+
+-- ----------------------------
+-- Records of lizhili_pilot_list
+-- ----------------------------
+
+INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('1','1','栏目管理','0','&#xe681;',NULL,'1','1');
+INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('2','2','会员管理','0','&#xe60d;',NULL,'1','1');
+INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('3','3','管理员管理','0','&#xe653;',NULL,'1','1');
+INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('4','4','系统管理','0','&#xe62e;',NULL,'1','1');
+INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('5','6','登陆日志','0','&#xe645;','login/log','1','1');
+INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('6','7','数据库管理','0','&#xe639;','sql/index','1','1');
+INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('8','9','资讯管理','0','&#xe616;',NULL,'1','2');
+INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('9','10','友情链接','0','&#xe6f1;',NULL,'1','2');
+INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('10','11','图片管理','0','&#xe613;',NULL,'1','2');
+INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('11','12','评论管理','0','&#xe622;',NULL,'1','2');
+INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('12','13','留言管理','0','&#xe68a;',NULL,'1','2');
+INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('13','0','栏目管理','1',NULL,'cate/index','1','1');
+INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('14','0','会员列表','2',NULL,'Member/index','1','1');
+INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('15','0','删除的会员','2',NULL,'Member/shan','1','1');
+INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('16','0','角色管理','3',NULL,'AuthGroup/index','1','1');
+INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('17','0','权限管理','3',NULL,'AuthRule/index','1','1');
+INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('18','0','管理员列表','3',NULL,'admin/index','1','1');
+INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('19','0','设置管理','4',NULL,'system/index','1','1');
+INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('20','0','系统设置','4',NULL,'system/show','1','1');
+INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('21','0','常用配置','4',NULL,'system/config','1','1');
+INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('22','0','屏蔽词','4',NULL,'system/shield','1','1');
+INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('23','0','顶部导航','31',NULL,'pilot/nav','1','1');
+INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('24','8','清除缓存','0','&#xe60b;','admin/cahe','1','1');
+INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('25','0','资讯管理','8',NULL,'article/index','1','2');
+INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('26','0','链接管理','9',NULL,'link/index','1','2');
+INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('27','0','幻灯片管理','10',NULL,'slide/index','1','2');
+INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('28','0','广告管理','10',NULL,'advertisement/index','1','2');
+INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('29','0','评论列表','11',NULL,'comment/index','1','2');
+INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('30','0','留言列表','12',NULL,'message/index','1','2');
+INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('31','5','导航设置','0','&#xe6b6;',NULL,'1','1');
+INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('32','0','侧面导航','31',NULL,'pilot/lit','1','1');
+
+
+-- ----------------------------
+-- Table structure for lizhili_pilot_nav
+-- ----------------------------
+
+DROP TABLE IF EXISTS `lizhili_pilot_nav`;
+CREATE TABLE `lizhili_pilot_nav` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sort` smallint(6) DEFAULT '0',
+  `name` varchar(255) DEFAULT NULL,
+  `isopen` tinyint(1) DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='后台头部导航';
+
+-- ----------------------------
+-- Records of lizhili_pilot_nav
+-- ----------------------------
+
+INSERT INTO `lizhili_pilot_nav` (`id`,`sort`,`name`,`isopen`) VALUES ('1','0','网站配置','1');
+INSERT INTO `lizhili_pilot_nav` (`id`,`sort`,`name`,`isopen`) VALUES ('2','0','内容管理','1');
 
 
 -- ----------------------------
@@ -410,7 +486,7 @@ CREATE TABLE `lizhili_sql` (
   `time` int(11) DEFAULT NULL,
   `url` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of lizhili_sql

@@ -8,15 +8,14 @@
 			<nav class="nav navbar-nav">
 				<ul class="cl">
 					<li class="dropDown dropDown_hover">
-					<li class="navbar-levelone current" style="margin-left: 50px;">
-						<a href="javascript:;">网站配置</a>
-					</li>
-					<li class="navbar-levelone">
-						<a href="javascript:;">内容管理</a>
-					</li>
-					<li>
-						<a href="/" target="_blank">网站首页</a>
-					</li>
+						{volist name="pilot_nav" id="vo"}
+							<li class="navbar-levelone current" {if $i==1}style="margin-left: 50px;"{/if}>
+								<a href="javascript:;">{$vo.name}</a>
+							</li>
+						{/volist}
+						<li>
+							<a href="/" target="_blank">网站首页</a>
+						</li>
 					</li>
 				</ul>
 			</nav>
