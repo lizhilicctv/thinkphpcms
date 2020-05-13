@@ -37,9 +37,6 @@ class Pilot extends Conn
 	{
 		if(request()->isPost()){
 			$data=input('post.');
-			if(!$data['icon']){
-				$this->error('请选择图标！');
-			}
 			if (!isset($data['isopen'])) {
 			    $data['isopen']=0;
 			} else {
@@ -64,9 +61,6 @@ class Pilot extends Conn
 	    $pilot_list=model('pilot_list');
 	    if(request()->isPost()){
 	        $data=input('post.');
-	        if(!$data['icon']){
-	        	$this->error('请选择图标！');
-	        }
 	        if (!isset($data['isopen'])) {
 	            $data['isopen']=0;
 	        } else {
