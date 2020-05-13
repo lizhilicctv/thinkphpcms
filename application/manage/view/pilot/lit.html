@@ -122,10 +122,10 @@
 					idarr.push(x[i].name);
 				}
 				$.post(
-					"{:url('pilotl/ajax')}", {
+					"{:url('pilot/ajax')}", {
 						'sort': sortarr,
 						'id': idarr,
-						type: 'pilot_sort',
+						type: 'pilotl_sort',
 					},
 					function(result) {
 						console.log(result);
