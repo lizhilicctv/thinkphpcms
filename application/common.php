@@ -41,3 +41,9 @@ function boot($data,$time=3000){
 	$html.='</div></div>';
 	return $html;
 }
+function cate($id=0,$num=3,$offset=0,$field='*',$where=true,$debug=false){
+	if($id==0){
+		return 'id必须填写！';
+	}
+	return model('cate')->cate($id,$num,$offset,$field,$where,$debug);
+}
