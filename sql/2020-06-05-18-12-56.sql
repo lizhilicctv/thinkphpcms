@@ -2,10 +2,33 @@
 MySQL Database Backup Tools
 Server:127.0.0.1:3306
 Database:thinkphpcms.com
-Data:2020-05-11 17:15:57
+Data:2020-06-05 18:12:56
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for lizhili_ad_img
+-- ----------------------------
+
+DROP TABLE IF EXISTS `lizhili_ad_img`;
+CREATE TABLE `lizhili_ad_img` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `create_time` int(11) DEFAULT NULL,
+  `update_time` int(11) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `img` varchar(255) DEFAULT NULL,
+  `isopen` varchar(255) DEFAULT NULL,
+  `ad_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of lizhili_ad_img
+-- ----------------------------
+
+
 
 -- ----------------------------
 -- Table structure for lizhili_admin
@@ -39,9 +62,6 @@ INSERT INTO `lizhili_admin` (`id`,`username`,`password`,`create_time`,`update_ti
 DROP TABLE IF EXISTS `lizhili_advertisement`;
 CREATE TABLE `lizhili_advertisement` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `img` varchar(255) DEFAULT NULL,
-  `url` varchar(255) DEFAULT NULL,
-  `title` varchar(255) DEFAULT NULL,
   `isopen` tinyint(1) DEFAULT '0' COMMENT '1代表启用，0代表不启用',
   `desc` varchar(255) DEFAULT NULL,
   `create_time` int(11) DEFAULT NULL,
@@ -75,6 +95,8 @@ CREATE TABLE `lizhili_article` (
   `time` int(10) DEFAULT NULL,
   `cateid` mediumint(9) DEFAULT NULL,
   `faid` int(11) DEFAULT '0' COMMENT '发布者id',
+  `laiyuan` varchar(255) DEFAULT NULL,
+  `click_wai` mediumint(9) DEFAULT '0' COMMENT '展示数据',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -202,14 +224,33 @@ CREATE TABLE `lizhili_cate` (
   `sort` int(11) unsigned NOT NULL DEFAULT '0',
   `update_time` int(11) DEFAULT NULL,
   `create_time` int(11) DEFAULT NULL,
+  `isopen` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of lizhili_cate
 -- ----------------------------
 
-INSERT INTO `lizhili_cate` (`id`,`catename`,`en_name`,`fid`,`type`,`keyword`,`mark`,`editorValue`,`sort`,`update_time`,`create_time`) VALUES ('1','水电费速度','dd','0','3','','',NULL,'0','1586830588','1586830588');
+
+
+-- ----------------------------
+-- Table structure for lizhili_cms
+-- ----------------------------
+
+DROP TABLE IF EXISTS `lizhili_cms`;
+CREATE TABLE `lizhili_cms` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `text` text,
+  `iswo` tinyint(1) DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of lizhili_cms
+-- ----------------------------
+
+INSERT INTO `lizhili_cms` (`id`,`text`,`iswo`) VALUES ('1','<p style="overflow-wrap: break-word; margin-top: 0px; margin-bottom: 10px; padding: 0px; color: rgb(51, 51, 51); font-family: &quot;Microsoft Yahei&quot;, &quot;Hiragino Sans GB&quot;, &quot;Helvetica Neue&quot;, Helvetica, tahoma, arial, &quot;WenQuanYi Micro Hei&quot;, Verdana, sans-serif, 宋体; font-size: 14px; white-space: normal; text-indent: 20px;">感谢您一年来对我们的支持和包容。为了更好的服务大家，在2018年6月份，我们全新发布了后台管理系统版本。我们的发布离不开广大用户给出的建议和意见。我们整合了更多优秀插件；优化了框架的体积。当然相比目前行业其他管理系统还有很多不足。但初心不改，实实在在把事做好，做用户最喜欢的框架。更好为客户服务。</p><p style="overflow-wrap: break-word; margin-top: 0px; margin-bottom: 10px; padding: 0px; color: rgb(51, 51, 51); font-family: &quot;Microsoft Yahei&quot;, &quot;Hiragino Sans GB&quot;, &quot;Helvetica Neue&quot;, Helvetica, tahoma, arial, &quot;WenQuanYi Micro Hei&quot;, Verdana, sans-serif, 宋体; font-size: 14px; white-space: normal; text-indent: 20px;">我们在2018年版本上面，先进行了，大量的技术更新，包括了秒杀，团购，即时通讯，购物，等等功能的扩展。然后在2019年的9月和11月份，我们又进行了重构，大量的精简了原始代码，把原始的一些插件进行了替换，删除没有必要的程序增加水印缩略图等功能，速度是2018年第一版的3倍以上。从最早网站开发，到现在我们已经经历过了6个年头，我们经历过的项目数百个，每一次修改后台我们都抱着不忘初心的态度，努力的写好每一句代码，希望我们的努力，可以得到您的认可。你们的肯定就是对我们最大支持！</p><p style="overflow-wrap: break-word; margin-top: 0px; margin-bottom: 10px; padding: 0px; color: rgb(51, 51, 51); font-family: &quot;Microsoft Yahei&quot;, &quot;Hiragino Sans GB&quot;, &quot;Helvetica Neue&quot;, Helvetica, tahoma, arial, &quot;WenQuanYi Micro Hei&quot;, Verdana, sans-serif, 宋体; font-size: 14px; white-space: normal; text-indent: 20px;">2020年，添加了广告和水印的判断，修复了bug。添加了数据备份还原功能。添加了关闭网站后的302重定向。5月份添加了后台动态修改菜单功能。6月修改了sql逻辑，添加了广告分类等等。</p><p><br/></p>','1');
 
 
 -- ----------------------------
@@ -294,12 +335,13 @@ CREATE TABLE `lizhili_log` (
   `ip` char(15) DEFAULT NULL,
   `create_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of lizhili_log
 -- ----------------------------
 
+INSERT INTO `lizhili_log` (`id`,`username`,`ip`,`create_time`) VALUES ('1','admin','127.0.0.1','1591351949');
 
 
 -- ----------------------------
@@ -372,7 +414,7 @@ CREATE TABLE `lizhili_pilot_list` (
   `isopen` tinyint(1) DEFAULT '1',
   `pn_id` int(11) DEFAULT '1' COMMENT '头部导航',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COMMENT='后台侧面导航';
+) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COMMENT='后台侧面导航';
 
 -- ----------------------------
 -- Records of lizhili_pilot_list
@@ -409,6 +451,7 @@ INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`
 INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('30','0','留言列表','12',NULL,'message/index','1','2');
 INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('31','5','导航设置','0','&#xe6b6;',NULL,'1','1');
 INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('32','0','侧面导航','31',NULL,'pilot/lit','1','1');
+INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('33','0','说明管理','31','','pilot/cms','1','1');
 
 
 -- ----------------------------
@@ -472,24 +515,6 @@ CREATE TABLE `lizhili_slide` (
 
 -- ----------------------------
 -- Records of lizhili_slide
--- ----------------------------
-
-
-
--- ----------------------------
--- Table structure for lizhili_sql
--- ----------------------------
-
-DROP TABLE IF EXISTS `lizhili_sql`;
-CREATE TABLE `lizhili_sql` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `time` int(11) DEFAULT NULL,
-  `url` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of lizhili_sql
 -- ----------------------------
 
 

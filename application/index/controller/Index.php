@@ -16,7 +16,17 @@ class Index extends Base
     }
     public function index()
     {
+		//这里请使用缓存
 		return $this->fetch();
     }
-   
+	public function cate()
+	{
+		//这里请使用缓存
+		return $this->fetch();
+	}
+	public function show()
+	{
+		//这里请使用缓存
+		return $this->fetch();
+	}
 }

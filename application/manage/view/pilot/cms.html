@@ -6,33 +6,29 @@
 <body>
 	<div class="page-container">
 		<form action="" method="post" class="form form-horizontal" id="form-category-add" enctype="multipart/form-data">
-			
 			<div id="tab-category" class="HuiTab">
 				<div class="tabCon">
+					
 					<div class="row cl">
-						<label class="form-label col-xs-3 col-sm-2"><span class="c-red">*</span> 英文关键字：</label>
+						<label class="form-label col-xs-3 col-sm-2">是否开启联系客服：</label>
 						<div class="formControls col-xs-9 col-sm-9">
-							<input type="text" class="input-text" value="" placeholder="请输入广告关键字(英文)" name="key">
+							<div class="switch" data-on-label="开" data-off-label="关">
+								{if condition="$data.iswo == 1"}
+								<input type="checkbox" checked="checked" name="iswo" />
+								{else /}
+								<input type="checkbox" name="iswo" />
+								{/if}
+							</div>
 						</div>
 					</div>
 					
 					<div class="row cl">
-						<label class="form-label col-xs-3 col-sm-2">是否启用：</label>
+						<label class="form-label col-xs-3 col-sm-2"><span class="c-red">*</span>使用说明：</label>
 						<div class="formControls col-xs-9 col-sm-9">
-							<div class="switch" data-on-label="开" data-off-label="关">
-								<input type="checkbox" checked="checked" name="isopen" />
-							</div>
+							<script id="editor" name='text' type="text/plain" style="width:100%;height:600px;">{$data.text|raw}</script>
 						</div>
 					</div>
-					<div class="row cl">
-						<label class="form-label col-xs-3 col-sm-2">广告说明：</label>
-						<div class="formControls col-xs-9 col-sm-9">
-							<textarea name="desc" cols="" rows="" id="desc" class="textarea" placeholder="说点什么...最少输入10个字符" datatype="*10-100"
-							 dragonfly="true" nullmsg="备注不能为空！" onKeyUp="textlength()"></textarea>
-							<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
-						</div>
-					</div>
-
+					
 					<div class="row cl">
 						<div class="col-9 col-offset-2">
 							<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
@@ -44,20 +40,15 @@
 	</div>
 	<!--_footer 作为公共模版分离出去-->
 	{include file="common/_footer" /}
-	<style type="text/css">
-		.li123 {
-			line-height: 30px;
-			background: burlywood;
-			display: inline-block;
-			vertical-align: middle;
-			padding: 0 8px;
-		}
-	</style>
+	
 	<!--请在下方写此页面业务相关的脚本-->
 	<script type="text/javascript" src="__MANAGE__lib/My97DatePicker/4.8/WdatePicker.js"></script>
 	<script type="text/javascript" src="__MANAGE__lib/jquery.validation/1.14.0/jquery.validate.js"></script>
 	<script type="text/javascript" src="__MANAGE__lib/jquery.validation/1.14.0/validate-methods.js"></script>
 	<script type="text/javascript" src="__MANAGE__lib/jquery.validation/1.14.0/messages_zh.js"></script>
+	<script type="text/javascript" src="__MANAGE__lib/ueditor/ueditor.config.js"></script>
+	<script type="text/javascript" src="__MANAGE__lib/ueditor/ueditor.all.min.js"> </script>
+	<script type="text/javascript" src="__MANAGE__lib/ueditor/lang/zh-cn/zh-cn.js"></script>
 	<script type="text/javascript">
 		$(function() {
 			$('.skin-minimal input').iCheck({
@@ -71,42 +62,22 @@
 			});
 			$("#form-category-add").validate({
 				rules: {
-					key: {
-						required: true,
-					},
-					img: {
-						required: true,
-					},
-					url: {
-						url: true,
-					},
+					
+					
 				}
 			});
-
+var ue = UE.getEditor('editor');
 		});
-
-
-
-		function removeIframe() {
-			history.go(-1);
-			return false;
+		function system_category_add(title, url, w, h) {
+			window.index = layer.open({
+				type: 2,
+				title: title,
+				content: url,
+				area: [w+'px', h+'px'],
+			});
+			
 		}
-
-		function textlength() {
-			var nmb = $('#desc').val().length;
-			$('.textarea-length').text(nmb);
-			if (nmb > 200) {
-				$('#desc').css("background-color", "orangered");
-			} else {
-				$('#desc').css("background-color", "white");
-			}
-		}
-
-		function onpic() {
-			var file = document.getElementById("pic").files[0];
-			document.getElementById("sp").innerHTML = '您已经选择图片：' + file['name'];
-			document.getElementById("sp").className = 'li123';
-		}
+		
 	</script>
 	<!--/请在上方写此页面业务相关的脚本-->
 </body>

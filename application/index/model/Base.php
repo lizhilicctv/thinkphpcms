@@ -11,6 +11,10 @@ class Base extends Model
         return $this->column('value','enname');
     }
 	public function ad(){
-        return Db::name('advertisement')->where('isopen',1)->column('*','key');
+		$data=Db::name('advertisement')->where('isopen',1)->column('id','key');
+		foreach($data as $k=>$v){
+			$data[$k]=Db::name('ad_img')->field('title,url,img')->where('isopen',1)->where('ad_id',$v)->select();
+		}
+        return $data;
 	}
 }

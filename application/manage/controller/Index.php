@@ -71,11 +71,11 @@ class Index extends Conn
 			],
         ]);
 		
-		$log=db('log')->order('id desc')->find();
+		$log=Db::name('log')->order('id desc')->find();
 		$this->assign('log', $log);
-		$count1=db('log')->count();
+		$count1=Db::name('log')->count();
 		$this->assign('count1', $count1);
-		
+		$this->assign('cms', Db::name('cms')->find(1));
        return $this->fetch();
 	   
     }

@@ -8,14 +8,23 @@ class Sql extends Controller
 {
     public function index()
     {
-        $data = Db::name('sql')->order('id', 'desc')->select();
-        $this->assign('data', $data);
+		$dir=env('root_path').'sql';
+		$wo=scandir($dir);
+		$data=[];
+		foreach($wo as $k=>$v){
+			if(\is_file($dir.'/'.$v)){
+				$data[]=[
+					'dir'=>strtr($dir.'/'.$v, " \ ", " / "),
+					'name'=>$v,
+					'time'=>filemtime($dir.'/'.$v)
+				];
+			}
+		}
 
-        $count1 = db('sql')->count();
-        $this->assign('count1', $count1);
+		$this->assign('data',array_reverse($data));
         return $this->fetch();
     }
-
+ 
     public function ajax()
     {
         $data = input('param.');
@@ -33,20 +42,11 @@ class Sql extends Controller
             ]);
             $res = $sql->backup();
             if ($res['code'] == 1) {
-                //插入数据库
-                $wo = Db::name('sql')->insert(['time' => time(), 'url' => $url]);
-                if ($wo) {
-                    return json([
-                        'code' => 1,
-                        'time' => $res['time'],
-                        'msg' => '备份成功！'
-                    ]);
-                } else {
-                    return json([
-                        'code' => 0,
-                        'msg' => '备份失败！'
-                    ]);
-                }
+				return json([
+					'code' => 1,
+					'time' => $res['time'],
+					'msg' => '备份成功！'
+				]);
             } else {
                 return json([
                     'code' => 0,
@@ -57,7 +57,6 @@ class Sql extends Controller
 
         if ($data['type'] == 'sql_huanyuan') {
             $database = config("database.");
-            $url = '../sql/' . date("Y-m-d-H-i-s") . '.sql';
             $sql = new \sql\DatabaseTool([
                 'host' => $database['hostname'],
                 'port' => 3306,
@@ -65,47 +64,28 @@ class Sql extends Controller
                 'password' => $database["password"],
                 'database' => $database["database"],
                 'charset' => 'utf8',
-                'target' => $url
             ]);
-
-            return $sql->restore($shu);
+            return $sql->restore($data['name']);
             die;
         }
 
 
         if ($data['type'] == 'sql_del') {
-            $url = Db::name('sql')->where('id', $data['id'])->value('url');
-            @unlink($url);
-            if (db('sql')->delete($data['id'])) {
-                return json([
-                    'code' => 1,
-                    'msg' => '删除成功！'
-                ]);
-            } else {
-                return json([
-                    'code' => 0,
-                    'msg' => '删除失败！'
-                ]);
-            }
+            @unlink($data['name']);
+			return json([
+				'code' => 1,
+				'msg' => '删除成功！'
+			]);
+            
         }
         if ($data['type'] == 'sql_all') {
-            $url = Db::name('sql')->where('id', 'in', $data['id'])->column('url');
-
-            foreach ($url as $k => $v) {
+            foreach ($data['name'] as $k => $v) {
                 @unlink($v);
             }
-
-            if (db('sql')->delete($data['id'])) {
-                return json([
-                    'code' => 1,
-                    'msg' => '删除成功！'
-                ]);
-            } else {
-                return json([
-                    'code' => 0,
-                    'msg' => '删除失败！'
-                ]);
-            }
+			return json([
+				'code' => 1,
+				'msg' => '删除成功！'
+			]);
         }
         return 0;
     }

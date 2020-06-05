@@ -59,13 +59,27 @@ class Cate extends Conn
 					@unlink(substr($v1,1));
 				}
 				
-				if(db('cate')->delete($data['id'])){
+				if(Db::name('cate')->delete($data['id'])){
 					return 1;//修改成功返回1
 				}else{
 					return 0;
 				}
 			}
 			
+		}
+		if($data['type']=='cate_start'){
+			if(Db::name('cate')->where('id',$data['id'])->setField('isopen',1)){
+				return 1;//修改成功返回1
+			}else{
+				return 0;
+			}
+		}
+		if($data['type']=='cate_stop'){
+			if(Db::name('cate')->where('id',$data['id'])->setField('isopen',0)){
+				return 1;//修改成功返回1
+			}else{
+				return 0;
+			}
 		}
 		return 0;
     }

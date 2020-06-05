@@ -37,7 +37,9 @@
     <div class="panel panel-danger">
         <div class="panel-header">注意</div>
         <div class="panel-body"> 1，数据备份，一般用于测试和少量备份。不能代替运维，建议同时使用，服务器管理软件或者其他方式多重备份！
-            2，需要设置目录 sql ，所有权限。</div>
+            2，需要设置目录 sql ，所有权限。
+			3，需要服务器开启 fileinfo 功能。
+		</div>
     </div>
 
     <div class="text-c">
@@ -49,14 +51,13 @@
                         class="Hui-iconfont">&#xe600;</i> 添加数据备份</a>
 				<a href="javascript:;" onclick="data_del()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
 			</span>
-        <span class="r">共有数据：<strong>{$count1}</strong> 条</span>
+        <span class="r">共有数据：<strong>{$data|count}</strong> 条</span>
     </div>
 
     <table class="table table-border table-bordered table-bg table-hover table-sort">
         <thead>
         <tr class="text-c">
             <th width="25"><input type="checkbox" name="" value=""></th>
-            <th width="80">ID</th>
             <th width="120">备份时间</th>
             <th width="120">距离现在时间</th>
             <th width="70">还原</th>
@@ -66,15 +67,14 @@
         <tbody>
         {volist name="data" id="vo"}
         <tr class="text-c">
-            <td><input type="checkbox" class="all" value="{$vo.id}" name=""></td>
-            <td>{$vo.id}</td>
+            <td><input type="checkbox" class="all" value="{$vo.dir}" name=""></td>
             <td>{$vo.time|date="Y-m-d H:i:s"}</td>
             <td>{$vo.time|tonow}</td>
             <td>
-                <button type="button" onclick="huanyuan(this,{$vo.id})" class="btn btn-success radius">还原</button>
+                <button type="button" onclick="huanyuan(this,'{$vo.dir}')" class="btn btn-success radius">还原</button>
             </td>
             <td>
-                <button type="button" onclick="article_del(this,{$vo.id})" class="btn radius btn-warning">删除</button>
+                <button type="button" onclick="article_del(this,'{$vo.dir}')" class="btn radius btn-warning">删除</button>
             </td>
         </tr>
         {/volist}
@@ -121,7 +121,7 @@
             $('#lod').show();
             $.post(
                 "{:url('sql/ajax')}", {
-                    id: id,
+                    name: id,
                     type: 'sql_del',
                 },
                 function (result) {
@@ -148,7 +148,7 @@
             $('#lod').show();
             $.post(
                 "{:url('sql/ajax')}", {
-                    id: id,
+                    name: id,
                     type: 'sql_huanyuan',
                 },
                 function (result) {
@@ -182,7 +182,7 @@
                 $('#lod').show();
                 $.post(
                     "{:url('sql/ajax')}", {
-                        id: arr,
+                        name: arr,
                         type: 'sql_all',
                     },
                     function (result) {

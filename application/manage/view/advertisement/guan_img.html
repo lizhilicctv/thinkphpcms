@@ -4,43 +4,29 @@
 <meta name="description" content="李志立，lizhilimaster@163.com">
 </head>
 <body>
-	<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 广告管理 <a class="btn btn-success radius r"
+	<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 广告图片管理 <a class="btn btn-success radius r"
 		 style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 	<div class="pd-20 text-c">
-		<div class="text-c">
-			<form action="" method="get">
-				<input type="text" name="key" value="{$key}" placeholder="关键字" style="width:250px" class="input-text">
-				<button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
-			</form>
-		</div>
-		<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"> <a class="btn btn-primary radius" onclick="system_category_add('添加广告','{:url('advertisement/add')}',1000,600)"
-				 href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加广告</a></span> <span class="r">共有数据：<strong>{$count1}</strong>
+		
+		<div class="cl pd-5 bg-1 bk-gray "> <span class="l"> <a class="btn btn-primary radius" onclick="system_category_add('添加广告','{:url('advertisement/add_img',['id'=>$ad_id])}',1000,600)" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加广告图片</a></span> <span class="r">共有数据：<strong>{$count1}</strong>
 				条</span> </div>
 		<div class="mt-20">
 			<table class="table table-border table-bordered table-hover table-bg table-sort">
 				<thead>
 					<tr class="text-c">
-						<th width="10">ID</th>
-						<th width="30">关键字</th>
-						<th width="10">添加图片</th>
-						<th width="10">管理图片</th>
-						<th width="20">状态</th>
-						<th width="30">说明</th>
+						<th width="30">图片</th>
+						<th width="20">链接地址</th>
+						<th width="20">图片标题</th>
+						<th width="10">状态</th>
 						<th width="10">操作</th>
 					</tr>
 				</thead>
 				<tbody>
-					{volist name='advertisement' id='user'}
+					{volist name='data' id='user'}
 					<tr class="text-c">
-						<td>{$user.id}</td>
-						<td>{$user.key}</td>
-						
-						<td>
-							<button onclick="system_category_add('添加图片','{:url(\'advertisement/add_img\',[\'id\'=>$user.id])}',1000,600)" type="button" class="btn btn-primary radius size-S">添加图片</button>
-						</td>
-						<td class="f-14">
-							<button onclick="system_category_add('管理图片','{:url(\'advertisement/guan_img\',[\'id\'=>$user.id])}',1000,800)" type="button" class="btn btn-secondary radius size-S">管理图片</button>
-						</td>
+						<td><img src="{$user.img}" style="height: 80px; max-width: 500px;" /></td>
+						<td><a href="{$user.url}" target="_blank">{$user.url ? $user.url : '尚未填写'}</a></td>
+						<td>{$user.title|default='尚未填写'}</td>
 						<td>
 							{if condition="$user.isopen == 1 "}
 							<span class="label label-success radius">已启用</span>
@@ -48,10 +34,7 @@
 							<span class="label label-default radius">已禁用</span>
 							{/if}
 						</td>
-						<td class="f-14">
-							{$user.desc}
-						</td>
-						<td class="f-14"><a title="编辑" href="javascript:;" onclick="system_category_edit('广告编辑','{:url(\'advertisement/edit\',[\'id\'=>$user.id])}',1000,600)"
+						<td class="f-14"><a title="编辑" href="javascript:;" onclick="system_category_edit('广告编辑','{:url(\'advertisement/img_edit\',[\'id\'=>$user.id])}',1000,600)"
 							 style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="system_category_del(this,{$user.id})"
 							 class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 					</tr>
@@ -60,7 +43,7 @@
 			</table>
 
 		</div>
-		{$advertisement|raw}
+		{$data|raw}
 	</div>
 	<!--_footer 作为公共模版分离出去-->
 	{include file="common/_footer" /}
@@ -84,7 +67,7 @@
 				$.post(
 					"{:url('advertisement/ajax')}", {
 						id: id,
-						type: 'advertisement_del',
+						type: 'advertisement_del_img',
 					},
 					function(result) {
 						if (result === 0) {

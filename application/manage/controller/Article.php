@@ -31,7 +31,7 @@ class Article extends Conn
             $info=Db::name('article')
             ->alias('a')
             ->join('cate c', 'a.cateid = c.id', 'LEFT')
-            ->field('a.id,a.title,a.author,a.desc,a.pic,a.click,a.state,a.time,c.catename,a.cateid')
+            ->field('a.*,c.catename')
 			->where($map)->where('a.title', 'like', '%'.$data['key'].'%')
             ->order('a.id desc')
             ->paginate(10,false,['query'=>request()->param()]);
@@ -71,6 +71,10 @@ class Article extends Conn
             foreach ($imgarr as $k1=>$v1) {
                 @unlink(substr($v1, 1));
             }
+			
+			
+			
+			
             if (Db::name('article')->delete($data['id'])) {
                 return 1;//修改成功返回1
             } else {

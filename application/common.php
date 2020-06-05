@@ -28,3 +28,16 @@ function tonow($data){
 function jiequ($data,$num=50){
 	return mb_substr($data, 0, $num);
 }
+
+function boot($data,$time=3000){
+	$html='<div class="carousel slide lizhili_ad" data-ride="carousel" data-interval="'.$time.'"> 	<div class="carousel-inner">';
+	foreach($data as $k=>$v){
+		$html.='<div class="item ';
+		if($k==0){
+			$html.='active';
+		}
+		$html.='">		<a href="'.$v['url'].'" target="_blank"><img src="'.$v['img'].'" /></a>		</div>';
+	}
+	$html.='</div></div>';
+	return $html;
+}

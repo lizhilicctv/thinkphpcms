@@ -1,3 +1,4 @@
+<?php /*a:1:{s:71:"D:\phpstudy_pro\WWW\thinkphpcms\application\index\view\index\index.html";i:1591351640;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>

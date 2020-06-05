@@ -47,10 +47,12 @@
 							<th width="40">ID</th>
 							<th width="120">标题</th>
 							<th width="60">分类</th>
+							<th width="40">来源</th>
 							<th width="40">作者</th>
 							<th width="80">缩率图</th>
 							<th width="280">简介</th>
 							<th width="120">发布时间</th>
+							<th width="50">展示数据</th>
 							<th width="50">浏览次数</th>
 							<th width="50">推荐状态</th>
 							<th width="70">操作</th>
@@ -61,10 +63,11 @@
 						<tr class="text-c">
 							<td><input type="checkbox" class="all" value="{$vo.id}" name=""></td>
 							<td>{$vo.id}</td>
-							<td class="text-l"><a href="">{$vo.title}</a></td>
+							<td class="text-l"><a href="/index/detail/id/{$vo.id}.html" target="_blank">{$vo.title}</a></td>
 							<td>
 								{$vo.catename}
 							</td>
+							<td>{$vo.laiyuan|default="没有填写"}</td>
 							<td>{$vo.author|default="佚名"}</td>
 							<td>
 								{if condition="$vo.pic == '' "}
@@ -75,6 +78,7 @@
 							</td>
 							<td>{$vo.desc}</td>
 							<td>{$vo.time|date='Y-m-d H:i:s'}</td>
+							<td>{$vo.click_wai}</td>
 							<td>{$vo.click}</td>
 							<td class="td-status">
 								{if condition="$vo.state == 0"}

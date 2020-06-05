@@ -62,9 +62,8 @@
 		<table class="table table-border table-bordered table-bg mt-20">
 			<div id="bang">
 				<h2>使用说明</h2>
-				<p style="text-indent: 20px;">感谢您一年来对我们的支持和包容。为了更好的服务大家，在2018年6月份，我们全新发布了后台管理系统版本。我们的发布离不开广大用户给出的建议和意见。我们整合了更多优秀插件；优化了框架的体积。当然相比目前行业其他管理系统还有很多不足。但初心不改，实实在在把事做好，做用户最喜欢的框架。更好为客户服务。</p>
-				<p style="text-indent: 20px;">我们在2018年版本上面，先进行了，大量的技术更新，包括了秒杀，团购，即时通讯，购物，等等功能的扩展。然后在2019年的9月和11月份，我们又进行了重构，大量的精简了原始代码，把原始的一些插件进行了替换，删除没有必要的程序增加水印缩略图等功能，速度是2018年第一版的3倍以上。从最早网站开发，到现在我们已经经历过了6个年头，我们经历过的项目数百个，每一次修改后台我们都抱着不忘初心的态度，努力的写好每一句代码，希望我们的努力，可以得到您的认可。你们的肯定就是对我们最大支持！</p>
-				<p style="text-indent: 20px;">2020年，添加了广告和水印的判断，修复了bug。添加了数据备份还原功能。添加了关闭网站后的302重定向。。5月份添加了后台动态修改菜单功能。</p>
+				{$cms.text|raw}
+				{if $cms.iswo==1}
 				<p class="red">注：扫描二维码，可以添加解决疑问专家的QQ/微信，添加好友时请您写明疑问，以便解决您的问题</p>
 				<div class="fen">
 					<span>疑问QQ群：99078439</span>
@@ -76,6 +75,7 @@
 				</div>
 				<div class="frame-img"> <img src="/static/manage/qqimg.jpg" width="130"><img src="/static/manage/weixinimg.jpg"
 					 width="130"><img src="/static/manage/qqqun.jpg" width="130"></div>
+				{/if}
 			</div>
 
 		</table>
@@ -84,7 +84,7 @@
 		<div class="container">
 			<p>感谢hui0、jQuery、layer、laypage、Validform、UEditor、My97DatePicker、iconfont、Datatables、WebUploaded、icheck、highcharts、bootstrap-Switch提供技术支持<br>
 				Copyright &copy;2015-2019 河北标天计算机 All Rights Reserved.<br>
-				本后台系统由<a href="http://www.biaotian.net/" target="_blank" title="河北标天计算机">李志立</a>提供技术支持</p>
+				本后台系统由<a href="http://www.biaotian.net/" target="_blank" title="河北标天计算机">河北标天计算机</a>提供技术支持</p>
 		</div>
 	</footer>
 	{include file="common/_footer" /}

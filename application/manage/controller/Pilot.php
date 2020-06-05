@@ -19,6 +19,27 @@ class Pilot extends Conn
 		$this->assign('count1', $count1);
        	return $this->fetch();
     }
+	
+	public function cms()
+	{
+		if(request()->isPost()){
+			$data=\input('post.');
+			if (!isset($data['iswo'])) {
+			    $data['iswo']=0;
+			} else {
+			    $data['iswo']=1;
+			}
+			$cms=\model('cms');
+			if($cms->save($data,['id' => 1])){
+			    $this->success('添加成功');
+			}else{
+			    $this->error('添加失败了');
+			}
+		}
+		$this->assign('data',Db::name('cms')->find(1));
+	   	return $this->fetch();
+	}
+	
     public function lit()
     {
         $pilot_list=model('pilot_list');

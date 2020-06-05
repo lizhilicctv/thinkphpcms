@@ -1,3 +1,4 @@
+<?php /*a:1:{s:72:"D:\phpstudy_pro\WWW\thinkphpcms\application\manage\view\login\login.html";i:1591351820;}*/ ?>
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -7,15 +8,15 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 		<meta http-equiv="Cache-Control" content="no-siteapp" />
 		<!--[if lt IE 9]>
-<script type="text/javascript" src="__MANAGE__lib/html5shiv.js"></script>
-<script type="text/javascript" src="__MANAGE__lib/respond.min.js"></script>
+<script type="text/javascript" src="/static/manage/lib/html5shiv.js"></script>
+<script type="text/javascript" src="/static/manage/lib/respond.min.js"></script>
 <![endif]-->
-		<link href="__MANAGE__static/h-ui/css/H-ui.min.css" rel="stylesheet" type="text/css" />
-		<link href="__MANAGE__static/h-ui.admin/css/H-ui.login.css" rel="stylesheet" type="text/css" />
-		<link href="__MANAGE__static/h-ui.admin/css/style.css" rel="stylesheet" type="text/css" />
-		<link href="__MANAGE__lib/Hui-iconfont/1.0.8/iconfont.css" rel="stylesheet" type="text/css" />
+		<link href="/static/manage/static/h-ui/css/H-ui.min.css" rel="stylesheet" type="text/css" />
+		<link href="/static/manage/static/h-ui.admin/css/H-ui.login.css" rel="stylesheet" type="text/css" />
+		<link href="/static/manage/static/h-ui.admin/css/style.css" rel="stylesheet" type="text/css" />
+		<link href="/static/manage/lib/Hui-iconfont/1.0.8/iconfont.css" rel="stylesheet" type="text/css" />
 		<!--[if IE 6]>
-<script type="text/javascript" src="__MANAGE__lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script type="text/javascript" src="/static/manage/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
 		<title>后台登录</title>
@@ -43,7 +44,7 @@
 						<div class="formControls col-xs-8 col-xs-offset-3">
 							<input class="input-text size-L" type="text" placeholder="验证码" onblur="if(this.value==''){this.value='验证码:'}"
 							 onclick="if(this.value=='验证码:'){this.value='';}" value="验证码:" name="coder" style="width:180px;">
-							<img src="{:captcha_src()}" onclick="this.src='{:captcha_src()}?'+Math.random()"> </div>
+							<img src="<?php echo captcha_src(); ?>" onclick="this.src='<?php echo captcha_src(); ?>?'+Math.random()"> </div>
 					</div>
 					<div class="row cl">
 						<div class="formControls col-xs-8 col-xs-offset-3">
@@ -55,7 +56,7 @@
 			</div>
 		</div>
 		<div class="footer">本后台系统由<a href="http://www.biaotian.net/" target="_blank" title="河北标天计算机" style="color: white;">河北标天计算机</a>提供技术支持</div>
-		<script type="text/javascript" src="__MANAGE__lib/jquery/1.9.1/jquery.min.js"></script>
-		<script type="text/javascript" src="__MANAGE__static/h-ui/js/H-ui.min.js"></script>
+		<script type="text/javascript" src="/static/manage/lib/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="/static/manage/static/h-ui/js/H-ui.min.js"></script>
 	</body>
 </html>
