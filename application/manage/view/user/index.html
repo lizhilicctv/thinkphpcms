@@ -1,0 +1,136 @@
+{include file="common/_meta" /}
+<title>用户管理</title>
+<meta name="keywords" content="李志立，lizhilimaster@163.com">
+<meta name="description" content="李志立，lizhilimaster@163.com">
+</head>
+<body>
+	<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 用户中心 <span class="c-gray en">&gt;</span>
+		用户管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);"
+		 title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+	<div class="page-container">
+		<div class="text-c">
+			<form action="" method="get">
+				<input type="text" class="input-text" style="width:250px" placeholder="输入用户名" value="{$key}" name="key">
+				<button type="submit" class="btn btn-success radius"><i class="Hui-iconfont">&#xe665;</i> 搜用户</button>
+			</form>
+		</div>
+		<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"></span> <span class="r">共有数据：<strong>{$count1}</strong>
+				条</span> </div>
+		<h4>这里都是使用微信登陆，没有密码。</h4>
+		<div class="mt-20">
+			<table class="table table-border table-bordered table-hover table-bg table-sort">
+				<thead>
+					<tr class="text-c">
+						<th width="80">ID</th>
+						<th width="100">头像</th>
+						<th width="100">用户名</th>
+						<th width="100">上一级</th>
+						<th width="40">性别</th>
+					<!-- 	<th width="90">手机</th> -->
+						<th width="200">地址</th>
+						<th width="130">加入时间</th>
+						<th width="70">我的下级</th>
+						<th width="70">是否推广员</th>
+					</tr>
+				</thead>
+				<tbody>
+					{volist name="user" id="vo"}
+					<tr class="text-c">
+						<td>{$vo.id}</td>
+						<td>
+							{if $vo.avatarUrl}
+							<img src="{$vo.avatarUrl}" height="80">
+							{else /}
+							没有上传头像
+							{/if}
+						</td>
+						<td>{$vo.nickName}</td>
+						<td>{$vo.fname|default='顶级会员'}</td>
+						<td>
+							{switch name="vo.gender" }
+							{case value="1"}男{/case}
+							{case value="2"}女{/case}
+							{default /}未知
+							{/switch}
+						</td>
+					<!-- 	<td>{$vo.phone|default='尚未填写'}</td> -->
+						<td class="text-l">{$vo.country} &nbsp; {$vo.province} &nbsp; {$vo.city}</td>
+						<td>{$vo.create_time|date='Y-m-d H:i:s'}</td>
+						<td class="td-status">
+							<button onclick="user_add('查看下一级','{:url('user/lit',['id'=>$vo.id])}','1000','800')" type="button" class="btn btn-secondary radius">查看下一级（{$vo.xia}）</button>
+						</td>
+						<td class="td-manage">
+							{switch name="vo.istui" }
+							{case value="1"}<span onclick="user_stop(this,{$vo.id})" class="btn btn-success radius">推广员</span>{/case}
+							{case value="0"}<span onclick="user_start(this,{$vo.id})" class="btn btn-default">不是推广员</span>{/case}
+							{/switch}
+						</td>
+					</tr>
+					{/volist}
+				</tbody>
+			</table>
+			{$user|raw}
+		</div>
+	</div>
+	{include file="common/_footer" /}
+	<!--请在下方写此页面业务相关的脚本-->
+	<script type="text/javascript" src="__MANAGE__lib/My97DatePicker/4.8/WdatePicker.js"></script>
+	<script type="text/javascript">
+		/*用户-添加*/
+		function user_add(title, url, w, h) {
+			layer_show(title, url, w, h);
+		}
+		/*管理员-停用*/
+		function user_stop(obj, id) {
+			layer.confirm('确认要停用吗？', function(index) {
+				//此处请求后台程序，下方是成功后的前台处理……
+				$.post(
+					"{:url('user/ajax')}", {
+						id: id,
+						type: 'user_stop',
+					},
+					function(result) {
+						if (result === 1) {
+							location.reload();
+							layer.msg('已停用!', {
+								icon: 5,
+								time: 1000
+							});
+						} else {
+							layer.msg('停用失败!', {
+								icon: 5,
+								time: 1000
+							});
+						}
+					});
+			});
+		}
+
+		/*管理员-启用*/
+		function user_start(obj, id) {
+			layer.confirm('确认要启用吗？', function(index) {
+				//此处请求后台程序，下方是成功后的前台处理……
+				$.post(
+					"{:url('user/ajax')}", {
+						id: id,
+						type: 'user_start',
+					},
+					function(result) {
+						if (result === 1) {
+							location.reload();
+							layer.msg('已启用!', {
+								icon: 6,
+								time: 1000
+							});
+						} else {
+							layer.msg('启动失败!', {
+								icon: 5,
+								time: 1000
+							});
+						}
+					});
+			});
+		}
+	</script>
+</body>
+</html>

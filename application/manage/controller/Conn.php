@@ -28,11 +28,12 @@ class Conn extends Controller
 				
 			}
 		}
-			
 	    $comment=Db::name('comment')->where('isopen','-1')->count();
 		$this->assign('comment', $comment);	
 	    $message=Db::name('message')->where('isopen','0')->count();
 		$this->assign('message', $message);
+		$ding=Db::name('order')->where('order_status',0)->count();
+		$this->assign('ding', $ding);
 		//获取导航
        $pilot_nav=Db::name('pilot_nav')->where('isopen',1)->order('sort asc')->select();
         $this->assign('pilot_nav', $pilot_nav);

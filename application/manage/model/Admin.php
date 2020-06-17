@@ -24,7 +24,7 @@ class Admin extends Model
 		}
 	}
 	public function add($data){
-		$data['password']=md5($data['password']);
+		$data['password']=md5(substr(md5($data['password']),0,25).'lizhili');
 		$res=$this->allowField(true)->save($data);
 		if($res){
 			return 1;//添加成功

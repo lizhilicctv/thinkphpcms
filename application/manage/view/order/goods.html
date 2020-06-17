@@ -1,0 +1,115 @@
+{include file="common/_meta" /}
+<title>订单商品管理</title>
+</head>
+<body>
+	<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 订单商品<span class="c-gray en">&gt;</span> 商品管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+		<div class="pd-20 text-c">
+			
+			<div class="cl pd-5 bg-1 bk-gray">  <span class="r">共有数据：<strong>{$count1}</strong> 条</span> </div>
+			<div class="mt-20">
+				<table class="table table-border table-bordered table-hover table-bg table-sort">
+					<thead>
+						<tr class="text-c">
+							<th width="20">ID</th>
+							<th width="300">商品名称</th>
+							<th width="40">支付单价</th>
+							<th width="200">商品属性</th>
+							<th width="40">购买数量</th>
+						
+						</tr>
+					</thead>
+					<tbody>
+						{volist name='goods' id='user'}
+						<tr class="text-c">
+							<td>{$user.id}</td>
+							<td>{$user.goods_name}</td>
+							<td>{$user.member_price}</td>
+							<td>{$user.goods_attr_str}</td>
+							<td>{$user.goods_num}</td>
+							
+						</tr>
+						{/volist}
+					</tbody>
+				</table>
+				
+			</div>
+		</div>
+<!--_footer 作为公共模版分离出去-->
+{include file="common/_footer" /}
+<!--/_footer /作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__MANAGE__lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="__MANAGE__lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="__MANAGE__lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+//$('.table-sort').dataTable({
+//	"aaSorting": [[ 1, "desc" ]],//默认第几个排序
+//	"bStateSave": true,//状态保存
+//	"aoColumnDefs": [
+//	  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+//	  {"orderable":false,"aTargets":[0,4]}// 制定列不参与排序
+//	]
+//});
+/*系统-订单商品-添加*/
+function system_category_add(title,url,w,h){
+	layer_show(title,url,w,h);
+}
+/*系统-订单商品-编辑*/
+function system_category_edit(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+/*系统-订单商品-删除*/
+function system_category_del(obj,id){
+	layer.confirm('确认要删除吗？',function(index){
+		$.post(
+			"{:url('link/ajax')}",
+		{
+			id:id,
+			type:'link_del',
+		},
+		function(result){
+	        if(result===0){
+	        	layer.msg('删除失败!',{icon: 5,time:1000});
+	        }else if(result===1){
+	        	$(obj).parents("tr").remove();
+				layer.msg('已删除!',{icon:1,time:1000});
+	        }
+	    });	
+
+	});
+}
+//自己编写更新排序
+
+function catesort(){
+	layer.confirm('确认要更新排序吗？',function(index){	
+	 	var x=document.getElementsByClassName("lizhi");
+	 	var sortarr= new Array();
+	 	var idarr= new Array();
+	 	for(var i=0;i<x.length;i++){
+	 		sortarr.push(x[i].value);
+	 		idarr.push(x[i].name);
+	 	}
+		$.post(
+			"{:url('link/ajax')}",
+		{
+			'sort':sortarr,
+			'id':idarr,
+			type:'link_sort',
+		},
+		function(result){
+			//console.log(result);
+	        if(result===1){
+	        	layer.msg('更新成功!',{icon:1,time:1000});
+	        	history.go(0);
+	        }else{
+				layer.msg('更新失败!',{icon: 5,time:1000});
+				history.go(0);
+	        }
+	    });	
+	});
+}
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

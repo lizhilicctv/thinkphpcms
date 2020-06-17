@@ -1,0 +1,106 @@
+{include file="common/_meta" /}
+<title>提现管理</title>
+<meta name="keywords" content="李志立，lizhilimaster@163.com">
+<meta name="description" content="李志立，lizhilimaster@163.com">
+</head>
+<body>
+	<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 提现<span class="c-gray en">&gt;</span>
+		链接管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);"
+		 title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+	<div class="pd-20 text-c">
+		<div class="text-c">
+			<form action="" method="get">
+				<input type="text" name="key" value="{$key}" placeholder="提现姓名" style="width:250px" class="input-text">
+				<button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+			</form>
+		</div>
+		<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">
+		</span> <span class="r">共有数据：<strong>{$count1}</strong>
+				条</span> </div>
+		<div class="mt-20">
+			<table class="table table-border table-bordered table-hover table-bg table-sort">
+				<thead>
+					<tr class="text-c">
+						<th width="20">ID</th>
+						<th width="40">微信昵称</th>
+						<th width="40">姓名</th>
+						<th width="80">微信</th>
+						<th width="80">支付宝</th>
+						<th width="80">金额</th>
+						<th width="10">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					{volist name='withdrawal' id='user'}
+					<tr class="text-c">
+						<td>{$user.id}</td>
+						<td>{$user.nickname}</td>
+						<td>{$user.name}</td>
+						<td>{$user.wx}</td>
+						<td>{$user.zfb}</td>
+						<td>{$user.money}</td>
+						<td class="f-14">
+							{switch name="user.status"}
+							    {case value="0"}
+								<button onclick="system_category_edit('提现编辑','{:url(\'withdrawal/edit\',[\'id\'=>$user.id])}')" class="btn btn-warning radius" type="button">立刻处理</button>
+								{/case}
+							    {case value="1"}
+								<button class="btn btn-success radius" type="button">已经同意</button>
+								{/case}
+							    {case value="2"}
+								<button class="btn btn-default radius" type="button">已经拒绝</button>
+								{/case}
+							    {default /}信息错误
+							{/switch}
+						</td>
+					</tr>
+					{/volist}
+				</tbody>
+			</table>
+
+		</div>
+		{$withdrawal|raw}
+	</div>
+	<!--_footer 作为公共模版分离出去-->
+	{include file="common/_footer" /}
+
+	<script type="text/javascript" src="__MANAGE__lib/My97DatePicker/4.8/WdatePicker.js"></script>
+	<script type="text/javascript">
+		/*系统-提现-添加*/
+		function system_category_add(title, url, w, h) {
+			layer_show(title, url, w, h);
+		}
+		/*系统-提现-编辑*/
+		function system_category_edit(title, url, id, w, h) {
+			layer_show(title, url, 600, 400);
+		}
+		/*系统-提现-删除*/
+		function system_category_del(obj, id) {
+			layer.confirm('确认要删除吗？', function(index) {
+				$.post(
+					"{:url('withdrawal/ajax')}", {
+						id: id,
+						type: 'withdrawal_del',
+					},
+					function(result) {
+						if (result === 0) {
+							layer.msg('删除失败!', {
+								icon: 5,
+								time: 1000
+							});
+						} else if (result === 1) {
+							$(obj).parents("tr").remove();
+							layer.msg('已删除!', {
+								icon: 1,
+								time: 1000
+							});
+						}
+					});
+
+			});
+		}
+		
+	</script>
+	<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

@@ -4,7 +4,7 @@ use app\manage\controller\Conn;
 use \think\Loader;
 use app\manage\model\AuthRule as AuthRulemodel;
 use think\Db;
-class Authrule extends Conn
+class AuthRule extends Conn
 {
     public function index()
     {

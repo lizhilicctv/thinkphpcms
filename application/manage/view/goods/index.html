@@ -1,0 +1,193 @@
+<!--_meta 作为公共模版分离出去-->
+{include file="common/_meta" /}
+<!--/meta 作为公共模版分离出去-->
+
+<title>河北灵鹿科技有限公司</title>
+<meta name="keywords" content="H-ui.admin v3.0,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
+<meta name="description" content="H-ui.admin v3.0，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
+</head>
+<body>
+	<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页
+		<span class="c-gray en">&gt;</span>
+		商品管理
+		<span class="c-gray en">&gt;</span>
+		商品列表
+		<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a>
+	</nav>
+	<div class="Hui-article">
+		<article class="cl pd-20">
+			<div class="text-c">
+				<form action="" method="get">
+				<input type="text" class="input-text" style="width:250px" value="{$key}" placeholder="输入商品名称" id="" name="key">
+				<button class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜商品</button>
+				</form>
+			</div>
+			<div class="cl pd-5 bg-1 bk-gray mt-20">
+				<span class="l">
+				<a class="btn btn-primary radius" data-title="添加商品" _href="article-add.html" onclick="article_add('添加商品','{:url('goods/add')}',1200)" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加商品</a>
+				</span>
+				<span class="r">共有数据：<strong>{$count1}</strong> 条</span>
+			</div>
+			<div class="mt-20">
+				<table class="table table-border table-bordered table-bg table-hover table-sort">
+					<thead>
+						<tr class="text-c">
+							<th width="20">ID</th>
+							<th width="150">名称</th>
+							<th width="70">编号</th>
+							<th width="60">首页主图</th>
+							<th width="60">详情主图</th>
+							<th width="40">市场价</th>
+							<th width="80">本店价</th>
+							<th width="50">邮费</th>
+							<th width="50">库存</th>
+							<th width="50">状态</th>
+							<th width="70">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+					{volist name="goodsRes" id="vo"}
+						<tr class="text-c">
+							<td>{$vo.id}</td>
+							<td class="text-l"><a target="_blank" href="/show/index/id/{$vo.id}">{$vo.goods_name}</a></td>
+							<td>{$vo.goods_code}</td>
+							<td>
+								{if condition="$vo.goods_img == '' "} 
+								暂无缩率图
+								{else /} 
+								<img src="{$vo.goods_img}" height="50"/>
+								{/if}
+							</td>
+							<td>
+								{if condition="$vo.goods_list_img == '' "} 
+								暂无缩率图
+								{else /} 
+								<img src="{$vo.goods_list_img}" height="50"/>
+								{/if}
+							</td>
+							<td>{$vo.markte_price}</td>
+							<td>{$vo.shop_price}</td>
+							<td>{$vo.postage}</td>
+							<td>{$vo.goods_num}</td>
+							<td class="td-status">
+								{if condition="$vo.isopen == 0"}
+								<span class="label label-disabled radius">已下架</span>
+								{else /} 
+								<span class="label label-success radius">已上架</span>
+								{/if}
+							</td>
+							<td class="f-14 td-manage">
+								{if condition="$vo.isopen == 1 "} 
+									<a style="text-decoration:none" class="ml-5" onClick="member_stop(this,{$vo.id})" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a> 
+								{else /}
+									<a onClick="member_start(this,{$vo.id})" class="ml-5" href="javascript:;" title="启用" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>
+								{/if}
+								<a style="text-decoration:none" class="ml-5" onclick="article_add('留言管理','{:url('evaluation/index',['id'=>$vo.id])}',1200)" title="留言管理"><i class="Hui-iconfont">&#xe6c5;</i></a>
+								<a style="text-decoration:none" class="ml-5" onclick="article_add('编辑商品','{:url('goods/edit',['id'=>$vo.id])}',1200)" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a>
+								<a style="text-decoration:none" class="ml-5" onClick="article_del(this,{$vo.id})" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>
+							
+							</td>
+						</tr>
+					{/volist}
+
+					</tbody>
+				</table>
+				{$goodsRes|raw} 
+			</div>
+		</article>
+	</div>
+
+
+<!--_footer 作为公共模版分离出去-->
+{include file="common/_footer" /}
+<!--/_footer /作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__MANAGE__lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="__MANAGE__lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="__MANAGE__lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+
+/*商品-添加*/
+function article_add(title,url,w,h){
+	layer_show(title,url,w,h);
+}
+/*商品-编辑*/
+function article_edit(title,url,id,w,h){
+	layer_show(title,url,id,w,h);
+}
+//修改库存量
+function num(title,url,id,w,h){
+	layer_show(title,url,id,w,h);
+}
+/*商品-删除*/
+function article_del(obj,id){
+	layer.confirm('确认要删除吗？',function(index){
+		$.post(
+			"{:url('goods/ajax')}",
+		{
+			id:id,
+			type:'goods_del',
+		},
+		function(result){
+			console.log(result);
+	        if(result===1){
+	        	$(obj).parents("tr").remove();
+				layer.msg('已删除!',{icon:1,time:1000});
+	        }else{
+	        	layer.msg('删除失败!',{icon: 5,time:1000});
+	        }
+	    });	
+	});
+}
+/*管理员-停用*/
+function member_stop(obj,id){
+	layer.confirm('确认要下架吗？',function(index){
+		//此处请求后台程序，下方是成功后的前台处理……
+		$.post(
+			"{:url('goods/ajax')}",
+		{
+			id:id,
+			type:'goods_stop',
+		},
+		function(result){
+	        if(result===0){
+	        	layer.msg('下架失败!',{icon: 5,time:1000});
+	        }else{
+	        	$(obj).parents("tr").find(".td-manage").prepend('<a onClick="member_start(this,{ $vo.id})" href="javascript:;" title="启用" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>');
+				$(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">已下架</span>');
+				$(obj).remove();
+				layer.msg('已下架!',{icon: 5,time:1000});
+	        }
+	    });	
+	});
+}
+
+/*管理员-启用*/
+function member_start(obj,id){
+	layer.confirm('确认要上架吗？',function(index){
+		//此处请求后台程序，下方是成功后的前台处理……
+		$.post(
+			"{:url('goods/ajax')}",
+		{
+			id:id,
+			type:'goods_start',
+		},
+		function(result){
+	        if(result===0){
+	        	layer.msg('上架失败!',{icon: 5,time:1000});
+
+	        }else{
+	        	$(obj).parents("tr").find(".td-manage").prepend('<a onClick="member_stop(this,{ $vo.id})" href="javascript:;" title="停用" style="text-decoration:none"><i class="Hui-iconfont">&#xe631;</i></a>');
+				$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已上架</span>');
+				$(obj).remove();
+				layer.msg('已上架!', {icon: 6,time:1000});
+	        }
+	    });
+	});
+}
+
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

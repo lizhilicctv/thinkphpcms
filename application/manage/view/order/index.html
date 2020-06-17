@@ -1,0 +1,191 @@
+{include file="common/_meta" /}
+<title>订单管理</title>
+</head>
+<body>
+	<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 订单<span class="c-gray en">&gt;</span> 订单管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+		<div class="pd-20 text-c">
+			<div class="text-c">
+				<form action="" method="post">
+					<input type="hidden" name="type" id="type" value="so" />
+					<input type="text" name="key" id="" placeholder="订单号/用户名/手机号" style="width:250px" class="input-text">
+					<button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+				</form>
+			</div>
+			<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">
+				<span>订单状态：</span>
+				<form action="" method="post" style="display: inline-block;margin: 0 5px;">
+					<input type="hidden" name="type" id="type" value="noque" />
+					<input class="btn btn-danger radius" type="submit" value="未确认"/>
+				</form>
+				<form action="" method="post" style="display: inline-block;margin: 0 5px;">
+					<input type="hidden" name="type" id="type" value="que" />
+					<input class="btn btn-primary radius" type="submit" value="已确认"/>
+				</form>
+				<!-- <form action="" method="post" style="display: inline-block;margin: 0 5px;">
+					<input type="hidden" name="type" id="type" value="tui" />
+					<input class="btn btn-warning radius" type="submit" value="申请退货"/>
+				</form>
+				<form action="" method="post" style="display: inline-block;margin: 0 5px;">
+					<input type="hidden" name="type" id="type" value="endtui" />
+					<input class="btn btn-secondary radius" type="submit" value="已退货"/>
+				</form> -->
+				<span style="padding-left: 30px;">支付状态：</span>
+				<form action="" method="post" style="display: inline-block;margin: 0 5px;">
+					<input type="hidden" name="type" id="type" value="nopay" />
+					<input class="btn btn-danger radius" type="submit" value="未支付"/>
+				</form>
+				<form action="" method="post" style="display: inline-block;margin: 0 5px;">
+					<input type="hidden" name="type" id="type" value="pay" />
+					<input class="btn btn-primary radius" type="submit" value="已支付"/>
+				</form>
+				<span style="padding-left: 30px;">发货状态：</span>
+				<form action="" method="post" style="display: inline-block;margin: 0 5px;">
+					<input type="hidden" name="type" id="type" value="nodeliver" />
+					<input class="btn btn-warning radius" type="submit" value="未发货"/>
+				</form>
+				<form action="" method="post" style="display: inline-block;margin: 0 5px;">
+					<input type="hidden" name="type" id="type" value="deliver" />
+					<input class="btn btn-secondary radius" type="submit" value="已发货"/>
+				</form>
+				<form action="" method="post" style="display: inline-block;margin: 0 5px;">
+					<input type="hidden" name="type" id="type" value="enddeliver" />
+					<input class="btn btn-success radius" type="submit" value="已收货"/>
+				</form>
+				<span style="padding-left: 30px;">导出订单：</span>
+				<form action="" method="post" style="display: inline-block;margin: 0 5px;">
+					<input type="hidden" name="type" id="type" value="dao" />
+					<input class="btn btn-primary radius" type="submit" value="导出支付成功订单"/>
+				</form>
+				
+			</span> <span class="r">共有数据：<strong>{$count1}</strong> 条</span> </div>
+			<div class="mt-20">
+				<table class="table table-border table-bordered table-hover table-bg table-sort">
+					<thead>
+						<tr class="text-c">
+							<th width="20">ID</th>
+							<th width="100">订单号</th>
+							<th width="100">产品名称</th>
+							<th width="40">商品单价</th>
+							<th width="40">数量</th>
+							<th width="40">邮费</th>
+							<th width="60">付款价格</th>
+							<th width="60">支付状态</th>
+							<th width="60">订单状态</th>
+							<th width="60">发货状态</th>
+							<th width="60">支付方式</th>
+							<th width="100">收货人</th>
+							<th width="100">联系电话</th>
+							<th width="100">下单用户</th>
+							<th width="100">支付时间</th>
+							<th width="50">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						{volist name='order' id='user'}
+						<tr class="text-c">
+							<td>{$user.id}</td>
+							<td>{$user.out_trade_no}</td>
+							<td>{$user.goods_name}</td>
+							<td>{$user.goods_price}</td>
+							<td>{$user.order_num}</td>
+							<td>{$user.post_spent}（邮费单个乘以数量）</td>
+							<td>{$user.goods_price_zong}</td>
+							<td>{$user.pay_status ? '已经支付' : '未支付'}</td>
+							<td>
+								{switch name="user.order_status"}
+								    {case value="0"}未确认{/case}
+								    {case value="1"}已确认{/case}
+								    {case value="2"}申请退款{/case}
+								    {case value="3"}退款成功{/case}
+								    {default /}信息错误
+								{/switch}
+							</td>
+							<td>
+								{switch name="user.post_status"}
+								    {case value="0"}未发货{/case}
+								    {case value="1"}已发货{/case}
+								    {case value="2"}已收货{/case}
+								    {default /}信息错误
+								{/switch}
+							</td>
+							<td>
+								{switch name="user.payment"}
+								    {case value="1"}支付宝{/case}
+								    {case value="2"}微信{/case}
+								    {case value="3"}余额{/case}
+								    {default /}信息错误
+								{/switch}
+							</td>
+							<td>{$user.name}</td>
+							<td>{$user.phone}</td>
+							<td>{$user.username ? $user.username : $user.mphone}</td>
+							<td>
+							{if $user.order_time}
+							{$user.order_time|date='Y-m-d H:i:s'}
+							{else /}
+							没有支付
+							{/if}
+							</td>
+							<td class="f-14">
+							
+								<a class="ml-5" title="编辑" href="javascript:;" onclick="system_category_edit('订单编辑','{:url(\'order/edit\',[\'id\'=>$user.id])}')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
+								<a title="删除" href="javascript:;" onclick="system_category_del(this,{$user.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+							</td>
+						</tr>
+						{/volist}
+					</tbody>
+				</table>
+				
+			</div>
+			{$order|raw}
+		</div>
+<!--_footer 作为公共模版分离出去-->
+{include file="common/_footer" /}
+<!--/_footer /作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__MANAGE__lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="__MANAGE__lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="__MANAGE__lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+//$('.table-sort').dataTable({
+//	"aaSorting": [[ 1, "desc" ]],//默认第几个排序
+//	"bStateSave": true,//状态保存
+//	"aoColumnDefs": [
+//	  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+//	  {"orderable":false,"aTargets":[0,4]}// 制定列不参与排序
+//	]
+//});
+/*系统-订单-添加*/
+function system_category_add(title,url,w,h){
+	layer_show(title,url,w,h);
+}
+/*系统-订单-编辑*/
+function system_category_edit(title,url,w,h){
+	layer_show(title,url,w,h);
+}
+/*系统-订单-删除*/
+function system_category_del(obj,id){
+	layer.confirm('确认要删除吗？',function(index){
+		$.post(
+			"{:url('order/ajax')}",
+		{
+			id:id,
+			type:'order_del',
+		},
+		function(result){
+	        if(result===0){
+	        	layer.msg('删除失败!',{icon: 5,time:1000});
+	        }else if(result===1){
+	        	$(obj).parents("tr").remove();
+				layer.msg('已删除!',{icon:1,time:1000});
+	        }
+	    });	
+
+	});
+}
+
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

@@ -161,6 +161,7 @@ class Auth{
      *     ...)
      */
     public function getGroups($uid) {
+		$uid=\think\Db::name('admin')->where('id',$uid)->value('role');
         static $groups = array();
         if (isset($groups[$uid]))
             return $groups[$uid];

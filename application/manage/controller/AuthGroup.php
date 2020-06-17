@@ -5,7 +5,7 @@ use \think\Loader;
 use app\manage\model\AuthGroup as AuthGroupmodel;
 use app\manage\model\AuthRule as AuthRulemodel;
 use think\Db;
-class Authgroup extends Conn
+class AuthGroup extends Conn
 {
     public function index()
     {

@@ -1,0 +1,231 @@
+{include file="common/_meta" /}
+<title>幻灯片修改添加</title>
+<meta name="keywords" content="李志立，lizhilimaster@163.com">
+<meta name="description" content="李志立，lizhilimaster@163.com">
+</head>
+<body>
+<div class="page-container">
+	<form action="" method="post" class="form form-horizontal" id="form-category-add" enctype="multipart/form-data">
+		<div id="tab-category" class="HuiTab">
+			<div class="tabCon">
+				<div class="row cl">
+					<label class="form-label col-xs-3 col-sm-2"><span class="c-red">*</span> 是否开启直播：</label>
+					<div class="formControls col-xs-9 col-sm-9">
+						<div class="switch" data-on-label="开" data-off-label="关">
+						{if condition="$data.isopen == 1"}
+						<input type="checkbox" checked="checked" name="isopen" />
+						{else /}
+						<input type="checkbox" name="isopen" />
+						{/if}
+						</div>
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-3 col-sm-2"><span class="c-red">*</span> 直播头像：</label>
+					<div class="formControls col-xs-9 col-sm-9">
+						<div class="uploader-thum-container">
+							<a href="javascript:void();" class="btn btn-primary radius"><i class="icon Hui-iconfont">&#xe642;</i> 浏览文件</a>
+							<input type="file" class="input-file" onchange='onpic()' name="pic" id="pic" value="" accept='image/*' style="font-size: 20px;left:0;" /><span
+							 id="sp"></span>
+						</div>
+						<div style="margin-top: 15px;">
+							{if condition="$data.pic != ''"}
+							<img src="{$data.pic}" height="60" style="margin: 20px;" />
+							{else /}
+							<div>暂无缩率图</div>
+							{/if}
+						</div>
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-3 col-sm-2"><span class="c-red">*</span> 直播名称：</label>
+					<div class="formControls col-xs-9 col-sm-9">
+						<input type="text" class="input-text" value="{$data.title}" placeholder="请输入直播名称" name="title">
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-3 col-sm-2"><span class="c-red">*</span> 直播产品：</label>
+					<div class="formControls col-xs-9 col-sm-9">
+						<span class="select-box">
+						<select class="select" name="goods_id">
+							{volist name="goods" id="vo"}
+							<option {if condition="$vo.id == $data.goods_id "}selected="selected"{/if} value="{$vo.id}">{$vo.goods_name}</option>
+							{/volist}
+						</select>
+						</span>
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-3 col-sm-2"><span class="c-red">*</span> 视频地址：</label>
+					<div class="formControls col-xs-9 col-sm-9">
+						<input type="text" class="input-text" value="{$data.src}" placeholder="请输入视频地址" name="src">
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-3 col-sm-2"><span class="c-red">*</span> 购买数量：</label>
+					<div class="formControls col-xs-9 col-sm-9">
+						<input type="number" class="input-text" value="{$data.buy_num}" placeholder="请输入购买数量" name="buy_num" style="width: 40%;">
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-3 col-sm-2"><span class="c-red">*</span> 在线人数：</label>
+					<div class="formControls col-xs-9 col-sm-9">
+						<input type="number" class="input-text" value="{$data.live_num}" placeholder="请输入在线人数" name="live_num" style="width: 40%;">
+					</div>
+				</div>
+
+				<div class="row cl">
+					<label class="form-label col-xs-3 col-sm-2">直播简介：</label>
+					<div class="formControls col-xs-9 col-sm-9">
+							<textarea name="desc" cols="" rows="" id="desc" class="textarea" placeholder="说点什么...100个字符以内" datatype="*10-100"
+									  dragonfly="true" nullmsg="备注不能为空！" onKeyUp="textlength()">{$data.desc}</textarea>
+						<p class="textarea-numberbar"><em class="textarea-length">{$data.desc|mb_strlen}</em>/100</p>
+					</div>
+				</div>
+				<div class="row cl"><label class="col-md-offset-2 col-xs-3 col-sm-2"><h3>下面是留言视频的留言</h3></label></div>
+
+				{volist name="msg" id="vo"}
+				<div class="row cl">
+					<label class="form-label col-xs-3 col-sm-2"> <span class="dtbtn" onclick="adddtrow(this,{$vo.id})">【-】</span>留言管理：</label>
+					<input type="hidden" value="{$vo.id}"  name="id[]">
+					<div class="formControls col-xs-2 col-sm-2">
+						<input type="text" class="input-text name" value="{$vo.name}" placeholder="姓名" name="name[]">
+					</div>
+					<div class="formControls col-xs-6 col-sm-6">
+						<input type="text" class="input-text name" value="{$vo.msg}" placeholder="留言内容" name="msg[]">
+					</div>
+					<div class="formControls col-xs-2 col-sm-2">
+						<input type="number" class="input-text name" value="{$vo.time}" placeholder="出现时间" name="time[]"> 秒
+					</div>
+				</div>
+				{/volist}
+
+				<div class="row cl">
+					<label class="form-label col-xs-3 col-sm-2"> <span class="dtbtn" onclick="adddtrow(this,0)">【+】</span>留言管理：</label>
+					<input type="hidden" value="0"  name="id[]">
+					<div class="formControls col-xs-2 col-sm-2">
+						<input type="text" class="input-text name" value="" placeholder="姓名" name="name[]">
+					</div>
+					<div class="formControls col-xs-6 col-sm-6">
+						<input type="text" class="input-text name" value="" placeholder="留言内容" name="msg[]">
+					</div>
+					<div class="formControls col-xs-2 col-sm-2">
+						<input type="number" class="input-text name" value="" placeholder="出现时间" name="time[]"> 秒
+					</div>
+				</div>
+
+
+
+
+				<div class="row cl">
+					<div class="col-9 col-offset-2">
+						<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<!--_footer 作为公共模版分离出去-->
+{include file="common/_footer" /}
+<style type="text/css">
+	.li123 {
+		line-height: 30px;
+		background: burlywood;
+		display: inline-block;
+		vertical-align: middle;
+		padding: 0 8px;
+	}
+	#abtn,.dtbtn{
+		color: red;
+	}
+</style>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__MANAGE__lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="__MANAGE__lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="__MANAGE__lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="__MANAGE__lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$('.skin-minimal input').iCheck({
+			checkboxClass: 'icheckbox-blue',
+			radioClass: 'iradio-blue',
+			increaseArea: '20%'
+		});
+
+		$("#tab-category").Huitab({
+			index: 0
+		});
+		$("#form-category-add").validate({
+			rules: {
+				name: {
+					required: true,
+				},
+				phone: {
+					required: true,
+				},
+				weixin: {
+					required: true,
+				},
+			}
+		});
+
+	});
+
+	function textlength() {
+		var nmb=$('#desc').val().length;
+		if(nmb>100){
+			$('#desc').css("background-color","orangered");
+			$('#desc').val($('#desc').val().substr(0,100));
+			$('.textarea-length').text(100);
+		}else{
+			$('#desc').css("background-color","white");
+			$('.textarea-length').text(nmb);
+		}
+	}
+	function adddtrow(o,id){
+		var div=$(o).parent().parent();
+		if($(o).html() == '【+】'){
+			var newdiv=div.clone();
+			newdiv.find('.dtbtn').html('【-】');
+			newdiv.find('.name').val('');
+			div.after(newdiv);
+		}else{
+			//删除
+			if(id != 0){
+				layer.confirm('确认要删除留言吗？', function(index) {
+					$.post(
+							"{:url('live/ajax')}", {
+								id: id,
+								type: 'del_msg',
+							},
+							function(result) {
+								if (result === 1) {
+									div.remove();
+									layer.msg('删除成功!', {
+										icon: 1,
+										time: 1000
+									});
+								} else {
+									layer.msg('删除失败!', {
+										icon: 5,
+										time: 1000
+									});
+								}
+							});
+				});
+			}else {
+				div.remove();
+			}
+
+		}
+	}
+	function onpic() {
+		var file = document.getElementById("pic").files[0];
+		document.getElementById("sp").innerHTML = '您已经选择图片：' + file['name'];
+		document.getElementById("sp").className = 'li123';
+	}
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

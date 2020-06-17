@@ -1,0 +1,177 @@
+<!--_meta 作为公共模版分离出去-->
+{include file="common/_meta" /}
+<!--/meta 作为公共模版分离出去-->
+
+
+<title>添加商品</title>
+<link href="__MANAGE__lib/webuploader/0.1.5/webuploader.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页
+		<span class="c-gray en">&gt;</span>
+		商品管理
+		<span class="c-gray en">&gt;</span>
+		添加商品
+		<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);"
+		 title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a>
+	</nav>
+	<style type="text/css">
+		input,
+		label {
+			vertical-align: middle;
+		}
+	</style>
+	<div class="page-container">
+		<form action="" method="post" class="form form-horizontal" id="form-article-add" enctype="multipart/form-data">
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-2">
+					<span class="c-red">*</span>
+					商品名称：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" id="goods_name" name="goods_name" placeholder="输出名称长度介于 3 和 200 之间" value="" class="input-text">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>产品首页主图：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<a href="javascript:void();" class="btn btn-primary radius"><i class="icon Hui-iconfont">&#xe642;</i> 浏览文件</a>
+					<input type="file" class="input-file" onchange='onpic(this)' name="goods_img" value="" accept='image/*'	 style="font-size: 20px;left:0;" />
+					<span class="sp"></span>
+
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>产品详情主图：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<a href="javascript:void();" class="btn btn-primary radius"><i class="icon Hui-iconfont">&#xe642;</i> 浏览文件</a>
+					<input type="file" class="input-file" onchange='onpic(this)' name="goods_list_img" value="" accept='image/*' style="font-size: 20px;left:0;" />
+					<span class="sp"></span>
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-2">
+					是否上架：</label>
+				<div class="formControls col-xs-9 col-sm-9">
+					<div class="switch" data-on-label="开" data-off-label="关">
+						<input type="checkbox" checked="checked" name="isopen" />
+					</div>
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>市场价格：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="number" name="markte_price" id="" placeholder="请输入市场价格" value="" class="input-text" style="width:30%">
+					元</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>本店价格：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="number" name="shop_price" id="" placeholder="请输入本店价格" value="" class="input-text" style="width:30%">
+					元</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>商品提成：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="number" name="draw" id="" placeholder="请输入本店价格" value="0" class="input-text" style="width:30%">
+					元 （默认没有提成）</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>库存量：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="number" name="goods_num" id="" placeholder="请输入库存量" value="0" class="input-text" style="width:30%">
+					件</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>已售卖数量：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="number" name="sales_num" id="" placeholder="已售卖数量" value="<?php echo mt_rand(1000,5000); ?>" class="input-text" style="width:30%">
+					随机显示 1000-5000 之间</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>邮费：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="number" name="postage" id="" placeholder="请输入邮费" value="0" class="input-text" style="width:30%">
+					默认免邮费</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>详细内容：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<script id="goods_desc" name="goods_desc" type="text/plain" style="width:100%;height:450px;"></script>
+				</div>
+			</div>
+			<div class="row cl">
+				<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+					<button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i>
+						保存</button>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<!--_footer 作为公共模版分离出去-->
+	{include file="common/_footer" /}
+	<!--/_footer /作为公共模版分离出去-->
+
+	<!--请在下方写此页面业务相关的脚本-->
+	<style type="text/css">
+		.li123 {
+			line-height: 30px;
+			background: burlywood;
+			display: inline-block;
+			vertical-align: middle;
+			padding: 0 8px;
+		}
+	</style>
+	<script type="text/javascript" src="__MANAGE__lib/My97DatePicker/4.8/WdatePicker.js"></script>
+	<script type="text/javascript" src="__MANAGE__lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+	<script type="text/javascript" src="__MANAGE__lib/jquery.validation/1.14.0/validate-methods.js"></script>
+	<script type="text/javascript" src="__MANAGE__lib/jquery.validation/1.14.0/messages_zh.js"></script>
+	<script type="text/javascript" src="__MANAGE__lib/ueditor/ueditor.config.js"></script>
+	<script type="text/javascript" src="__MANAGE__lib/ueditor/ueditor.all.min.js"> </script>
+	<script type="text/javascript" src="__MANAGE__lib/ueditor/lang/zh-cn/zh-cn.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$('.skin-minimal input').iCheck({
+				checkboxClass: 'icheckbox-blue',
+				radioClass: 'iradio-blue',
+				increaseArea: '20%'
+			});
+			$("#tab-system").Huitab({
+				index: 0
+			});
+			$("#form-article-add").validate({
+				rules: {
+					goods_name: {
+						required: true,
+						rangelength: [3, 200]
+					},
+					markte_price: {
+						required: true,
+						number: true
+					},
+					shop_price: {
+						required: true,
+						number: true
+					},
+					goods_desc: {
+						required: true,
+					},
+					goods_img:{
+						required: true,
+					},
+					goods_list_img:{
+						required: true,
+					}
+				}
+			});
+			var ue = UE.getEditor('goods_desc');
+		});
+
+
+		function onpic(e) {
+			$(e).parent().find('.sp').html('您已经选择图片：' +$(e)[0].files[0].name).addClass('li123');
+		}
+	</script>
+	<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

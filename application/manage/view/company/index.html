@@ -1,0 +1,127 @@
+{include file="common/_meta" /}
+<title>幻灯片修改添加</title>
+<meta name="keywords" content="李志立，lizhilimaster@163.com">
+<meta name="description" content="李志立，lizhilimaster@163.com">
+</head>
+<body>
+<div class="page-container">
+	<form action="" method="post" class="form form-horizontal" id="form-category-add" enctype="multipart/form-data">
+		<div id="tab-category" class="HuiTab">
+			<div class="tabCon">
+				<div class="row cl">
+					<label class="form-label col-xs-3 col-sm-2"><span class="c-red">*</span> 公司名称：</label>
+					<div class="formControls col-xs-9 col-sm-9">
+						<input type="text" class="input-text" value="{$data.name}" placeholder="请输入公司名称" name="name">
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-3 col-sm-2"><span class="c-red">*</span> 公司电话：</label>
+					<div class="formControls col-xs-9 col-sm-9">
+						<input type="number" class="input-text" value="{$data.phone}" placeholder="请输入公司电话" name="phone" style="width: 30%">
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-3 col-sm-2"><span class="c-red">*</span> 公司微信号：</label>
+					<div class="formControls col-xs-9 col-sm-9">
+						<input type="text" class="input-text" value="{$data.weixin}" placeholder="请输入公司微信号" name="weixin">
+					</div>
+				</div>
+
+				<div class="row cl">
+					<label class="form-label col-xs-3 col-sm-2"><span class="c-red">*</span> 上传二维码：</label>
+					<div class="formControls col-xs-9 col-sm-9">
+						<div class="uploader-thum-container">
+							<a href="javascript:void();" class="btn btn-primary radius"><i class="icon Hui-iconfont">&#xe642;</i> 浏览文件</a>
+							<input type="file" class="input-file" onchange='onpic()' name="erweima" id="pic" value="" accept='image/*' style="font-size: 20px;left:0;" /><span
+								id="sp"></span>
+						</div>
+						{if $data.erweima}
+						<div style="margin: 10px;">
+							<img src="{$data.erweima}" height="80" />
+						</div>
+						{/if}
+
+					</div>
+				</div>
+
+				<div class="row cl">
+					<label class="form-label col-xs-3 col-sm-2">备注：</label>
+					<div class="formControls col-xs-9 col-sm-9">
+							<textarea name="desc" cols="" rows="" id="desc" class="textarea" placeholder="说点什么...100个字符以内" datatype="*10-100"
+									  dragonfly="true" nullmsg="备注不能为空！" onKeyUp="textlength()">{$data.desc}</textarea>
+						<p class="textarea-numberbar"><em class="textarea-length">{$data.desc|mb_strlen}</em>/100</p>
+					</div>
+				</div>
+				<div class="row cl">
+					<div class="col-9 col-offset-2">
+						<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<!--_footer 作为公共模版分离出去-->
+{include file="common/_footer" /}
+<style type="text/css">
+	.li123 {
+		line-height: 30px;
+		background: burlywood;
+		display: inline-block;
+		vertical-align: middle;
+		padding: 0 8px;
+	}
+</style>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__MANAGE__lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="__MANAGE__lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="__MANAGE__lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="__MANAGE__lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$('.skin-minimal input').iCheck({
+			checkboxClass: 'icheckbox-blue',
+			radioClass: 'iradio-blue',
+			increaseArea: '20%'
+		});
+
+		$("#tab-category").Huitab({
+			index: 0
+		});
+		$("#form-category-add").validate({
+			rules: {
+				name: {
+					required: true,
+				},
+				phone: {
+					required: true,
+				},
+				weixin: {
+					required: true,
+				},
+			}
+		});
+
+	});
+
+	function textlength() {
+		var nmb=$('#desc').val().length;
+		if(nmb>100){
+			$('#desc').css("background-color","orangered");
+			$('#desc').val($('#desc').val().substr(0,100));
+			$('.textarea-length').text(100);
+		}else{
+			$('#desc').css("background-color","white");
+			$('.textarea-length').text(nmb);
+		}
+	}
+
+	function onpic() {
+		var file = document.getElementById("pic").files[0];
+		document.getElementById("sp").innerHTML = '您已经选择图片：' + file['name'];
+		document.getElementById("sp").className = 'li123';
+	}
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>
