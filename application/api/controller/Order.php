@@ -115,7 +115,28 @@ class Order extends Base
         }
                 
                 
-        
+        //积分兑换
+		if ($data['type']=='update_huan_fen') {
+		    $address=Db::name('address')->where('user_id', $myinfo['id'])->where('moren', 1)->find();
+		    if (!$address) {
+		        return \json(['code'=>2,'message'=>'没有默认地址']);
+		    }
+			$config=Db::name('shopconfig')->field('fen_one,fen_cheng,fen_man')->find(1);
+			if ($config['fen_man']>$data['fen']) {
+			    return \json(['code'=>2,'message'=>'没有默认地址']);
+			}
+			if(Db::name('swap')->where('uid',$myinfo['id'])->where('isopen',0)->find()){
+				 return \json(['code'=>2,'message'=>'你已经有一份申请中，请等待！']);
+			}
+
+			$swap=model('swap');
+			$swap->save([
+			    'uid'  =>  $myinfo['id'],
+			    'fen' =>  $config['fen_man'],
+				'address_id'=>$address['id']
+			]);
+			return \json(['code'=>1,'message'=>'申请成功请等待！']);
+		}
         
         //获取 默认地址
         if ($data['type']=='get_address_moren') {
@@ -135,6 +156,23 @@ class Order extends Base
                 return \json(['code'=>2,'message'=>'没有地址']);
             }
         }
+		//获取 对应的积分
+		if ($data['type']=='get_my_fen') {
+			//获取规则
+			$config=Db::name('shopconfig')->field('fen_one,fen_cheng,fen_man,fen_desc')->find(1);
+			//获取已经花掉的积分
+			$hua=Db::name('swap')->where('uid',$myinfo['id'])->where('isopen',1)->sum('fen');
+			//获取数量
+			$cheng_num=Db::name('user')->where('tui_id',$myinfo['id'])->count();
+			$fen=($config['fen_one']*$myinfo['fen_num'])+($config['fen_cheng']*$cheng_num)-$hua;
+			
+			if($fen<0){
+				$fen=0;
+			}
+			
+		    return \json(['code'=>1,'message'=>'获取成功','man'=>$config['fen_man'],'fen'=>$fen,'fendesc'=>$config['fen_desc']]);
+		   
+		}
         //地址列表 设为默认
         if ($data['type']=='updata_address_moren') {
             //去掉默认

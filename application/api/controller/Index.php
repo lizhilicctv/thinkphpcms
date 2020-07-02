@@ -19,15 +19,19 @@ class Index extends Base
             header("Location:/404.html");
             exit;
         }
-    
+		//分享数量加一
+		if ($data['type']=='update_fen_num') {
+		    Db::name('user')->where('id',$data['uid'])->setInc('fen_num');
+		    return \json(['code'=>1,'message'=>'成功']);
+		    
+		}
+		
         //获取头部广告
         if ($data['type']=='get_ad') {
-            $ad=Db::name('advertisement')->where('isopen', 1)->select();
-            if ($ad) {
-                return \json(['code'=>1,'message'=>'获取成功','data'=>$ad]);
-            } else {
-                return \json(['code'=>0,'message'=>'获取成功']);
-            }
+            $ad=Db::name('shopad')->where('isopen', 1)->find();
+            $share=Db::name('shopconfig')->field('share_title,share_desc,share_img,logo')->find(1);
+            return \json(['code'=>1,'message'=>'获取成功','data'=>$ad,'share'=>$share]);
+            
         }
         //获取首页产品
         if ($data['type']=='get_index_goods') {
@@ -58,12 +62,11 @@ class Index extends Base
 					->leftJoin('user u', 'u.id = o.user_id')
 					->field('o.pingjia as content,o.time as date,u.nickName as name,u.avatarUrl as face')
 					->where('o.goods_id', $data['id'])->limit(3)->select();
-			
-            if ($goods) {
-                return \json(['code'=>1,'message'=>'获取成功','data'=>$goods,'pingjia'=>$pingjia]);
-            } else {
-                return \json(['code'=>0,'message'=>'获取成功']);
-            }
+					
+			 $share=Db::name('shopconfig')->field('share_title,share_desc,share_img,logo')->find(1);
+            
+            return \json(['code'=>1,'message'=>'获取成功','data'=>$goods,'pingjia'=>$pingjia,'share'=>$share]);
+           
         }
         //获取产品pingjia
         if ($data['type']=='get_goods_pingjia') {
