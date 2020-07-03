@@ -145,7 +145,11 @@ class Article extends Conn
             } else {
                 $data['state']=1;
             }
-            $data['time']=time();
+			if(empty($data['time'])){
+				$data['time']=time();
+			}else{
+				$data['time']=strtotime($data['time']);
+			}
             $file = request()->file('');
             if (isset($file['pic'])) {
                 $info = $file['pic']->move('uploads');
@@ -248,7 +252,11 @@ class Article extends Conn
             } else {
                 $data['state']=1;
             }
-            $data['time']=time();
+           if(empty($data['time'])){
+           	$data['time']=time();
+           }else{
+           	$data['time']=strtotime($data['time']);
+           }
             if (input('desc')=='') {
                 $data['desc']=mb_substr(preg_replace('/\&nbsp;/', '', strip_tags(input('text'))), 0, 80);
             }
