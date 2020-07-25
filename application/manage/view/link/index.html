@@ -26,7 +26,8 @@
 						<th width="20">排序</th>
 						<th width="40">友情链接名称</th>
 						<th width="100">友情链接地址</th>
-						<th width="200">友情链接备注</th>
+						<th width="100">友情链接备注</th>
+						<th width="10">状态</th>
 						<th width="10">操作</th>
 					</tr>
 				</thead>
@@ -38,7 +39,20 @@
 						<td>{$user.title}</td>
 						<td><a href="{$user.linkurl}" target="_blank">{$user.linkurl}</a></td>
 						<td>{$user.desc}</td>
-						<td class="f-14"><a title="编辑" href="javascript:;" onclick="system_category_edit('友情链接编辑','{:url(\'link/edit\',[\'id\'=>$user.id])}')"
+						<td>
+							{if condition="$user.isopen == 1 "}
+							<span class="label label-success radius">已启用</span>
+							{else /}
+							<span class="label label-default radius">已禁用</span>
+							{/if}
+						</td>
+						<td class="f-14">
+							{if condition="$user.isopen == 1 "}
+							<a style="text-decoration:none" onclick="admin_stop(this,{$user.id})" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>
+							{else /}
+							<a onclick="admin_start(this,{$user.id})" href="javascript:;" title="启用" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>
+							{/if}
+							<a title="编辑" href="javascript:;" onclick="system_category_edit('友情链接编辑','{:url(\'link/edit\',[\'id\'=>$user.id])}')"
 							 style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="system_category_del(this,{$user.id})"
 							 class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 					</tr>
@@ -118,6 +132,57 @@
 								time: 1000
 							});
 							history.go(0);
+						}
+					});
+			});
+		}
+		
+		/*管理员-停用*/
+		function admin_stop(obj, id) {
+			layer.confirm('确认要停用吗？', function(index) {
+				//此处请求后台程序，下方是成功后的前台处理……
+				$.post(
+					"{:url('link/ajax')}", {
+						id: id,
+						type: 'link_stop',
+					},
+					function(result) {
+						if (result === 1) {
+							location.reload();
+							layer.msg('已停用!', {
+								icon: 5,
+								time: 1000
+							});
+						} else {
+							layer.msg('停用失败!', {
+								icon: 5,
+								time: 1000
+							});
+						}
+					});
+			});
+		}
+		/*管理员-启用*/
+		function admin_start(obj, id) {
+			layer.confirm('确认要启用吗？', function(index) {
+				//此处请求后台程序，下方是成功后的前台处理……
+				$.post(
+					"{:url('link/ajax')}", {
+						id: id,
+						type: 'link_start',
+					},
+					function(result) {
+						if (result === 1) {
+							location.reload();
+							layer.msg('已启用!', {
+								icon: 6,
+								time: 1000
+							});
+						} else {
+							layer.msg('启动失败!', {
+								icon: 5,
+								time: 1000
+							});
 						}
 					});
 			});

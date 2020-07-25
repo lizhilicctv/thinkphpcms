@@ -37,6 +37,7 @@ class Conn extends Controller
 		//获取导航
        $pilot_nav=Db::name('pilot_nav')->where('isopen',1)->order('sort asc')->select();
         $this->assign('pilot_nav', $pilot_nav);
+		
         //侧边导航
         foreach ($pilot_nav as $k=>$v){
             $arr=Db::name('pilot_list')->where('fid',0)->where('pn_id',$v['id'])->where('isopen',1)->order('sort asc')->select();
@@ -45,6 +46,7 @@ class Conn extends Controller
             }
             $pilot_list[]=$arr;
         }
+		//dump($pilot_list);
         $this->assign('pilot_list', $pilot_list);
 
 

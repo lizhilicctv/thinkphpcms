@@ -26,13 +26,10 @@
 			</div>
 		</div>
 	</section>
-
 	{include file="common/_footer" /}
-
 	<!--请在下方写此页面业务相关的脚本-->
 	<script type="text/javascript">
 		$(function() {
-
 			$("body").Huitab({
 				tabBar: ".navbar-wrapper .navbar-levelone",
 				tabCon: ".Hui-aside .menu_dropdown",
@@ -40,18 +37,6 @@
 				index: 0,
 			});
 		});
-		/*个人信息*/
-		function myselfinfo() {
-			layer.open({
-				type: 1,
-				area: ['600px', '600px'],
-				fix: false, //不固定
-				maxmin: true,
-				shade: 0.4,
-				title: '帮助信息',
-				content: ' <img src="/static/manage/qqimg.jpg" width="100" > <img src="/static/manage/weixinimg.jpg" width="100">',
-			});
-		}
 	</script>
 </body>
 </html>

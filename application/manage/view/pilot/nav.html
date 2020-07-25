@@ -38,17 +38,22 @@
 							{/if}
 						</td>
 						<td class="f-14">
-
-							{if condition="$user.isopen == 1 "}
-							<a style="text-decoration:none" onclick="admin_stop(this,{$user.id})" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>
-							{else /}
-							<a onclick="admin_start(this,{$user.id})" href="javascript:;" title="启用" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>
+							{if $user.id != 1}
+								{if condition="$user.isopen == 1 "}
+								<a style="text-decoration:none" onclick="admin_stop(this,{$user.id})" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>
+								{else /}
+								<a onclick="admin_start(this,{$user.id})" href="javascript:;" title="启用" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>
+								{/if}
 							{/if}
+							
+							
+							
 							<a title="编辑" href="javascript:;" onclick="system_category_edit('幻灯片编辑','{:url(\'pilot/navedit\',[\'id\'=>$user.id])}',700,400)"
 							 style="text-decoration:none;margin-left: 10px"><i class="Hui-iconfont">&#xe6df;</i></a>
-
-							<a title="删除" href="javascript:;" onclick="system_category_del(this,{$user.id})" class="ml-5" style="text-decoration:none"><i
+							{if $user.id != 1}
+								<a title="删除" href="javascript:;" onclick="system_category_del(this,{$user.id})" class="ml-5" style="text-decoration:none"><i
 								 class="Hui-iconfont">&#xe6e2;</i></a></td>
+							{/if}
 					</tr>
 					{/volist}
 				</tbody>

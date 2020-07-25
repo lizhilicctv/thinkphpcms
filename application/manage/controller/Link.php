@@ -2,6 +2,7 @@
 namespace app\manage\controller;
 use app\manage\controller\Conn;
 use app\manage\model\Link as Linkmodel;
+use think\Db;
 class Link extends Conn
 {
 	//这里用前置操作，表示提前运行，本来要用于栏目删除子栏目呢，现在不用了
@@ -54,6 +55,22 @@ class Link extends Conn
 			}
 
 		}
+		if($data['type']=='link_start'){
+		    if(Db::name('link')->where('id',$data['id'])->setField('isopen',1)){
+		        return 1;//修改成功返回1
+		    }else{
+		        return 0;
+		    }
+		}
+		if($data['type']=='link_stop'){
+		    if(Db::name('link')->where('id',$data['id'])->setField('isopen',0)){
+		        return 1;//修改成功返回1
+		    }else{
+		        return 0;
+		    }
+		}
+		
+		
 		return 0;
     }
 	public function add()

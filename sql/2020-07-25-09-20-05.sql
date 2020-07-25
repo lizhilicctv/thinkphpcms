@@ -1,8 +1,8 @@
 /*
 MySQL Database Backup Tools
 Server:127.0.0.1:3306
-Database:cms.com
-Data:2020-07-02 11:17:12
+Database:thinkphpcms_com
+Data:2020-07-25 09:20:05
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -344,10 +344,10 @@ CREATE TABLE `lizhili_config` (
 -- Records of lizhili_config
 -- ----------------------------
 
-INSERT INTO `lizhili_config` (`id`,`key`,`value`,`shuo`) VALUES ('1','watermark','1','水印');
+INSERT INTO `lizhili_config` (`id`,`key`,`value`,`shuo`) VALUES ('1','watermark','0','水印');
 INSERT INTO `lizhili_config` (`id`,`key`,`value`,`shuo`) VALUES ('2','shui_weizhi','9','水印位置具体看手册');
 INSERT INTO `lizhili_config` (`id`,`key`,`value`,`shuo`) VALUES ('3','shui_neirong','李志立 lizhilimaster@163.com','水印内容');
-INSERT INTO `lizhili_config` (`id`,`key`,`value`,`shuo`) VALUES ('4','thumbnail','1','缩率图');
+INSERT INTO `lizhili_config` (`id`,`key`,`value`,`shuo`) VALUES ('4','thumbnail','0','缩率图');
 INSERT INTO `lizhili_config` (`id`,`key`,`value`,`shuo`) VALUES ('5','t_w','300','缩略图宽');
 INSERT INTO `lizhili_config` (`id`,`key`,`value`,`shuo`) VALUES ('6','t_h','300','缩略图高');
 INSERT INTO `lizhili_config` (`id`,`key`,`value`,`shuo`) VALUES ('7','shui_zihao','18','水印字号');
@@ -424,13 +424,15 @@ CREATE TABLE `lizhili_link` (
   `sort` int(11) DEFAULT '0',
   `update_time` int(11) DEFAULT NULL,
   `create_time` int(11) DEFAULT NULL,
+  `isopen` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of lizhili_link
 -- ----------------------------
 
+INSERT INTO `lizhili_link` (`id`,`title`,`linkurl`,`desc`,`sort`,`update_time`,`create_time`,`isopen`) VALUES ('1','圣达菲速度','http://www.baidu.com','','0','1595560777','1595560777','0');
 
 
 -- ----------------------------
@@ -500,7 +502,7 @@ CREATE TABLE `lizhili_log` (
   `ip` char(15) DEFAULT NULL,
   `create_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of lizhili_log
@@ -509,20 +511,7 @@ CREATE TABLE `lizhili_log` (
 INSERT INTO `lizhili_log` (`id`,`username`,`ip`,`create_time`) VALUES ('1','admin','127.0.0.1','1591351949');
 INSERT INTO `lizhili_log` (`id`,`username`,`ip`,`create_time`) VALUES ('2','admin','127.0.0.1','1592376116');
 INSERT INTO `lizhili_log` (`id`,`username`,`ip`,`create_time`) VALUES ('3','admin','127.0.0.1','1592376595');
-INSERT INTO `lizhili_log` (`id`,`username`,`ip`,`create_time`) VALUES ('4','lizhili','127.0.0.1','1592377954');
-INSERT INTO `lizhili_log` (`id`,`username`,`ip`,`create_time`) VALUES ('5','admin','127.0.0.1','1592377994');
-INSERT INTO `lizhili_log` (`id`,`username`,`ip`,`create_time`) VALUES ('6','admin','127.0.0.1','1592379791');
-INSERT INTO `lizhili_log` (`id`,`username`,`ip`,`create_time`) VALUES ('7','admin','111.62.214.23','1593396946');
-INSERT INTO `lizhili_log` (`id`,`username`,`ip`,`create_time`) VALUES ('8','admin','111.62.214.23','1593397634');
-INSERT INTO `lizhili_log` (`id`,`username`,`ip`,`create_time`) VALUES ('9','admin','111.62.214.23','1593414726');
-INSERT INTO `lizhili_log` (`id`,`username`,`ip`,`create_time`) VALUES ('10','admin','111.62.214.23','1593476913');
-INSERT INTO `lizhili_log` (`id`,`username`,`ip`,`create_time`) VALUES ('11','admin','111.62.214.23','1593481207');
-INSERT INTO `lizhili_log` (`id`,`username`,`ip`,`create_time`) VALUES ('12','admin','111.62.214.23','1593571174');
-INSERT INTO `lizhili_log` (`id`,`username`,`ip`,`create_time`) VALUES ('13','admin','111.62.214.23','1593586618');
-INSERT INTO `lizhili_log` (`id`,`username`,`ip`,`create_time`) VALUES ('14','admin','111.62.214.23','1593595515');
-INSERT INTO `lizhili_log` (`id`,`username`,`ip`,`create_time`) VALUES ('15','admin','111.62.214.23','1593655062');
-INSERT INTO `lizhili_log` (`id`,`username`,`ip`,`create_time`) VALUES ('16','admin','127.0.0.1','1593659255');
-INSERT INTO `lizhili_log` (`id`,`username`,`ip`,`create_time`) VALUES ('17','admin','127.0.0.1','1593659814');
+INSERT INTO `lizhili_log` (`id`,`username`,`ip`,`create_time`) VALUES ('19','admin','127.0.0.1','1595639670');
 
 
 -- ----------------------------
@@ -678,7 +667,7 @@ INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`
 INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('4','4','系统管理','0','&#xe62e;',NULL,'1','1');
 INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('5','6','登陆日志','0','&#xe645;','login/log','1','1');
 INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('6','7','数据库管理','0','&#xe639;','sql/index','1','1');
-INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('8','9','资讯管理','0','&#xe616;',NULL,'1','2');
+INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('8','1','资讯管理','0','&#xe616;',NULL,'1','2');
 INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('9','10','友情链接','0','&#xe6f1;',NULL,'1','2');
 INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('10','11','图片管理','0','&#xe613;',NULL,'1','2');
 INSERT INTO `lizhili_pilot_list` (`id`,`sort`,`name`,`fid`,`icon`,`url`,`isopen`,`pn_id`) VALUES ('11','12','评论管理','0','&#xe622;',NULL,'1','2');

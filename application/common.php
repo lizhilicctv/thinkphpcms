@@ -28,7 +28,7 @@ function tonow($data){
 function jiequ($data,$num=50){
 	return mb_substr($data, 0, $num);
 }
-
+//下面自己编写的方法
 function boot($data,$time=3000){
 	$html='<div class="carousel slide lizhili_ad" data-ride="carousel" data-interval="'.$time.'"> 	<div class="carousel-inner">';
 	foreach($data as $k=>$v){
@@ -40,10 +40,34 @@ function boot($data,$time=3000){
 	}
 	$html.='</div></div>';
 	return $html;
+	//使用方法
+	//{:boot($ad.index)}
 }
 function cate($id=0,$num=3,$offset=0,$field='*',$where=true,$debug=false){
 	if($id==0){
 		return 'id必须填写！';
 	}
 	return model('cate')->cate($id,$num,$offset,$field,$where,$debug);
+	//使用方法
+	// {volist name=":cate($id,$num,$offset,$field,$where,$debug)" id="vo"}
+	// {$vo.id}
+	// {/volist}
+}
+function friend(){
+	return db('link')->where('isopen',1)->select();
+	// 使用方法
+	// {volist name=":friend()" id="vo"}
+	// {$vo.id}
+	// {/volist}
+}
+function nav(){
+	$cate = db('cate')->where('fid',0)->field('id,catename,en_name')->where('isopen',1)->order('sort asc')->select();
+	foreach($cate as $k=>$v){
+		$cate[$k]['zi']=db('cate')->where('fid',$v['id'])->field('id,catename,en_name')->order('sort asc')->where('isopen',1)->select();
+	}
+	return $cate;
+	// 使用方法
+	// {volist name=":nav()" id="vo"}
+	// {$vo.id}
+	// {/volist}
 }
