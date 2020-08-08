@@ -30,7 +30,7 @@
 						<span class="c-red">*</span>
 						栏目名称：</label>
 					<div class="formControls col-xs-8 col-sm-9">
-						<input type="text" class="input-text" value="" placeholder="" id="catename" name="catename">
+						<input type="text" class="input-text" value="" onKeyUp="zhuan()" placeholder="" id="catename" name="catename">
 					</div>
 					<div class="col-3">
 					</div>
@@ -104,6 +104,7 @@
 <script type="text/javascript" src="__MANAGE__lib/ueditor/ueditor.config.js"></script> 
 <script type="text/javascript" src="__MANAGE__lib/ueditor/ueditor.all.min.js"> </script> 
 <script type="text/javascript" src="__MANAGE__lib/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="__MANAGE__lib/function.js"></script>
 <script type="text/javascript">
 $(function(){
 	$('.skin-minimal input').iCheck({
@@ -149,6 +150,9 @@ function textlength(){
 	}else{
 		$('#mark').css("background-color","white");
 	}
+}
+function zhuan(){
+	$('#en_name').val(getPinYinByName($('#catename').val()));    
 }
 </script>
 <!--/请在上方写此页面业务相关的脚本-->

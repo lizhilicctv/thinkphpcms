@@ -31,21 +31,47 @@
 							<li><a href="{:url('login/out')}">退出</a></li>
 						</ul>
 					</li>
+					<?php 
+					$is_comment=false;
+					$is_message=false;
+					$is_ding=false;
+					foreach($pilot_list as $data){
+						foreach($data as $v){
+							if($v['name']== "评论管理"){
+								$is_comment=true;
+							}
+							if($v['name']== "留言管理"){
+								$is_message=true;
+							}
+							if($v['name']== "订单管理"){
+								$is_ding=true;
+							}
+						}
+					} 
+					// dump($is_ding);
+					?>
+					{if $is_comment}
 					<li class="lizhili1" id="Hui-msg">
 						<a data-href="{:url('comment/index')}" data-title="评论消息" href="javascript:;" title="评论消息"><span class="badge badge-danger"
 							 id="lizhili_ping">评
 								<?php if($comment!=0){ echo $comment; } ?></span><i class="Hui-iconfont" style="font-size:18px">&#xe622;</i></a>
 					</li>
+					{/if}
+					{if $is_message}
 					<li class="lizhili1" id="Hui-msg">
 						<a data-href="{:url('message/index')}" data-title="留言消息" href="javascript:;" title="留言消息"><span class="badge badge-danger"
 							 id="lizhili_liu">留
 								<?php if($message!=0){ echo $message; } ?></span><i class="Hui-iconfont" style="font-size:18px">&#xe68a;</i></a>
 					</li>
+					{/if}
+					{if $is_ding}
+					
 					<li class="lizhili1" id="Hui-msg">
 						<a data-href="{:url('order/index')}" data-title="订单消息" href="javascript:;" title="订单消息"><span class="badge badge-danger"
 							 id="lizhili_ding">订
 								<?php if($ding!=0){ echo $ding; } ?></span><i class="Hui-iconfont" style="font-size:18px">&#xe627;</i></a>
 					</li>
+					{/if}
 					<li id="Hui-skin" class="dropDown right dropDown_hover">
 						<a href="javascript:;" class="dropDown_A" title="换肤"><i class="Hui-iconfont" style="font-size:18px">&#xe62a;</i></a>
 						<ul class="dropDown-menu menu radius box-shadow">

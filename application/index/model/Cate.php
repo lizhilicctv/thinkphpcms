@@ -17,4 +17,28 @@ class Cate extends Model
 		}
 		return $index_cate;
 	}
+	public function hot($id,$num,$field,$where,$debug){
+		if($debug){
+			$index_cate=Db::name('article')->where('state',1)->where($where)->field($field)->limit($num)->select();
+		}else{
+			if(!$index_cate=Cache::get('index_cate')){
+				$index_cate=Db::name('article')->where('state',1)->where($where)->field($field)->limit($num)->select();
+				Cache::set('index_cate',$index_cate,3600);
+			}
+		}
+		return $index_cate;
+	}
+	public function sui($id,$num,$field,$where,$debug){
+		$ids=Db::name('cate')->where('fid',$id)->column('id');
+		$ids[]=$id;
+		if($debug){
+			$index_cate=Db::name('article')->where('cateid','in',$ids)->where($where)->field($field)->limit($num)->order(true)->select();
+		}else{
+			if(!$index_cate=Cache::get('index_cate')){
+				$index_cate=Db::name('article')->where('cateid','in',$ids)->where($where)->field($field)->limit($num)->order(true)->select();
+				Cache::set('index_cate',$index_cate,3600);
+			}
+		}
+		return $index_cate;
+	}
 }

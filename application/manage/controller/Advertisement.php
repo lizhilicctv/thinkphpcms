@@ -96,10 +96,10 @@ class Advertisement extends Conn
 	}
 	public function guan_img()
 	{
-		$data=Db::name('ad_img')->order('id desc')->paginate(8);
+		$data=Db::name('ad_img')->where('ad_id',input('id'))->order('id desc')->paginate(8);
 		$this->assign('data',$data);
 		
-		$count1=Db::name('ad_img')->count();
+		$count1=Db::name('ad_img')->where('ad_id',input('id'))->count();
 		$this->assign('count1', $count1);
 		$this->assign('ad_id', input('id'));
 	   	return $this->fetch();

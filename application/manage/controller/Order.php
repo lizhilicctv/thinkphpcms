@@ -70,6 +70,7 @@ class Order extends Conn
 									->setCellValue('L'.$i, date('Y-m-d H:i:s', $rows['order_time']));
 				            $i++;
 				        }
+						
 				        //保存为 xls
 				        $objWriter = \PHPExcel_IOFactory::createWriter($excel, 'Excel5');
 						$na='xls/'.time().'.xls';

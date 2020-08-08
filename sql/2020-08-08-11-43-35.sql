@@ -2,7 +2,7 @@
 MySQL Database Backup Tools
 Server:127.0.0.1:3306
 Database:thinkphpcms_com
-Data:2020-07-25 09:20:05
+Data:2020-08-08 11:43:35
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -22,13 +22,12 @@ CREATE TABLE `lizhili_ad_img` (
   `isopen` varchar(255) DEFAULT NULL,
   `ad_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of lizhili_ad_img
 -- ----------------------------
 
-INSERT INTO `lizhili_ad_img` (`id`,`create_time`,`update_time`,`title`,`url`,`img`,`isopen`,`ad_id`) VALUES ('1','1593485301','1593485301','11','','/advertisement/20200630/6cbf542d57a94b9d5a7e3856510a6a95.png','1','1');
 
 
 -- ----------------------------
@@ -502,7 +501,7 @@ CREATE TABLE `lizhili_log` (
   `ip` char(15) DEFAULT NULL,
   `create_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of lizhili_log
@@ -512,6 +511,7 @@ INSERT INTO `lizhili_log` (`id`,`username`,`ip`,`create_time`) VALUES ('1','admi
 INSERT INTO `lizhili_log` (`id`,`username`,`ip`,`create_time`) VALUES ('2','admin','127.0.0.1','1592376116');
 INSERT INTO `lizhili_log` (`id`,`username`,`ip`,`create_time`) VALUES ('3','admin','127.0.0.1','1592376595');
 INSERT INTO `lizhili_log` (`id`,`username`,`ip`,`create_time`) VALUES ('19','admin','127.0.0.1','1595639670');
+INSERT INTO `lizhili_log` (`id`,`username`,`ip`,`create_time`) VALUES ('20','admin','127.0.0.1','1596857959');
 
 
 -- ----------------------------
