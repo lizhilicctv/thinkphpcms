@@ -9,6 +9,7 @@
 #### 码云仓库  [https://gitee.com/lizhiliwo/thinkphpcms](https://gitee.com/lizhiliwo/thinkphpcms)
 ---
 ### 新的功能
+ + 添加面包屑，修改栏目和文章的调用规则（2020-8）
  + 修改了广告逻辑（2020-7-25）
  + 以前的不予提醒
 

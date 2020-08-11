@@ -96,46 +96,31 @@ EOF;
  // {:SuperSlide($ad.index,$time=3000,$autoPlay=true,$next=false)}
 }
 
-function hot($id=0, $num=3, $field='*', $where=true, $debug=false) // 热门文章
+function hot($id=0,$num=3,$offset=0,$order=false,$field='*',$where=true) // 热门文章
 { 
-    if ($id==0) {
-        return 'id必须填写！';
-    }
-    if (!$debug and config('app_debug')) {
-        $debug=true;
-    }
-    return model('cate')->hot($id, $num, $field, $where, $debug);
+    return model('cate')->hot($id, $num,$offset,$order, $field, $where);
     //使用方法
-    // {volist name=":hot($id,$num,$field,$where,$debug)" id="vo"}
+    // {volist name=":hot($id,$num,$offset,$order,$field,$where)" id="vo"}
     // {$vo.id}
     // {/volist}
 }
-function sui($id=0, $num=3, $field='*', $where=true, $debug=false) //随机读取文章,默认调用两级
+function sui($id=0, $num=3,  $field='*', $where=true) //随机读取文章,默认调用两级
 { 
-    if ($id==0) {
-        return 'id必须填写！';
-    }
-    if (!$debug and config('app_debug')) {
-        $debug=true;
-    }
-    return model('cate')->hot($id, $num, $field, $where, $debug);
+    return model('cate')->sui($id, $num, $field, $where);
     //使用方法
-    // {volist name=":hot($id,$num,$field,$where,$debug)" id="vo"}
+    // {volist name=":hot($id,$num,$field,$where)" id="vo"}
     // {$vo.id}
     // {/volist}
 }
 
-function cate($id=0, $num=3, $offset=0, $field='*', $where=true, $debug=false)
+function cate($id=0, $num=3, $offset=0,$order=false,$field='*', $where=true)
 {
     if ($id==0) {
         return 'id必须填写！';
     }
-    if (!$debug and config('app_debug')) {
-        $debug=true;
-    }
-    return model('cate')->cate($id, $num, $offset, $field, $where, $debug);
+    return model('cate')->cate($id, $num, $offset,$order,$field, $where);
     //使用方法
-    // {volist name=":cate($id,$num,$offset,$field,$where,$debug)" id="vo"}
+    // {volist name=":cate($id,$num,$offset,$order,$field,$where)" id="vo"}
     // {$vo.id}
     // {/volist}
 }
@@ -176,4 +161,29 @@ function nav()
     // {volist name=":nav()" id="vo"}
     // {$vo.id}
     // {/volist}
+}
+function breadcrumb($fen=''){ //面包屑导航
+	$controller=strtolower(request()->controller());
+	$action=strtolower(request()->action());
+	
+	if($controller!='index'){
+		return '控制器必须为index';
+	}
+	if($action!='show' and $action!='cate'){
+		return '方法必须为show 或者 cate';
+	}
+	$breadcrumb=model('cate')->breadcrumb($controller,$action,input('id'));
+
+	$html='<ul class="breadcrumb">';
+	$html.='<li><a href="/">首页</a></li>'.$fen;
+	foreach ($breadcrumb as $k=>$v) {
+	    $html.="<li><a href='/channel/{$v['id']}.html'>{$v['catename']}</a></li>$fen";
+	}
+	if($action=='show'){
+		$html.="<li class='active'>正文</li>";
+	}
+	$html.='</ul>';
+	return $html;
+	// 使用方法
+	// {:breadcrumb(' > ')} boot默认不需要传值
 }

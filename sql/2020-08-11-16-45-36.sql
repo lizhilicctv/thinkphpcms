@@ -2,7 +2,7 @@
 MySQL Database Backup Tools
 Server:127.0.0.1:3306
 Database:thinkphpcms_com
-Data:2020-08-08 11:43:35
+Data:2020-08-11 16:45:36
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -279,7 +279,7 @@ CREATE TABLE `lizhili_cms` (
 -- Records of lizhili_cms
 -- ----------------------------
 
-INSERT INTO `lizhili_cms` (`id`,`text`,`iswo`) VALUES ('1','<p style="overflow-wrap: break-word; margin-top: 0px; margin-bottom: 10px; padding: 0px; color: rgb(51, 51, 51); font-family: &quot;Microsoft Yahei&quot;, &quot;Hiragino Sans GB&quot;, &quot;Helvetica Neue&quot;, Helvetica, tahoma, arial, &quot;WenQuanYi Micro Hei&quot;, Verdana, sans-serif, 宋体; font-size: 14px; white-space: normal; text-indent: 20px;">感谢您一年来对我们的支持和包容。为了更好的服务大家，在2018年6月份，我们全新发布了后台管理系统版本。我们的发布离不开广大用户给出的建议和意见。我们整合了更多优秀插件；优化了框架的体积。当然相比目前行业其他管理系统还有很多不足。但初心不改，实实在在把事做好，做用户最喜欢的框架。更好为客户服务。</p><p style="overflow-wrap: break-word; margin-top: 0px; margin-bottom: 10px; padding: 0px; color: rgb(51, 51, 51); font-family: &quot;Microsoft Yahei&quot;, &quot;Hiragino Sans GB&quot;, &quot;Helvetica Neue&quot;, Helvetica, tahoma, arial, &quot;WenQuanYi Micro Hei&quot;, Verdana, sans-serif, 宋体; font-size: 14px; white-space: normal; text-indent: 20px;">我们在2018年版本上面，先进行了，大量的技术更新，包括了秒杀，团购，即时通讯，购物，等等功能的扩展。然后在2019年的9月和11月份，我们又进行了重构，大量的精简了原始代码，把原始的一些插件进行了替换，删除没有必要的程序增加水印缩略图等功能，速度是2018年第一版的3倍以上。从最早网站开发，到现在我们已经经历过了6个年头，我们经历过的项目数百个，每一次修改后台我们都抱着不忘初心的态度，努力的写好每一句代码，希望我们的努力，可以得到您的认可。你们的肯定就是对我们最大支持！</p><p style="overflow-wrap: break-word; margin-top: 0px; margin-bottom: 10px; padding: 0px; color: rgb(51, 51, 51); font-family: &quot;Microsoft Yahei&quot;, &quot;Hiragino Sans GB&quot;, &quot;Helvetica Neue&quot;, Helvetica, tahoma, arial, &quot;WenQuanYi Micro Hei&quot;, Verdana, sans-serif, 宋体; font-size: 14px; white-space: normal; text-indent: 20px;">2020年，添加了广告和水印的判断，修复了bug。添加了数据备份还原功能。添加了关闭网站后的302重定向。5月份添加了后台动态修改菜单功能。6月修改了sql逻辑，添加了广告分类等等。添加了商品的操作。添加了大量的功能。7月修改分销的逻辑，已经发现的bug。前台小程序页面请联系我，lizhilimaster@163.com。</p><p><br/></p>','1');
+INSERT INTO `lizhili_cms` (`id`,`text`,`iswo`) VALUES ('1','<p style="overflow-wrap: break-word; margin-top: 0px; margin-bottom: 10px; padding: 0px; color: rgb(51, 51, 51); font-family: &quot;Microsoft Yahei&quot;, &quot;Hiragino Sans GB&quot;, &quot;Helvetica Neue&quot;, Helvetica, tahoma, arial, &quot;WenQuanYi Micro Hei&quot;, Verdana, sans-serif, 宋体; font-size: 14px; white-space: normal; text-indent: 20px;">感谢您一年来对我们的支持和包容。为了更好的服务大家，在2018年6月份，我们全新发布了后台管理系统版本。我们的发布离不开广大用户给出的建议和意见。我们整合了更多优秀插件；优化了框架的体积。当然相比目前行业其他管理系统还有很多不足。但初心不改，实实在在把事做好，做用户最喜欢的框架。更好为客户服务。</p><p style="overflow-wrap: break-word; margin-top: 0px; margin-bottom: 10px; padding: 0px; color: rgb(51, 51, 51); font-family: &quot;Microsoft Yahei&quot;, &quot;Hiragino Sans GB&quot;, &quot;Helvetica Neue&quot;, Helvetica, tahoma, arial, &quot;WenQuanYi Micro Hei&quot;, Verdana, sans-serif, 宋体; font-size: 14px; white-space: normal; text-indent: 20px;">我们在2018年版本上面，先进行了，大量的技术更新，包括了秒杀，团购，即时通讯，购物，等等功能的扩展。然后在2019年的9月和11月份，我们又进行了重构，大量的精简了原始代码，把原始的一些插件进行了替换，删除没有必要的程序增加水印缩略图等功能，速度是2018年第一版的3倍以上。从最早网站开发，到现在我们已经经历过了6个年头，我们经历过的项目数百个，每一次修改后台我们都抱着不忘初心的态度，努力的写好每一句代码，希望我们的努力，可以得到您的认可。你们的肯定就是对我们最大支持！</p><p style="overflow-wrap: break-word; margin-top: 0px; margin-bottom: 10px; padding: 0px; color: rgb(51, 51, 51); font-family: &quot;Microsoft Yahei&quot;, &quot;Hiragino Sans GB&quot;, &quot;Helvetica Neue&quot;, Helvetica, tahoma, arial, &quot;WenQuanYi Micro Hei&quot;, Verdana, sans-serif, 宋体; font-size: 14px; white-space: normal; text-indent: 20px;">2020年，添加了广告和水印的判断，修复了bug。添加了数据备份还原功能。添加了关闭网站后的302重定向。5月份添加了后台动态修改菜单功能。6月修改了sql逻辑，添加了广告分类等等。添加了商品的操作。添加了大量的功能。7月修改分销的逻辑，已经发现的bug。8月份添加面包屑等前台功能。前台小程序页面请联系我，lizhilimaster@163.com。</p><p><br/></p>','1');
 
 
 -- ----------------------------
@@ -501,17 +501,12 @@ CREATE TABLE `lizhili_log` (
   `ip` char(15) DEFAULT NULL,
   `create_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of lizhili_log
 -- ----------------------------
 
-INSERT INTO `lizhili_log` (`id`,`username`,`ip`,`create_time`) VALUES ('1','admin','127.0.0.1','1591351949');
-INSERT INTO `lizhili_log` (`id`,`username`,`ip`,`create_time`) VALUES ('2','admin','127.0.0.1','1592376116');
-INSERT INTO `lizhili_log` (`id`,`username`,`ip`,`create_time`) VALUES ('3','admin','127.0.0.1','1592376595');
-INSERT INTO `lizhili_log` (`id`,`username`,`ip`,`create_time`) VALUES ('19','admin','127.0.0.1','1595639670');
-INSERT INTO `lizhili_log` (`id`,`username`,`ip`,`create_time`) VALUES ('20','admin','127.0.0.1','1596857959');
 
 
 -- ----------------------------
