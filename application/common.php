@@ -119,14 +119,30 @@ function cate($id=0, $num=3, $offset=0,$order=false,$field='*', $where=true)
         return 'id必须填写！';
     }
     return model('cate')->cate($id, $num, $offset,$order,$field, $where);
-    //使用方法
+    //使用方法 //单个栏目
     // {volist name=":cate($id,$num,$offset,$order,$field,$where)" id="vo"}
+    // {$vo.id}
+    // {/volist}
+}
+function cateall($unid=[], $num=3,$order=false,$field='*', $where=true)
+{
+    return model('cate')->cateall($unid, $num, $order,$field, $where);
+    //使用方法 //两层循环
+    // {volist name=":cateall([]$unid,$num,$order,$field,$where)" id="vo"}
+    // {$vo.id}
+    // {/volist}
+}
+function catelist($unid=[], $num=3,$order=false,$field='*', $where=true)
+{
+    return model('cate')->catelist($unid, $num, $order,$field, $where);
+    //使用方法 //平铺展开
+    // {volist name=":catelist([]$unid,$num,$order,$field,$where)" id="vo"}
     // {$vo.id}
     // {/volist}
 }
 function friend()
 {
-    if (!config('app_debug')) {
+    if (config('app_debug')) {
         $friend=db('link')->where('isopen', 1)->select();
     } else {
         if (!$friend=cache('friend')) {
@@ -142,16 +158,16 @@ function friend()
 }
 function nav()
 {
-    if (!config('app_debug')) {
-        $cate = db('cate')->where('fid', 0)->field('id,catename,en_name')->where('isopen', 1)->order('sort asc')->select();
+    if (config('app_debug')) {
+        $cate = db('cate')->where('fid', 0)->field('id,catename,en_name,type,url')->where('isopen', 1)->order('sort asc')->select();
         foreach ($cate as $k=>$v) {
-            $cate[$k]['zi']=db('cate')->where('fid', $v['id'])->field('id,catename,en_name')->order('sort asc')->where('isopen', 1)->select();
+            $cate[$k]['zi']=db('cate')->where('fid', $v['id'])->field('id,catename,en_name,type,url')->order('sort asc')->where('isopen', 1)->select();
         }
     } else {
         if (!$cate=cache('cate')) {
-            $cate = db('cate')->where('fid', 0)->field('id,catename,en_name')->where('isopen', 1)->order('sort asc')->select();
+            $cate = db('cate')->where('fid', 0)->field('id,catename,en_name,type,url')->where('isopen', 1)->order('sort asc')->select();
             foreach ($cate as $k=>$v) {
-                $cate[$k]['zi']=db('cate')->where('fid', $v['id'])->field('id,catename,en_name')->order('sort asc')->where('isopen', 1)->select();
+                $cate[$k]['zi']=db('cate')->where('fid', $v['id'])->field('id,catename,en_name,type,url')->order('sort asc')->where('isopen', 1)->select();
             }
             cache('cate', $cate, 3600);
         }

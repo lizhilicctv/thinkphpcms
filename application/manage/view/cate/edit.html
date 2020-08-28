@@ -54,6 +54,7 @@
 							<option {if condition="$data.type == 1 "}selected="selected"{/if} value="1">文章列表</option>
 							<option {if condition="$data.type == 2 "}selected="selected"{/if} value="2">单页</option>
 							<option {if condition="$data.type == 3 "}selected="selected"{/if} value="3">图片列表</option>
+							<option {if condition="$data.type == 4 "}selected="selected"{/if} value="4">远程链接</option>
 						</select>
 						</span>
 					</div>
@@ -65,6 +66,16 @@
 						栏目关键字：</label>
 					<div class="formControls col-xs-8 col-sm-9">
 						<input type="text" class="input-text" value="{$data.keyword}" placeholder="" id="keyword" name="keyword">
+					</div>
+					<div class="col-3">
+					</div>
+				</div>
+				<div class="row cl"  id="lian" {if condition="$data.type != 4 "} style='display: none;' {/if}>
+					<label class="form-label col-xs-3 col-sm-2">
+						<span class="c-red">*</span>
+						链接地址：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<input type="text" class="input-text" value="{$data.url}" placeholder="请输入远程链接地址http:" id="url" name="url">
 					</div>
 					<div class="col-3">
 					</div>
@@ -126,18 +137,29 @@ $(function(){
 			catename:{
 				required:true,
 			},
+			url: {
+				required:true,
+				url: true,
+			},
 		}
 	});
 	
 	  
-    $("#type").change(function () { 
-        if (this.value== "2"){
-        	 $('#yin').show();
-        }
-        else{
-           $('#yin').hide();
-        }
-    })
+   $("#type1").change(function () {
+   	
+   	if (this.value== "2"){
+   		$('#yin').show();
+   		$('#lian').hide();
+   		return false;
+   	}
+   	if (this.value== "4"){
+   		$('#yin').hide();
+   		$('#lian').show();
+   		return false;
+   	}
+   	$('#yin').hide();
+   	$('#lian').hide();
+   })
 	
 var ue = UE.getEditor('danye');
 });
